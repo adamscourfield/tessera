@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paidea: AI and change management</title>
+<meta name="description" content="Paidea helps schools and trusts decide where AI helps, build the tools they need, and bring staff with them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#F8F6F2}
+a{color:inherit}
+a:focus-visible{outline:3px solid #ED8B78;outline-offset:3px;border-radius:8px}
+
+@keyframes rise-in{from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+.in{animation:rise-in .44s cubic-bezier(.22,1,.36,1) both}
+.d1{animation-delay:.05s}.d2{animation-delay:.095s}.d3{animation-delay:.14s}.d4{animation-delay:.185s}.d5{animation-delay:.23s}.d6{animation-delay:.275s}
+
+.l1{animation-delay:.5s}.l2{animation-delay:.9s}.l3{animation-delay:1.3s}.l4{animation-delay:1.7s}.l5{animation-delay:2.1s}
+
+@supports (animation-timeline: view()){
+.rv{animation:rise-in linear both;animation-timeline:view();animation-range:entry 0% entry 50%}
+.fill{animation:grow linear both;animation-timeline:view();animation-range:entry 10% cover 40%}
+}
+
+.btn{transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .2s ease,background .2s ease,border-color .2s ease}
+.btn:active{transform:scale(.96)}
+.card{transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .2s ease}
+.navlink{transition:color .2s ease;text-decoration:none}
+.navlink:hover{color:#182E44;text-decoration:underline;text-underline-offset:5px}
+
+@media (hover:hover){
+.btn:hover{transform:translate3d(0,-2px,0);box-shadow:0 7px 18px #182e4412}
+.btn-light:hover{border-color:#182E44}
+.card:hover{transform:translate3d(0,-2px,0);box-shadow:0 7px 18px #182e4412}
+}
+
+@media (prefers-reduced-motion: reduce){
+*,*::before,*::after{animation:none!important;transition:none!important}
+html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div style="width: 100%; background: #F8F6F2; color: #182E44; font-family: 'DM Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.6; overflow: hidden">
+
+<div style="max-width: 1120px; margin: 0 auto; padding: 0 24px">
+
+<!-- NAV -->
+<div class="in" style="padding: 28px 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<div style="font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 32px; letter-spacing: -1.2px; line-height: 1">Paidea<span style="color: #ED8B78">.</span></div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
+<a class="navlink" href="#work" style="font-size: 15px; font-weight: 500; color: #4F5E6B">What we do</a>
+<a class="navlink" href="#approach" style="font-size: 15px; font-weight: 500; color: #4F5E6B">How we work</a>
+<a class="navlink" href="#people" style="font-size: 15px; font-weight: 500; color: #4F5E6B">Who we are</a>
+<a class="btn" href="mailto:hi@paidea.io" style="background: #182E44; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 12px">Talk to us</a>
+</div>
+</div>
+
+<!-- HERO -->
+<div style="padding: 72px 0 96px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 460px; display: flex; flex-direction: column; align-items: flex-start; gap: 26px">
+<h1 class="in d2" style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(42px, 6vw, 72px); line-height: 1.08; letter-spacing: -1.4px">AI for schools, from people who have <em style="color: #CA715F">run them.</em></h1>
+<p class="in d3" style="margin: 0; font-size: 19px; line-height: 1.65; max-width: 540px; color: #4F5E6B">We help schools and trusts decide where AI genuinely helps, build the tools they need, and bring staff with them.</p>
+<div class="in d4" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px">
+<a class="btn" href="mailto:hi@paidea.io" style="background: #ED8B78; color: #182E44; text-decoration: none; font-weight: 600; font-size: 15px; padding: 15px 26px; border-radius: 12px; min-height: 20px">Book a conversation</a>
+</div>
+</div>
+
+</div>
+
+<!-- WHAT WE DO -->
+<div id="work" style="padding: 24px 0 96px">
+<div class="rv" style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #B25344">What we do</div>
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 52px); line-height: 1.12; letter-spacing: -1px; max-width: 700px">Three things, <em style="color: #CA715F">one team.</em></h2>
+<p style="margin: 0; max-width: 600px; color: #4F5E6B">Most schools are told to do something with AI. Few are shown how. We do all three, in order.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 18px">
+<div class="card rv" style="flex: 1 1 300px; background: #E7EEEE; border: 1px solid #DBE6E6; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #4A5B69">01</div>
+<h3 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 32px; letter-spacing: -0.6px">Decide</h3>
+<p style="margin: 0; color: #3F5060">A short, honest review of where your school loses time and where AI could help, including where it shouldn't be used.</p>
+</div>
+<div class="card rv" style="flex: 1 1 300px; background: #182E44; border: 1px solid #182E44; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #F0B4A6">02</div>
+<h3 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 32px; letter-spacing: -0.6px; color: #FFFFFF">Build</h3>
+<p style="margin: 0; color: #B7C8D6">Bespoke tools made around how your school works: tracking, reporting, curriculum, operations. You own what we build.</p>
+</div>
+<div class="card rv" style="flex: 1 1 300px; background: #F5E5DC; border: 1px solid #EFD9CC; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #8A4A3C">03</div>
+<h3 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 32px; letter-spacing: -0.6px">Change</h3>
+<p style="margin: 0; color: #5A4038">Training, routines and trust, so new ways of working stick after we leave.</p>
+</div>
+</div>
+</div>
+
+<!-- APPROACH -->
+<div id="approach" style="padding: 24px 0 96px">
+<div class="rv" style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #B25344">How we work</div>
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 52px); line-height: 1.12; letter-spacing: -1px; max-width: 700px">Small and scoped, <em style="color: #CA715F">then more.</em></h2>
+<p style="margin: 0; max-width: 600px; color: #4F5E6B">We start with one real problem. If it helps, we do the next one.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 28px">
+<div class="rv" style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 12px">
+<div style="height: 4px; border-radius: 4px; background: #E6E5DF; overflow: hidden"><div class="fill" style="height: 4px; width: 100%; background: #ED8B78; transform-origin: left"></div></div>
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #B25344">Step 1</div>
+<div style="font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 27px; letter-spacing: -0.4px">Listen</div>
+<div style="color: #4F5E6B">Find the friction that matters.</div>
+</div>
+<div class="rv" style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 12px">
+<div style="height: 4px; border-radius: 4px; background: #E6E5DF; overflow: hidden"><div class="fill" style="height: 4px; width: 100%; background: #ED8B78; transform-origin: left"></div></div>
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #B25344">Step 2</div>
+<div style="font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 27px; letter-spacing: -0.4px">Prototype</div>
+<div style="color: #4F5E6B">A working version in weeks.</div>
+</div>
+<div class="rv" style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 12px">
+<div style="height: 4px; border-radius: 4px; background: #E6E5DF; overflow: hidden"><div class="fill" style="height: 4px; width: 100%; background: #ED8B78; transform-origin: left"></div></div>
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #B25344">Step 3</div>
+<div style="font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 27px; letter-spacing: -0.4px">Embed</div>
+<div style="color: #4F5E6B">Training and clear ownership.</div>
+</div>
+<div class="rv" style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 12px">
+<div style="height: 4px; border-radius: 4px; background: #E6E5DF; overflow: hidden"><div class="fill" style="height: 4px; width: 100%; background: #ED8B78; transform-origin: left"></div></div>
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #B25344">Step 4</div>
+<div style="font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 27px; letter-spacing: -0.4px">Hand over</div>
+<div style="color: #4F5E6B">You get the code and the know-how.</div>
+</div>
+</div>
+</div>
+
+<!-- PEOPLE -->
+<div id="people" style="padding: 24px 0 96px">
+<div class="rv" style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #B25344">Who we are</div>
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 52px); line-height: 1.12; letter-spacing: -1px; max-width: 760px">One of us builds. One of us <em style="color: #CA715F">leads change.</em></h2>
+<p style="margin: 0; max-width: 600px; color: #4F5E6B">Both of us have spent our careers in schools.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 18px">
+<div class="card rv" style="flex: 1 1 420px; background: #FFFFFF; border: 1px solid #E6E5DF; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 10px">
+<div style="width: 46px; height: 46px; border-radius: 50%; background: #F0B4A6; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; color: #182E44">A</div>
+<div style="font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 28px; letter-spacing: -0.4px; margin-top: 6px">Adam</div>
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #B25344">Building and strategy</div>
+<p style="margin: 8px 0 0; color: #4F5E6B">Five years building technology and AI solutions for schools, alongside nearly a decade as a Senior Vice Principal. He builds for a real timetable and a real staff room.</p>
+</div>
+<div class="card rv" style="flex: 1 1 420px; background: #FFFFFF; border: 1px solid #E6E5DF; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 10px">
+<div style="width: 46px; height: 46px; border-radius: 50%; background: #E7EEEE; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; color: #182E44">M</div>
+<div style="font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 28px; letter-spacing: -0.4px; margin-top: 6px">Megan</div>
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #B25344">Change and leadership</div>
+<p style="margin: 8px 0 0; color: #4F5E6B">Led one of the highest-performing schools in the country, across primary and secondary, to Outstanding in all areas at Ofsted. As a regional director at one of the UK's largest multi-academy trusts, she managed multiple schools at once.</p>
+</div>
+</div>
+</div>
+
+<!-- PROMISES -->
+<div style="padding: 0 0 96px">
+<div class="rv" style="background: #ECEFE8; border: 1px solid #E6E5DF; border-radius: 24px; padding: 52px 44px; display: flex; flex-wrap: wrap; gap: 44px">
+<div style="flex: 1 1 260px">
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(32px, 4vw, 44px); line-height: 1.12; letter-spacing: -0.9px">What we <em style="color: #CA715F">promise.</em></h2>
+</div>
+<div style="flex: 2 1 460px; display: flex; flex-direction: column; gap: 20px">
+<div style="padding-bottom: 20px; border-bottom: 1px solid #D9DDD3"><div style="font-weight: 600; font-size: 17px">You own it.</div><div style="color: #4F5E6B">Code and data belong to the school.</div></div>
+<div style="padding-bottom: 20px; border-bottom: 1px solid #D9DDD3"><div style="font-weight: 600; font-size: 17px">Pupil data comes first.</div><div style="color: #4F5E6B">Safeguarding and GDPR from day one.</div></div>
+<div style="padding-bottom: 20px; border-bottom: 1px solid #D9DDD3"><div style="font-weight: 600; font-size: 17px">We'll tell you when not to use AI.</div><div style="color: #4F5E6B">Some problems need a better timetable, not a model.</div></div>
+<div><div style="font-weight: 600; font-size: 17px">No tool-selling.</div><div style="color: #4F5E6B">No commission from any supplier.</div></div>
+</div>
+</div>
+</div>
+
+<!-- CTA -->
+<div style="padding: 0 0 96px">
+<div class="rv" style="background: #182E44; color: #FFFFFF; border-radius: 24px; padding: 72px 32px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px">
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(34px, 5vw, 58px); line-height: 1.1; letter-spacing: -1.2px; max-width: 760px">Start with one problem <em style="color: #F0B4A6">worth solving.</em></h2>
+<p style="margin: 0; max-width: 540px; color: #B7C8D6">Tell us where your school is losing time. We'll say honestly whether we can help.</p>
+<a class="btn" href="mailto:hi@paidea.io" style="background: #ED8B78; color: #182E44; text-decoration: none; font-weight: 600; font-size: 15px; padding: 15px 28px; border-radius: 12px; margin-top: 6px">Book a conversation</a>
+</div>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div style="border-top: 1px solid #E6E5DF">
+<div style="max-width: 1120px; margin: 0 auto; padding: 30px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; font-size: 14px; color: #5A6874">
+<div style="font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 24px; letter-spacing: -0.8px; color: #182E44; line-height: 1">Paidea<span style="color: #ED8B78">.</span></div>
+<div>Paidea Ltd · <a href="mailto:hi@paidea.io">hi@paidea.io</a></div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
