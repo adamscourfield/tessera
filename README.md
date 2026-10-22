@@ -1,11 +1,12 @@
-# Paidea
+# Tessera
 
-Marketing site for Paidea Ltd: AI and change management for schools.
+Marketing site for Tessera: AI and change management for schools.
 
 - `index.html` is a single self-contained static page (fonts load from Google Fonts). No build step.
 - Preview locally: open `index.html` in a browser, or run `python3 -m http.server`.
-- Contact: hi@paidea.io
+- Site: wearetessera.co.uk
+- Contact: hi@wearetessera.co.uk
 
 ## Hosting
 
-Any static host works (Cloudflare Pages, Netlify, Vercel, GitHub Pages). Point paidea.io at the host and publish the repository root.
+Any static host works (Cloudflare Pages, Netlify, Vercel, GitHub Pages). Point wearetessera.co.uk at the host and publish the repository root.
