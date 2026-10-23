@@ -1,0 +1,106 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ember</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@400;600&display=swap">
+<style>
+:root{--ink:#12132A;--mute:#5B5F7A;--violet:#3B1F8F;--grad:linear-gradient(90deg,#3B1F8F,#9B3BE8 60%,#F2715F);--ok:#5AE08A;--warn:#FAD64B;--bad:#F87171;--bg:#FBF9FF;--f:'Inter',system-ui,sans-serif;--s:'Source Serif 4',Georgia,serif;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:radial-gradient(900px 500px at 50% 0,#F3ECFF,var(--bg) 70%);color:var(--ink);font-family:var(--f)}
+.wrap{max-width:1240px;margin:0 auto;padding:32px max(16px,env(safe-area-inset-left,0px)) 40px}
+.hd{text-align:center;max-width:760px;margin:0 auto 28px}
+.pill{display:inline-block;background:#F3EAFF;color:var(--violet);font:600 14px var(--s);padding:7px 16px;border-radius:99px}
+h1{font-weight:800;font-size:clamp(30px,5vw,52px);letter-spacing:-.04em;line-height:1.05;margin:14px 0 12px}
+h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hd p{font:400 18px/1.5 var(--s);color:var(--mute);margin:0}
+.tabs{display:flex;gap:8px;justify-content:center;margin:0 0 22px;flex-wrap:wrap}
+.tab{font:600 15px var(--f);border:1px solid #DCD3F2;background:#fff;color:var(--violet);border-radius:99px;padding:9px 18px;cursor:pointer}
+.tab[aria-pressed=true]{background:var(--violet);color:#fff;border-color:var(--violet)}
+.cols{display:grid;grid-template-columns:minmax(300px,420px) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+.card{background:#fff;border-radius:28px;padding:26px;box-shadow:0 30px 60px -36px rgba(59,31,143,.4)}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.ch h2{font-size:20px;margin:0;font-weight:700;letter-spacing:-.02em}.ch small{display:block;font:400 15px var(--s);color:var(--mute);margin-top:2px}
+.live{background:#E7F9EE;color:#1F8A4C;font:600 13px var(--s);padding:6px 12px;border-radius:99px;display:flex;gap:7px;align-items:center}
+.live i{width:8px;height:8px;border-radius:50%;background:#2ECC71}
+.key{display:flex;gap:14px;margin:16px 0;font:400 14px var(--s);color:var(--mute);flex-wrap:wrap}.key i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:-1px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tile{aspect-ratio:1;border-radius:18px;border:3px solid transparent;cursor:pointer;position:relative;padding:0;transition:transform .2s}
+.tile:hover{transform:translateY(-2px)}.tile:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+.tile[aria-pressed=true]{border-color:var(--violet);box-shadow:0 0 0 3px #fff inset}
+.tile.g{background:var(--ok)}.tile.y{background:var(--warn)}.tile.r{background:var(--bad)}.tile.r2{background:#F8A5A5}
+.tile .dot{position:absolute;top:-4px;right:-4px;width:12px;height:12px;border-radius:50%;background:#F27C8A;border:2px solid #fff}
+.tile .ini{font:700 15px var(--f);color:rgba(18,19,42,.65)}
+.pat{margin-top:18px;background:#F8F8FC;border-radius:18px;padding:14px 16px}
+.pat h3{margin:0 0 10px;font:700 14px var(--s);display:flex;justify-content:space-between}.pat h3 span{font-weight:400;color:var(--mute)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 13.5px var(--s);border-radius:99px;padding:6px 12px;border:1px solid}
+.chip.r{background:#FFF1F1;border-color:#F9C5C5;color:#B42323}.chip.y{background:#FFF9E2;border-color:#F3E1A0;color:#8A6200}.chip.o{background:#FFF1E6;border-color:#F8D1B0;color:#A8460B}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:460px;color:var(--mute);font:400 18px/1.5 var(--s);gap:10px}
+.empty b{font:700 22px var(--f);color:var(--ink)}
+.who{display:flex;gap:16px;align-items:center;padding-bottom:18px;border-bottom:1px solid #EEE9F8}
+.av{width:62px;height:62px;border-radius:50%;background:var(--bad);color:#fff;font:700 26px var(--s);display:flex;align-items:center;justify-content:center;flex:none}
+.who h2{margin:0;font-size:26px;letter-spacing:-.03em}.tag{display:inline-block;background:#FFE4E4;color:#B42323;font:600 13px var(--s);padding:3px 10px;border-radius:99px;margin-right:8px}
+h4{display:flex;gap:10px;align-items:center;margin:22px 0 10px;font:700 17px var(--s)}
+.mis{background:#FFF1F1;border:1px solid #F9C5C5;border-radius:18px;padding:16px 18px}.mis b{font:700 18px var(--s);display:block}.mis p{margin:6px 0;font:400 15.5px/1.5 var(--s);color:#4C4F66}.mis small{font:400 14px var(--s);color:#D96565}
+.resp{background:#F8F8FC;border-radius:16px;padding:14px 18px;font:italic 400 16px/1.5 var(--s)}.resp small{display:block;font-style:normal;color:#8A8DA5;margin-top:6px;font-size:14px}
+.rt{display:flex;gap:14px;align-items:center;border:1px solid #EAE5F6;border-radius:16px;padding:12px 16px;margin-bottom:10px;background:#fff;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit}
+.rt[aria-pressed=true]{border-color:var(--violet);background:#F6F0FF}.rt:focus-visible{outline:3px solid var(--violet)}
+.rt i{font:700 14px var(--s);font-style:normal;background:#F1E9FF;color:var(--violet);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex:none}
+.rt b{font:700 16px var(--s);display:block}.rt small{font:400 14px var(--s);color:var(--mute)}
+.act{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.btn{flex:1;min-width:150px;border-radius:99px;padding:15px;font:700 16px var(--f);cursor:pointer;border:2px solid #DDD6EE;background:#fff;color:var(--mute)}
+.btn.p{background:linear-gradient(90deg,#3B1F8F,#A03FE6 70%,#F2715F);color:#fff;border:0}.btn:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+.done{background:#E7F9EE;border-radius:16px;padding:14px 18px;color:#1F6B3E;font:600 15px var(--s);margin-top:16px}
+.foot{font:400 14px var(--s);color:#8A8DA5;text-align:center;margin-top:26px}
+</style></head><body><div class="wrap">
+<div class="hd"><span class="pill">Live lesson view</span><h1>See misconceptions, then <span>fix them</span></h1><p>Click a struggling pupil to see what they think, the pattern across the class, and the reteaching routes to try. Log the intervention and watch the class view change.</p></div>
+<div class="tabs" role="group" aria-label="Lesson"><button class="tab" data-l="0" aria-pressed="true">Grade 7 Science: Photosynthesis</button><button class="tab" data-l="1" aria-pressed="false">Year 8 Maths: Fractions</button></div>
+<div class="cols"><div class="card"><div class="ch"><div><h2>Classroom view</h2><small id="sub"></small></div><div class="live"><i></i>Live</div></div>
+<div class="key"><span><i style="background:var(--ok)"></i>On track</span><span><i style="background:var(--warn)"></i>Needs check</span><span><i style="background:var(--bad)"></i>Misconception</span></div>
+<div class="grid" id="grid"></div><div class="pat"><h3>Detected patterns <span>Just now</span></h3><div class="chips" id="chips"></div></div></div>
+<div class="card" id="side"></div></div>
+<div class="foot">Select any pupil tile to see what they think and how to reteach it.</div></div>
+<script>
+(function(){
+var L=[{sub:'Grade 7 · Photosynthesis',pat:{a:'Respiration to photosynthesis mix-up',b:'Soil = energy source',c:'Oxygen is the purpose',d:'Photosynthesis stops at night'},
+ mis:{a:{t:'Confusing respiration with photosynthesis',d:'Believes plants "breathe in" CO2 and "breathe out" O2 as a respiratory process, not understanding the chemical build-up.',q:'Q: Where does a plant get its energy from?',r:'"Plants breathe like us. They take in CO2 and breathe out oxygen to stay alive."',routes:[['Chemical equation walkthrough','5 min'],['Role-play activity','7 min'],['Visual diagram method','4 min']]},
+ b:{t:'Thinking soil feeds the plant',d:'Treats soil as the plant\'s food. Does not yet connect light, water and CO2 to making glucose.',q:'Q: What does a plant need to make its own food?',r:'"They eat nutrients from the soil, that is where the energy comes from."',routes:[['Seed in cotton wool practical','6 min'],['Mass of soil before and after','8 min'],['Food chain starts with light','4 min']]},
+ c:{t:'Seeing oxygen as the goal',d:'Thinks oxygen is why photosynthesis happens, rather than a by-product of making glucose.',q:'Q: Why do plants photosynthesise?',r:'"To make oxygen for us to breathe."',routes:[['Follow the atoms','5 min'],['Word equation cards','5 min'],['Who is it for? Plant view','4 min']]},
+ d:{t:'Believing it stops at night',d:'Knows plants need light but thinks stored energy is not used at night, so respiration is missed.',q:'Q: What happens to a plant at night?',r:'"It sleeps, photosynthesis stops so nothing happens."',routes:[['Day and night gas graph','6 min'],['Respiration all the time','5 min'],['Predict then test','7 min']]}},
+ grid:'gggyggyggggrggyggggggrggygyrggrgyggrg'},
+{sub:'Year 8 · Fractions',pat:{a:'Add the denominators',b:'Bigger denominator means bigger fraction',c:'Fractions are not numbers',d:'Shaded parts, not equal parts'},
+ mis:{a:{t:'Adding the denominators',d:'Adds numerators and denominators separately, so 1/2 + 1/3 becomes 2/5.',q:'Q: What is 1/2 + 1/3?',r:'"It is 2 over 5. You just add the tops and the bottoms."',routes:[['Fraction wall, same-size pieces','5 min'],['Common denominator pizza','6 min'],['Estimate first, then check','4 min']]},
+ b:{t:'Bigger denominator, bigger fraction',d:'Compares fractions by the size of the denominator, so 1/8 looks bigger than 1/4.',q:'Q: Which is bigger, 1/4 or 1/8?',r:'"1/8, because 8 is bigger than 4."',routes:[['Folding paper strips','5 min'],['Number line 0 to 1','6 min'],['Share a chocolate bar','4 min']]},
+ c:{t:'Fractions as two numbers',d:'Reads a fraction as two separate whole numbers, so cannot place it on a number line.',q:'Q: Place 3/4 on the number line.',r:'"3 and 4, so it goes after 4."',routes:[['Between 0 and 1 hunt','5 min'],['Measuring with a ruler','6 min'],['Fractions of a metre','5 min']]},
+ d:{t:'Counting shaded parts only',d:'Names a fraction from the shaded parts without checking the parts are equal.',q:'Q: What fraction is shaded?',r:'"1/3, there is one shaded and two not."',routes:[['Equal or not equal sort','4 min'],['Redraw with equal parts','6 min'],['Spot the error','5 min']]}},
+ grid:'ggygggyggrgyggggrggggyggrggggyggryggggrg'}];
+var cls={g:'g',y:'y',r:'r'},names=['Aiden','Bea','Cole','Dani','Eli','Faith','Gus','Hana','Ivy','Jo','Kai','Lena','Max','Nia','Omar','Pia','Quinn','Ravi','Sofia','Tom'];
+var lesson=0,sel=null,st=[],logged={},route={};
+function build(){var g=L[lesson].grid,keys=['a','b','c','d'];st=names.map(function(n,i){var c=g[i%g.length];return{n:n,c:c,k:keys[(i*3+lesson)%4],orig:c}});
+  // keep predictable counts: reds get a/b/c/d in rotation
+  var ri=0;st.forEach(function(s){if(s.c==='r'){s.k=keys[ri%4];ri++}else s.k=keys[(ri+s.n.length)%4]});}
+function counts(){var o={a:0,b:0,c:0,d:0};st.forEach(function(s){if(s.c!=='g')o[s.k]++});return o}
+function chip(k,n,cl){return n?'<span class="chip '+cl+'">'+L[lesson].pat[k]+' ('+n+')</span>':''}
+function render(){
+  document.getElementById('sub').textContent=L[lesson].sub;
+  var g=document.getElementById('grid');g.innerHTML='';
+  st.forEach(function(s,i){var b=document.createElement('button');b.className='tile '+(s.c==='r'&&s.orig==='r'&&!logged[i]?'r':s.c==='r'?'r2':s.c);b.setAttribute('aria-pressed',sel===i);b.setAttribute('aria-label',s.n+', '+(s.c==='g'?'on track':s.c==='y'?'needs check':'misconception'));
+    b.innerHTML='<span class="ini">'+s.n.slice(0,2)+'</span>'+(s.c!=='g'?'<span class="dot"></span>':'');b.onclick=function(){sel=i;render()};g.appendChild(b)});
+  var c=counts(),ch=document.getElementById('chips');ch.innerHTML=chip('a',c.a,'r')+chip('b',c.b,'y')+chip('c',c.c,'o')+chip('d',c.d,'r');if(!ch.innerHTML)ch.innerHTML='<span class="chip y">No patterns left. The class has caught up.</span>';
+  var side=document.getElementById('side');
+  if(sel===null){side.innerHTML='<div class="empty"><b>Select a pupil</b>Click any yellow or red tile to see their thinking and suggested ways to reteach it.</div>';return}
+  var s=st[sel];
+  if(s.c==='g'){side.innerHTML='<div class="who"><div class="av" style="background:var(--ok)">'+s.n[0]+'</div><div><h2>'+s.n+'</h2><span class="tag" style="background:#E7F9EE;color:#1F6B3E">On track</span></div></div><div class="empty" style="min-height:300px"><b>Nothing to act on</b>'+s.n+' is secure on this topic. Pick a yellow or red tile.</div>';return}
+  var m=L[lesson].mis[s.k],rs=route[sel];
+  side.innerHTML='<div class="who"><div class="av" style="background:'+(s.c==='r'?'var(--bad)':'#E5B923')+'">'+s.n[0]+'</div><div><h2>'+s.n+'</h2><span class="tag">'+(s.c==='r'?'Misconception':'Needs check')+'</span><small style="font:400 14px var(--s);color:var(--mute)">Grade 7B</small></div></div>'+
+   '<h4><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F27C8A" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5" stroke-linecap="round"/></svg>Misconception detected</h4><div class="mis"><b>'+m.t+'</b><p>'+m.d+'</p><small>'+(counts()[s.k]-1)+' other pupils also struggling</small></div>'+
+   '<h4>Student response</h4><div class="resp">'+m.r+'<small>'+m.q+'</small></div><h4>Suggested reteaching routes</h4>'+
+   m.routes.map(function(r,i){return'<button class="rt" aria-pressed="'+(rs===i)+'" data-i="'+i+'"><i>'+(i+1)+'</i><span><b>'+r[0]+'</b><small>'+r[1]+'</small></span></button>'}).join('')+
+   (logged[sel]?'<div class="done">Intervention logged: '+m.routes[rs][0]+'. '+s.n+' moves to "needs check" until the next question.</div>':'')+
+   '<div class="act"><button class="btn" id="back">Back to class</button><button class="btn p" id="log"'+(rs===undefined||logged[sel]?' style="opacity:.45"':'')+'>Log intervention</button></div>';
+  side.querySelectorAll('.rt').forEach(function(b){b.onclick=function(){route[sel]=+b.dataset.i;render()}});
+  document.getElementById('back').onclick=function(){sel=null;render()};
+  document.getElementById('log').onclick=function(){if(rs===undefined||logged[sel])return;logged[sel]=1;s.c='y';render()};
+}
+document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){lesson=+t.dataset.l;sel=null;logged={};route={};document.querySelectorAll('.tab').forEach(function(x){x.setAttribute('aria-pressed',x===t)});build();render()}});
+build();sel=st.findIndex(function(s){return s.c==='r'});render();
+})();
+</script></body></html>

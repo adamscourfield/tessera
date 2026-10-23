@@ -1,0 +1,87 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lesson Clock</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#E4ECEE;--navy:#182E44;--coral:#ED8B78;--ink:#0E1B28;--mute:#5E7080;--f:'DM Sans','Segoe UI',system-ui,sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:radial-gradient(900px 600px at 25% 20%,#EEF3F3,var(--bg) 70%);color:var(--navy);font-family:var(--f);min-height:100%}
+.wrap{max-width:1240px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-left,0px)) 40px;display:grid;grid-template-columns:auto auto minmax(300px,1fr);gap:40px 56px;align-items:start}
+@media (max-width:1000px){.wrap{grid-template-columns:1fr;justify-items:center}.panel{width:100%}}
+.phone{width:340px;height:690px;border-radius:62px;background:var(--ink);padding:11px;box-shadow:0 50px 90px -30px rgba(24,46,68,.45),0 0 0 2px #2B3D4F inset;flex:none}
+.screen{width:100%;height:100%;border-radius:51px;overflow:hidden;position:relative;background:linear-gradient(180deg,#1F3B57 0%,#182E44 55%,#12222F 100%);color:#fff}
+.island{position:absolute;left:50%;top:13px;transform:translateX(-50%);width:100px;height:28px;border-radius:16px;background:#000}
+.lock{position:absolute;top:88px;left:0;right:0;text-align:center}
+.ld{font-size:17px;font-weight:500;color:#D5E0EA}.lc{font-size:92px;font-weight:600;line-height:1.02;letter-spacing:-3px}
+.notes{position:absolute;left:14px;right:14px;top:268px;display:flex;flex-direction:column;gap:10px}
+.n{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:13px 14px;display:flex;gap:12px;align-items:flex-start;animation:in .4s cubic-bezier(.22,1,.36,1)}
+.n.m{background:rgba(255,255,255,.95);color:var(--navy);border:0;box-shadow:0 16px 30px -14px rgba(0,0,0,.5)}
+@keyframes in{from{opacity:0;transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){.n{animation:none}}
+.ic{flex:0 0 38px;height:38px;border-radius:10px;background:var(--coral);display:flex;align-items:center;justify-content:center}
+.meta{display:flex;justify-content:space-between;font-size:12px;font-weight:700;letter-spacing:.3px;color:#6F7F8C}.n:not(.m) .meta{color:#B7C8D6}
+.t{font-size:17px;font-weight:700;margin-top:2px;line-height:1.25}.b{font-size:14px;margin-top:2px;line-height:1.35;color:#3F5060}.n:not(.m) .b{color:#D5E0EA}
+.chip{display:inline-block;margin-top:8px;background:var(--coral);color:var(--navy);font-weight:700;font-size:13px;padding:5px 11px;border-radius:99px}
+.home{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:120px;height:5px;border-radius:4px;background:rgba(255,255,255,.7)}
+.watchcol{display:flex;flex-direction:column;align-items:center;padding-top:110px}
+.watch{position:relative;width:250px;height:300px;border-radius:72px;background:var(--ink);padding:11px;box-shadow:0 40px 70px -28px rgba(24,46,68,.5),0 0 0 2px #2B3D4F inset;isolation:isolate}
+.watch:before,.watch:after{content:"";position:absolute;left:50%;transform:translateX(-50%);width:160px;height:130px;background:#C5D2DB;z-index:-1}
+.watch:before{top:-90px;border-radius:32px 32px 0 0}.watch:after{bottom:-90px;border-radius:0 0 32px 32px}
+.ws{width:100%;height:100%;border-radius:62px;background:#000;padding:22px 20px;color:#fff;overflow:hidden}
+.wt{display:flex;justify-content:space-between;font-size:16px;font-weight:600;color:#D5E0EA}
+.wc{margin-top:16px;background:#1C2B38;border-radius:24px;padding:15px}
+.wh{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:#F0B4A6}
+.wi{width:26px;height:26px;border-radius:8px;background:var(--coral);display:flex;align-items:center;justify-content:center}
+.wl{font-size:21px;font-weight:700;line-height:1.15;margin-top:10px}.wb{font-size:15px;color:#B7C8D6;margin-top:5px}
+.panel{background:#fff;border-radius:22px;padding:24px;box-shadow:0 20px 40px -24px rgba(24,46,68,.3)}
+.panel h1{font-size:26px;margin:0 0 4px;letter-spacing:-.5px}.panel p{margin:0 0 18px;color:var(--mute);font-size:15px;line-height:1.45}
+.ctl{display:flex;gap:10px;align-items:center;margin-bottom:6px}
+.big{font-size:40px;font-weight:700;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;min-width:120px}
+button{font:600 15px var(--f);border:0;border-radius:99px;padding:10px 18px;cursor:pointer;background:var(--navy);color:#fff}button.g{background:#E8EEF3;color:var(--navy)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+input[type=range]{width:100%;accent-color:var(--coral);margin:8px 0 18px}
+.row{display:grid;grid-template-columns:56px 1fr 96px;gap:10px;align-items:center;padding:9px 10px;border-radius:12px;font-size:15px}
+.row.on{background:#FDEEEA;font-weight:600}.row .tm{font-variant-numeric:tabular-nums;color:var(--mute);font-weight:600}
+.row input{width:100%;font:500 14px var(--f);border:1px solid #D8DFE6;border-radius:8px;padding:6px 8px;color:var(--navy)}
+.hint{font-size:13px;color:var(--mute);margin-top:14px;line-height:1.45}
+</style></head><body>
+<div class="wrap">
+<div class="phone"><div class="screen"><div class="island"></div><div class="lock"><div class="ld" id="ld"></div><div class="lc" id="lc">8:55</div></div><div class="notes" id="notes"></div><div class="home"></div></div></div>
+<div class="watchcol"><div class="watch"><div class="ws"><div class="wt"><span id="wtime">8:55</span><span style="color:var(--coral)">&#9679;</span></div><div class="wc"><div class="wh"><div class="wi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#182E44" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>Lesson Clock</div><div class="wl" id="wl"></div><div class="wb" id="wb"></div></div></div></div></div>
+<div class="panel"><h1>Your day</h1><p>Drag the clock to see what a teacher would be told at each moment. Change a room and the notifications update.</p>
+<div class="ctl"><div class="big" id="big">08:55</div><button id="play">Play the day</button><button class="g" id="now">Right now</button></div>
+<input type="range" id="sl" min="450" max="990" value="535" aria-label="Time of day">
+<div id="tt"></div>
+<div class="hint">Drag the time or press play to watch the day move. Change a room to update the alerts.</div></div>
+</div>
+<script>
+(function(){
+var E=[{s:510,end:525,name:'Staff briefing',room:'Staff room',kind:'Briefing'},{s:525,end:540,name:'Registration',room:'A3',kind:'Year 9 form'},{s:540,end:600,name:'Lesson 1',room:'A3',kind:'Year 9 English'},{s:600,end:660,name:'Lesson 2',room:'A5',kind:'Year 8 English'},{s:660,end:680,name:'Break duty',room:'Main yard',kind:'Duty'},{s:680,end:740,name:'Lesson 3',room:'B2',kind:'Year 10 English'},{s:740,end:800,name:'Lesson 4',room:'Staff room',kind:'Free period'},{s:800,end:840,name:'Lunch',room:'Canteen',kind:'Lunch'},{s:840,end:900,name:'Lesson 5',room:'A3',kind:'Year 11 English'},{s:900,end:960,name:'Lesson 6',room:'A4',kind:'Year 7 English'}];
+var now=535,timer=null;
+function f(m){return Math.floor(m/60)+':'+('0'+m%60).slice(-2)}
+function f2(m){return ('0'+Math.floor(m/60)).slice(-2)+':'+('0'+m%60).slice(-2)}
+function label(e){return f(e.s)+' - '+e.name+': '+(e.name.indexOf('Lesson')===0||e.name==='Registration'||e.name==='Staff briefing'?'':'')+e.room.replace(/^(A|B)(\d)$/,'Room $1$2')}
+function notes(){var L=[];E.forEach(function(e){L.push({at:e.s-5,e:e,pre:1});L.push({at:e.s,e:e,pre:0})});
+  return L.filter(function(x){return x.at<=now}).sort(function(a,b){return b.at-a.at||b.pre-a.pre?(b.at-a.at):0}).slice(0,3)}
+function cur(){var r=null;for(var i=0;i<E.length;i++){if(now>=E[i].s-5&&now<E[i].end)r=E[i]}return r}
+function icon(w){return'<svg width="'+w+'" height="'+w+'" viewBox="0 0 24 24" fill="none" stroke="#182E44" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>'}
+function title(e,pre){return pre?label(e):'Now: '+e.name+', '+e.room.replace(/^(A|B)(\d)$/,'Room $1$2')}
+function body(e,pre,m){return pre?e.kind+(m?'. '+Math.max(1,e.s-now)+' min to get there.':'. Starts at '+f(e.s)+'.'):e.kind+', until '+f(e.end)+'.'}
+function render(){
+  var d=new Date();document.getElementById('ld').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('lc').textContent=f(now);document.getElementById('wtime').textContent=f(now);document.getElementById('big').textContent=f2(now);document.getElementById('sl').value=now;
+  var N=document.getElementById('notes');N.innerHTML='';
+  var list=notes();
+  if(!list.length)N.innerHTML='<div class="n"><div class="ic">'+icon(22)+'</div><div><div class="meta"><span>LESSON CLOCK</span><span></span></div><div class="t">Nothing yet today</div><div class="b" style="color:#D5E0EA">Your first notification arrives at 8:25.</div></div></div>';
+  list.forEach(function(x,i){var m=i===0,e=x.e,div=document.createElement('div');div.className='n'+(m?' m':'');
+    div.innerHTML='<div class="ic">'+icon(22)+'</div><div style="flex:1"><div class="meta"><span>LESSON CLOCK</span><span>'+(m?'now':f(x.at))+'</span></div><div class="t"'+(m?'':' style="font-size:15px"')+'>'+title(e,x.pre&&(m?now<e.s:true))+'</div><div class="b">'+body(e,x.pre&&(m?now<e.s:true),m)+'</div>'+(m&&now<e.s?'<span class="chip">'+(e.s-now)+' min to move</span>':'')+'</div>';N.appendChild(div)});
+  var c=cur(),wl=document.getElementById('wl'),wb=document.getElementById('wb');
+  if(c){wl.textContent=(now<c.s?f(c.s)+' - ':'')+c.name+': '+c.room;wb.textContent=now<c.s?'Move now':c.kind+' until '+f(c.end)}else{wl.textContent=now<510?'Day starts 8:30':'School day over';wb.textContent=now<510?'Briefing in the staff room':'See you tomorrow'}
+  var T=document.getElementById('tt');if(!T.children.length){E.forEach(function(e,i){var r=document.createElement('div');r.className='row';r.id='r'+i;r.innerHTML='<span class="tm">'+f(e.s)+'</span><span>'+e.name+'<span style="color:#5E7080;font-weight:400"> · '+e.kind+'</span></span><input aria-label="Room for '+e.name+'" value="'+e.room+'">';r.querySelector('input').oninput=function(ev){e.room=ev.target.value||'TBC';render()};T.appendChild(r)})}
+  E.forEach(function(e,i){document.getElementById('r'+i).className='row'+(c===e?' on':'')});
+}
+document.getElementById('sl').oninput=function(e){now=+e.target.value;render()};
+document.getElementById('now').onclick=function(){var d=new Date();now=Math.max(450,Math.min(990,d.getHours()*60+d.getMinutes()));render()};
+document.getElementById('play').onclick=function(){var b=this;if(timer){clearInterval(timer);timer=null;b.textContent='Play the day';return}
+  if(now>=989)now=450;b.textContent='Pause';timer=setInterval(function(){now++;if(now>=990){clearInterval(timer);timer=null;b.textContent='Play the day'}render()},90)};
+render();
+})();
+</script></body></html>

@@ -1,0 +1,152 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Radar</title></head><body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one huge attendance figure over a year-by-day heatmap, with a ranked list of pupils nearing the 10% line. */
+:root{--bg:#06201B;--fg:#D8F5EA;--hi:#EFFFF8;--mint:#6CF0C2;--mute:#6FA396;--soft:#8FB8AB;--line:rgba(108,240,194,.18);--c0:#0F3B31;--c1:#14584A;--c2:#E8C547;--c3:#FF6B57;--warn:#FF7A66;
+--f:'Space Grotesk','Segoe UI',system-ui,sans-serif;color-scheme:dark}
+html,body{background:var(--bg);overflow-x:clip}
+body{margin:0;color:var(--fg);font-family:var(--f);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));position:relative}
+.rings{position:absolute;right:-260px;top:-300px;opacity:.22;pointer-events:none}
+.page{position:relative;max-width:1480px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:56px;padding-block:44px 28px}
+@media (max-width:1000px){.page{grid-template-columns:1fr;gap:32px}}
+.lab{font-size:20px;color:var(--mint);font-weight:500;display:flex;align-items:center;gap:14px}
+.lab i{width:10px;height:10px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 6px rgba(108,240,194,.18)}
+.big{font-weight:700;font-size:clamp(120px,18vw,250px);line-height:.95;letter-spacing:-.055em;color:var(--hi);margin-top:6px;white-space:nowrap}
+.big sup{font-size:.36em;letter-spacing:-.02em;color:var(--mint);vertical-align:top;position:relative;top:.12em;margin-left:.04em}
+.delta{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:20px;color:var(--soft);margin-top:-4px}
+.delta b{color:var(--mint);font-weight:600}.delta b.r{color:var(--warn)}
+.heatwrap{overflow-x:auto;margin-top:30px;padding-bottom:6px}
+.heat{display:grid;grid-template-columns:44px auto;gap:0 10px;min-width:700px}
+.yl{display:grid;grid-auto-rows:44px;gap:4px;font-size:17px;color:var(--mute);align-items:center}
+.grid{display:flex;gap:10px}
+.wk{display:grid;grid-template-columns:repeat(5,1fr);grid-auto-rows:44px;gap:4px;flex:1}
+.c{border-radius:5px;min-width:14px}
+.c.e{background:transparent}
+.days{display:flex;margin:12px 0 0 54px;font-size:18px;color:var(--soft);gap:24px;flex-wrap:wrap}
+.days b{color:var(--hi);font-weight:600}.days .low b{color:var(--warn)}
+.leg{display:flex;gap:20px;flex-wrap:wrap;font-size:16px;color:var(--mute);margin-top:22px;align-items:center}
+.leg i{display:inline-block;width:15px;height:15px;border-radius:4px;margin-right:7px;vertical-align:-3px}
+.side h2{font-size:32px;font-weight:600;letter-spacing:-.03em;line-height:1.1;margin:0 0 8px}
+.side .s{font-size:17px;color:var(--mute);margin:0 0 22px}
+.pu{padding:17px 0;border-top:1px solid var(--line);cursor:pointer}
+.pu:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.pu .n{display:flex;justify-content:space-between;align-items:baseline;font-size:25px;font-weight:600}
+.pu .n span{font-size:17px;color:var(--mute);font-weight:400}
+.pu .pt{font-size:16px;color:var(--soft);margin:3px 0 9px}
+.b{height:8px;border-radius:5px;background:rgba(108,240,194,.12);overflow:hidden}.b i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--c2),var(--c3))}
+.pu .r{font-size:15px;color:#FF9B8B;margin-top:7px;display:flex;justify-content:space-between}
+.strip{display:none;gap:2px;margin-top:12px;flex-wrap:wrap}.pu.open .strip{display:flex}
+.strip i{width:12px;height:18px;border-radius:2px;display:block}
+.tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:26px;font-size:15px;color:var(--mute)}
+.btn{font:600 15px var(--f);color:#06201B;background:var(--mint);border:0;border-radius:8px;padding:10px 16px;cursor:pointer}
+.btn.g{background:transparent;color:var(--mint);border:1px solid var(--mint)}
+.btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.msg{color:var(--warn);font-size:15px;width:100%}
+.foot{grid-column:1/-1;font-size:14px;color:#3F6E62}
+.page>div{min-width:0}
+</style>
+<svg class="rings" width="900" height="900" viewBox="-450 -450 900 900" fill="none" stroke="#6CF0C2" stroke-width="1.2" aria-hidden="true"><circle r="120"/><circle r="230"/><circle r="340"/><circle r="440"/><line x1="-450" x2="450"/><line y1="-450" y2="450"/></svg>
+<div class="page">
+<div>
+<div class="lab"><i></i><span id="period">Attendance</span></div>
+<div class="big"><span id="att">0</span><sup>%</sup></div>
+<div class="delta"><span>Persistent absence <b class="r" id="pa">0%</b></span><span><b class="r" id="nrisk">0</b> pupils close to the 10% line</span><span id="nP"></span></div>
+<div class="heatwrap"><div class="heat"><div class="yl" id="yl"></div><div class="grid" id="grid"></div></div></div>
+<div class="days" id="days"></div>
+<div class="leg"><span><i style="background:var(--c0)"></i>96% or more</span><span><i style="background:var(--c1)"></i>94 to 96%</span><span><i style="background:var(--c2)"></i>92 to 94%</span><span><i style="background:var(--c3)"></i>under 92%</span></div>
+</div>
+<div class="side"><h2>Close to crossing 10% absence</h2><p class="s">Ranked by how near they are and whether it is getting worse. Tap a pupil to see every day.</p>
+<div id="list"></div>
+<div class="tools"><button class="btn g" id="sample">Use sample data</button><label class="btn" for="file" tabindex="0">Import CSV</label><input type="file" id="file" accept=".csv,text/csv" hidden>
+<span class="msg" id="msg">CSV columns: pupil, year, date (YYYY-MM-DD), mark (P present, A absent, L late)</span></div></div>
+<div class="foot">Imported files are read in your browser and go nowhere else.</div>
+</div>
+<script>
+(function(){
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+var D=['Mon','Tue','Wed','Thu','Fri'];
+function iso(d){return d.toISOString().slice(0,10)}
+function sample(){
+  var R=rng(5),first=['J','A','S','T','M','E','K','L','R','N','B','H','D','O','Z','C'],last=['Brooks','Rahman','Kowalski','Williams','Dlamini','Foster','Okafor','Patel','Chen','Singh','Hale','Reynolds','Adeyemi','Nowak','Moore','Khan','Lewis','Dixon','Ali','Bennett','Cole','Evans'];
+  var dates=[];for(var w=0;w<8;w++)for(var d=0;d<5;d++){var x=new Date(Date.UTC(2026,7,31+w*7+d));dates.push(iso(x))}
+  var P=[];
+  for(var y=7;y<=13;y++)for(var i=0;i<55;i++){
+    var u=R(),type='normal',hi=y===10||y===11;
+    if(u<(hi?.1:.04))type='monday';else if(u<(hi?.14:.06))type='friday';else if(u<(hi?.2:.09))type='scatter';else if(u<(hi?.23:.11))type='block';else if(u<(hi?.27:.14))type='late';else if(u<(hi?.31:.16))type='heavy';
+    var m={},run=0,blockAt=Math.floor(R()*30),prev=false;
+    dates.forEach(function(dt,k){var wd=k%5,p=.035+(hi?.012:0),late=0;
+      if(type==='monday')p=wd===0?.62:.03;if(type==='friday')p=wd===4?.55:.03;if(type==='scatter')p=prev?0:.13;if(type==='heavy')p=.2;if(type==='late')late=.32;
+      var a=R()<p;if(type==='block'&&k>=blockAt&&k<blockAt+5)a=true;
+      if(hi&&k>=24&&R()<.03)a=true;
+      m[dt]=a?'A':(R()<late?'L':'P');prev=a});
+    P.push({name:first[Math.floor(R()*first.length)]+'. '+last[Math.floor(R()*last.length)],year:y,m:m})}
+  return{pupils:P,dates:dates,label:'Attendance, Autumn 1, week 8'}
+}
+var DATA=null;
+function analyse(d){
+  var years=[],yset={};d.pupils.forEach(function(p){if(!yset[p.year]){yset[p.year]=1;years.push(p.year)}});years.sort(function(a,b){return a-b});
+  var present=0,total=0,cell={},pa=0;
+  d.pupils.forEach(function(p){var pr=0,tt=0,ab=0,lt=0,mons=0,fris=0,absDays=[];
+    d.dates.forEach(function(dt,k){var v=p.m[dt];if(!v)return;tt++;var wd=weekday(dt);var key=p.year+'|'+dt;cell[key]=cell[key]||[0,0];cell[key][1]++;
+      if(v==='A'){ab++;absDays.push(k);if(wd===0)mons++;if(wd===4)fris++}else{pr++;cell[key][0]++;if(v==='L')lt++}});
+    p.att=tt?pr/tt*100:100;p.ab=ab;p.late=lt;p.mons=mons;p.fris=fris;p.tt=tt;p.absDays=absDays;
+    var half=Math.floor(d.dates.length*.6),r1=0,t1=0,r2=0,t2=0;d.dates.forEach(function(dt,k){var v=p.m[dt];if(!v)return;if(k<half){t1++;if(v!=='A')r1++}else{t2++;if(v!=='A')r2++}});
+    p.trend=(t1&&t2)?(r1/t1-r2/t2)*100:0;
+    present+=pr;total+=tt;if(p.att<90)pa++});
+  var risk=d.pupils.filter(function(p){return p.att>=86&&p.att<93&&p.ab>=3}).map(function(p){p.score=(95-p.att)*1.0+Math.max(0,p.trend)*.35+(p.mons>=3?3:0);return p}).sort(function(a,b){return b.score-a.score});
+  return{years:years,att:total?present/total*100:0,pa:d.pupils.length?pa/d.pupils.length*100:0,cell:cell,risk:risk}
+}
+function weekday(dt){var x=new Date(dt+'T00:00:00Z').getUTCDay();return (x+6)%7}
+function pattern(p,d){
+  var nm=d.dates.filter(function(x){return weekday(x)===0}).length;
+  var runs=0,cur=1,best=1;p.absDays.forEach(function(k,i){if(i&&k===p.absDays[i-1]+1){cur++;best=Math.max(best,cur)}else cur=1});
+  if(p.mons>=3&&p.mons/Math.max(1,p.ab)>=.45)return{t:'Absent '+p.mons+' of '+nm+' Mondays',a:p.att<90?'Meeting with home':'Letter 2 due'};
+  if(p.fris>=3&&p.fris/Math.max(1,p.ab)>=.45)return{t:'Absent '+p.fris+' of '+nm+' Fridays',a:'Letter 1 due'};
+  if(p.late>=8)return{t:'Late '+p.late+' times in '+p.tt+' school days',a:'Call parent'};
+  if(best>=4)return{t:'Off '+best+' days in a row, then back',a:p.att<90?'Meeting with home':'Welcome-back meeting'};
+  if(p.ab>=4&&best===1)return{t:p.ab+' single days, none back to back',a:'Letter 1 due'};
+  return{t:p.ab+' sessions missed this term',a:p.att<90?'Meeting with home':'Letter 1 due'}
+}
+function cls(v){return v>=96?'var(--c0)':v>=94?'var(--c1)':v>=92?'var(--c2)':'var(--c3)'}
+function fmt(dt){return new Date(dt+'T00:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'})}
+function render(){
+  var d=DATA,A=analyse(d);
+  document.getElementById('period').textContent=d.label;
+  document.getElementById('att').textContent=A.att.toFixed(1);
+  document.getElementById('pa').textContent=A.pa.toFixed(1)+'%';
+  document.getElementById('nrisk').textContent=A.risk.length;
+  document.getElementById('nP').textContent=d.pupils.length+' pupils, '+d.dates.length+' school days';
+  var yl=document.getElementById('yl');yl.innerHTML=A.years.map(function(y){return'<div>Y'+y+'</div>'}).join('');
+  var weeks={},order=[];d.dates.forEach(function(dt){var wd=weekday(dt),mon=new Date(new Date(dt+'T00:00:00Z').getTime()-wd*864e5).toISOString().slice(0,10);if(!weeks[mon]){weeks[mon]=[];order.push(mon)}weeks[mon][wd]=dt});
+  var g=document.getElementById('grid');g.innerHTML='';
+  order.forEach(function(mon){var w=document.createElement('div');w.className='wk';
+    A.years.forEach(function(y){for(var k=0;k<5;k++){var dt=weeks[mon][k],c=document.createElement('div');c.className='c';
+      var cc=dt&&A.cell[y+'|'+dt];if(cc){var v=cc[0]/cc[1]*100;c.style.background=cls(v);c.title='Y'+y+' '+fmt(dt)+': '+v.toFixed(1)+'%'}else c.className='c e';w.appendChild(c)}});g.appendChild(w)});
+  var days=document.getElementById('days');days.innerHTML='';
+  var avg=[];for(var k=0;k<5;k++){var pr=0,tt=0;d.pupils.forEach(function(p){d.dates.forEach(function(dt){if(weekday(dt)===k&&p.m[dt]){tt++;if(p.m[dt]!=='A')pr++}})});avg.push(tt?pr/tt*100:0)}
+  var mn=Math.min.apply(null,avg);avg.forEach(function(v,k){var s=document.createElement('span');if(v===mn)s.className='low';s.innerHTML=D[k]+' <b>'+v.toFixed(1)+'</b>';days.appendChild(s)});
+  var list=document.getElementById('list');list.innerHTML='';
+  A.risk.slice(0,5).forEach(function(p){var pt=pattern(p,d),e=document.createElement('div');e.className='pu';e.tabIndex=0;e.setAttribute('role','button');
+    e.innerHTML='<div class="n">'+p.name+'<span>Year '+p.year+'</span></div><div class="pt">'+pt.t+'</div><div class="b"><i style="width:'+Math.min(100,Math.max(8,p.score/9*100)).toFixed(0)+'%"></i></div><div class="r"><span>'+pt.a+'</span><span>'+p.att.toFixed(1)+'% attendance</span></div><div class="strip">'+d.dates.map(function(dt){var v=p.m[dt];return'<i title="'+fmt(dt)+'" style="background:'+(v==='A'?'var(--c3)':v==='L'?'var(--c2)':'var(--c1)')+'"></i>'}).join('')+'</div>';
+    function t(){e.classList.toggle('open')}e.onclick=t;e.onkeydown=function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();t()}};list.appendChild(e)});
+  if(!A.risk.length)list.innerHTML='<div class="pt" style="padding:16px 0;border-top:1px solid var(--line)">No pupils are close to the line in this data.</div>';
+}
+function setMsg(t,bad){var m=document.getElementById('msg');m.textContent=t;m.style.color=bad?'var(--warn)':'var(--mute)'}
+function parseCSV(txt){
+  var rows=txt.replace(/\r/g,'').split('\n').filter(function(l){return l.trim()}).map(function(l){return l.split(',').map(function(x){return x.trim()})});
+  var h=rows.shift().map(function(x){return x.toLowerCase()}),ip=h.indexOf('pupil'),iy=h.indexOf('year'),id=h.indexOf('date'),im=h.indexOf('mark');
+  if(ip<0||iy<0||id<0||im<0)throw new Error('The first row needs the columns pupil, year, date and mark.');
+  var map={},ds={},bad=0;
+  rows.forEach(function(r){var dt=r[id],mk=(r[im]||'').toUpperCase();if(!/^\d{4}-\d{2}-\d{2}$/.test(dt)||'PAL'.indexOf(mk)<0||!mk){bad++;return}
+    var k=r[ip]+'|'+r[iy];map[k]=map[k]||{name:r[ip],year:+r[iy],m:{}};map[k].m[dt]=mk;ds[dt]=1});
+  var dates=Object.keys(ds).sort().filter(function(x){return weekday(x)<5});
+  if(!dates.length)throw new Error('No valid rows found. Dates must look like 2026-09-14 and marks must be P, A or L.');
+  return{pupils:Object.keys(map).map(function(k){return map[k]}),dates:dates,label:'Attendance, imported file',bad:bad}
+}
+document.getElementById('sample').onclick=function(){DATA=sample();setMsg('Showing generated sample data.');render()};
+document.getElementById('file').onchange=function(e){var f=e.target.files[0];if(!f)return;var rd=new FileReader();
+  rd.onload=function(){try{DATA=parseCSV(rd.result);setMsg('Loaded '+DATA.pupils.length+' pupils'+(DATA.bad?'. Skipped '+DATA.bad+' rows that could not be read.':'.'));render()}catch(x){setMsg(x.message,true)}};rd.readAsText(f)};
+DATA=sample();render();
+})();
+</script>
+</body></html>

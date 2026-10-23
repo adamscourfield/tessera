@@ -1,0 +1,127 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Item</title></head><body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&display=swap">
+<style>
+/* Layout: Swiss grid. Left rail of headline numbers, right side a pupil-by-question matrix where the red shows the gap. */
+:root{--bg:#FFFFFF;--fg:#0A0A0A;--mute:#5A5A5A;--soft:#999;--rule:#D4D4D4;--part:#C9C9C9;--red:#E10600;--f:'Archivo','Helvetica Neue',Arial,sans-serif;color-scheme:light}
+html,body{background:var(--bg);overflow-x:clip}
+body{margin:0;color:var(--fg);font-family:var(--f);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.page{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:330px minmax(0,1fr);gap:60px;padding-block:40px 24px}
+@media (max-width:980px){.page{grid-template-columns:1fr;gap:28px}}
+.sq{width:40px;height:40px;background:var(--red)}
+h1{font-weight:900;font-size:44px;line-height:1;letter-spacing:-.045em;margin:22px 0 0}
+.sub{font-size:19px;color:var(--mute);margin-top:8px}
+.num{font-weight:900;font-size:230px;line-height:.8;letter-spacing:-.07em;margin:54px 0 0 -10px}
+.of{font-size:24px;font-weight:600;margin-top:12px}
+.d{font-size:20px;color:var(--red);font-weight:700;margin-top:4px}
+.st{margin-top:44px;border-top:6px solid var(--fg)}
+.st div{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule);font-size:19px;gap:10px}
+.st b{font-weight:900;font-size:34px;letter-spacing:-.04em}
+.bound{display:flex;gap:16px;margin-top:20px;font-size:15px;color:var(--mute)}
+.bound label{display:flex;flex-direction:column;gap:4px;font-weight:600}
+.bound input{width:84px;font:700 20px var(--f);padding:6px 8px;border:2px solid var(--fg);border-radius:0;background:var(--bg);color:var(--fg)}
+input:focus-visible,button:focus-visible,select:focus-visible,label.btn:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.ct{width:100%;border-collapse:collapse;margin-top:26px;font-size:16px}
+.ct th{text-align:left;font-weight:600;color:var(--soft);font-size:14px;padding:0 0 6px;border-bottom:2px solid var(--fg)}
+.ct td{padding:8px 0;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}.ct td:not(:first-child),.ct th:not(:first-child){text-align:right}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:6px solid var(--fg);padding-bottom:10px}
+.hd h2{font-weight:900;font-size:28px;letter-spacing:-.03em;margin:0}
+.hd select{font:600 16px var(--f);border:2px solid var(--fg);border-radius:0;padding:6px 8px;background:var(--bg);color:var(--fg)}
+.mxw{overflow-x:auto}
+.mx{min-width:760px}
+.row{display:grid;gap:3px}
+.band{font-size:13px;font-weight:700;border-bottom:3px solid var(--fg);padding:12px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.band.red{color:var(--red)}
+.qn{font-size:12px;color:#777;font-weight:600;text-align:center;margin-top:5px}
+.qn.red{color:var(--red);font-weight:900}
+.cells{display:grid;gap:0 3px;margin-top:6px;position:relative}
+.c{height:var(--rh,5px)}.f{background:var(--fg)}.p{background:var(--part)}.z{background:var(--red)}
+.hot{position:absolute;border:3px solid var(--red);pointer-events:none}
+.pc{display:grid;gap:0 3px;margin-top:12px;align-items:end;height:110px;border-top:3px solid var(--fg);padding-top:6px}
+.col{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;height:100%;font-size:12px;font-weight:800}
+.col i{display:block;width:100%;background:var(--fg)}
+.under{display:flex;gap:28px;align-items:stretch;flex-wrap:wrap;margin-top:14px}
+.leg{display:flex;gap:20px;font-size:14px;color:var(--mute);align-items:center;flex-wrap:wrap}.leg i{display:inline-block;width:15px;height:15px;margin-right:7px;vertical-align:-3px}
+.call{background:var(--red);color:#fff;padding:18px 22px;flex:1;min-width:280px}
+.call b{font-weight:900;font-size:24px;letter-spacing:-.03em;display:block}.call span{font-size:16px;line-height:1.4;display:block;margin-top:6px}
+.tools{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:14px;color:var(--mute)}
+.btn{font:700 15px var(--f);background:var(--fg);color:#fff;border:2px solid var(--fg);border-radius:0;padding:10px 16px;cursor:pointer}.btn.g{background:var(--bg);color:var(--fg)}
+.msg{width:100%}.msg.bad{color:var(--red)}
+.foot{font-size:14px;color:var(--soft);margin-top:18px}
+.page>div{min-width:0}
+</style>
+<div class="page">
+<div><div class="sq"></div><h1 id="title">Year 11 Maths</h1><div class="sub" id="sub"></div>
+<div class="num" id="avg">0</div><div class="of" id="of"></div><div class="d" id="delta"></div>
+<div class="st"><div>Grade 4 and above<b id="g4">0%</b></div><div>Grade 7 and above<b id="g7">0%</b></div><div>Weakest topic<b id="wt" style="font-size:22px;letter-spacing:-.02em;text-align:right">-</b></div></div>
+<div class="bound"><label>Grade 4 from<input id="b4" type="number" min="0" value="32"></label><label>Grade 7 from<input id="b7" type="number" min="0" value="60"></label></div>
+<table class="ct" id="ct"></table></div>
+<div><div class="hd"><h2>Every pupil, every question</h2><label style="font-size:15px;color:var(--mute)">Sort <select id="sort"><option value="hi">Highest mark first</option><option value="lo">Lowest mark first</option><option value="cl">By class</option></select></label></div>
+<div class="mxw"><div class="mx"><div class="row" id="bands"></div><div class="row" id="qn"></div><div class="cells" id="cells"></div><div class="pc" id="pc"></div></div></div>
+<div class="under"><div class="leg"><span><i style="background:var(--fg)"></i>Full marks</span><span><i style="background:var(--part)"></i>Some marks</span><span><i style="background:var(--red)"></i>No marks</span></div>
+<div class="call" id="call"></div></div>
+<div class="tools"><button class="btn g" id="sample">Use sample data</button><label class="btn" for="file" tabindex="0">Import marks (CSV)</label><input type="file" id="file" accept=".csv,text/csv" hidden>
+<span class="msg" id="msg">CSV: pupil, class, then one column per question named like Q1|Number|2 (question, topic, marks available).</span></div>
+<div class="foot">Grade boundaries are editable. Imported files are read in your browser and go nowhere else.</div></div></div>
+<script>
+(function(){
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+var DATA=null;
+function sample(){
+  var R=rng(21),T=[['Number',[1,1,2,2,3]],['Ratio',[2,2,3,3]],['Algebra',[2,2,3,3,4,4]],['Geometry',[3,3,4,4]],['Probability',[3,4]],['Proof',[8]],['Simultaneous',[6,8]]];
+  var diff=[.05,.08,.12,.18,.22,.2,.28,.32,.38,.3,.42,.46,.5,.55,.6,.5,.58,.62,.68,.72,.7,.97,.78,.84],qs=[];
+  T.forEach(function(t){t[1].forEach(function(m){qs.push({n:'Q'+(qs.length+1),topic:t[0],max:m,diff:diff[qs.length]})})});
+  var cl=['11A','11B','11C','11D'],off=[.07,.03,-.02,-.05],P=[];
+  cl.forEach(function(c,ci){for(var i=0;i<28;i++){var u=Math.max(.05,Math.min(1.05,.62+off[ci]+(R()+R()+R()-1.5)*.34)),marks=qs.map(function(q){var f=Math.max(0,Math.min(1,.5+(u-q.diff)*1.5+(R()-.5)*.35));return Math.round(f*q.max)});P.push({name:c+'-'+('0'+(i+1)).slice(-2),cls:c,marks:marks})}});
+  return{qs:qs,pupils:P,title:'Year 11 Maths',sub:'Mock 2, Paper 1'}
+}
+function el(t,c){var e=document.createElement(t);if(c)e.className=c;return e}
+function render(){
+  var d=DATA,qs=d.qs,N=d.pupils.length,max=qs.reduce(function(a,q){return a+q.max},0);
+  var b4=+document.getElementById('b4').value,b7=+document.getElementById('b7').value;
+  d.pupils.forEach(function(p){p.tot=p.marks.reduce(function(a,b){return a+b},0)});
+  var avg=d.pupils.reduce(function(a,p){return a+p.tot},0)/N;
+  document.getElementById('title').textContent=d.title;document.getElementById('sub').textContent=d.sub+' · '+N+' pupils';
+  document.getElementById('avg').textContent=Math.round(avg);document.getElementById('of').textContent='average, out of '+max;document.getElementById('delta').textContent='';
+  var p4=d.pupils.filter(function(p){return p.tot>=b4}).length/N*100,p7=d.pupils.filter(function(p){return p.tot>=b7}).length/N*100;
+  document.getElementById('g4').textContent=Math.round(p4)+'%';document.getElementById('g7').textContent=Math.round(p7)+'%';
+  // topics
+  var tp={},to=[];qs.forEach(function(q,j){if(!tp[q.topic]){tp[q.topic]={got:0,max:0,from:j,n:0};to.push(q.topic)}var t=tp[q.topic];t.n++;t.max+=q.max*N;d.pupils.forEach(function(p){t.got+=p.marks[j]})});
+  var worst=to.slice().sort(function(a,b){return tp[a].got/tp[a].max-tp[b].got/tp[b].max})[0];document.getElementById('wt').textContent=worst;
+  // questions
+  var qst=qs.map(function(q,j){var got=0,z=0,full=0;d.pupils.forEach(function(p){got+=p.marks[j];if(p.marks[j]===0)z++;if(p.marks[j]===q.max)full++});return{pct:got/(q.max*N)*100,z:z,full:full,full_pct:Math.round(full/N*100)}});
+  var wq=0;qst.forEach(function(s,j){if(s.pct<qst[wq].pct)wq=j});
+  // class table
+  var cls={},co=[];d.pupils.forEach(function(p){if(!cls[p.cls]){cls[p.cls]=[];co.push(p.cls)}cls[p.cls].push(p)});
+  var ct=document.getElementById('ct');ct.innerHTML='<tr><th>Class</th><th>Average</th><th>Grade 4+</th></tr>'+co.sort().map(function(c){var a=cls[c].reduce(function(x,p){return x+p.tot},0)/cls[c].length,g=cls[c].filter(function(p){return p.tot>=b4}).length/cls[c].length*100;return'<tr><td>'+c+'</td><td>'+a.toFixed(0)+'</td><td>'+Math.round(g)+'%</td></tr>'}).join('');
+  // matrix
+  var cols='repeat('+qs.length+',minmax(0,1fr))';
+  ['bands','qn','pc'].forEach(function(id){document.getElementById(id).style.gridTemplateColumns=cols});document.getElementById('cells').style.gridTemplateColumns=cols;
+  var bands=document.getElementById('bands');bands.innerHTML='';to.forEach(function(t){var b=el('div','band'+(t===worst?' red':''));b.style.gridColumn='span '+tp[t].n;b.textContent=tp[t].n>1?t+' '+Math.round(tp[t].got/tp[t].max*100)+'%':'';b.title=t+' '+Math.round(tp[t].got/tp[t].max*100)+'%';bands.appendChild(b)});
+  var qn=document.getElementById('qn');qn.innerHTML='';qs.forEach(function(q,j){var e=el('div','qn'+(j===wq?' red':''));e.textContent=j+1;qn.appendChild(e)});
+  var s=document.getElementById('sort').value,rows=d.pupils.slice();
+  if(s==='hi')rows.sort(function(a,b){return b.tot-a.tot});else if(s==='lo')rows.sort(function(a,b){return a.tot-b.tot});else rows.sort(function(a,b){return a.cls<b.cls?-1:a.cls>b.cls?1:b.tot-a.tot});
+  var rh=Math.max(3,Math.min(8,Math.floor(560/rows.length)));var cells=document.getElementById('cells');cells.style.setProperty('--rh',rh+'px');cells.innerHTML='';
+  var frag=document.createDocumentFragment();
+  rows.forEach(function(p){p.marks.forEach(function(m,j){var c=el('div','c '+(m===qs[j].max?'f':m===0?'z':'p'));c.title=p.name+' · '+qs[j].n+': '+m+'/'+qs[j].max;frag.appendChild(c)})});
+  cells.appendChild(frag);
+  var hot=el('div','hot');hot.id='hot';cells.appendChild(hot);
+  var pc=document.getElementById('pc');pc.innerHTML='';qst.forEach(function(q,j){var c=el('div','col');if(j===wq)c.style.color='var(--red)';c.innerHTML='<span>'+Math.round(q.pct)+'</span><i style="height:'+Math.max(2,q.pct*.8)+'px;'+(j===wq?'background:var(--red)':'')+'"></i>';c.title=qs[j].n+': '+Math.round(q.pct)+'% of marks gained';pc.appendChild(c)});
+  requestAnimationFrame(function(){var f=cells.children[wq],l=cells.children[(rows.length-1)*qs.length+wq];if(!f||!l)return;hot.style.left=(f.offsetLeft-3)+'px';hot.style.top=(f.offsetTop-3)+'px';hot.style.width=(f.offsetWidth+6)+'px';hot.style.height=(l.offsetTop+l.offsetHeight-f.offsetTop+6)+'px'});
+  var call=document.getElementById('call');call.innerHTML='<b>'+qst[wq].z+' pupils scored 0 on '+qs[wq].n+'</b><span>Lowest scoring question: '+Math.round(qst[wq].pct)+'% of marks gained, topic '+qs[wq].topic+'. Weakest topic overall is '+worst+' ('+Math.round(tp[worst].got/tp[worst].max*100)+'%). Reteach '+worst.toLowerCase()+' first.</span>';
+}
+function setMsg(t,bad){var m=document.getElementById('msg');m.textContent=t;m.className='msg'+(bad?' bad':'')}
+function parse(txt){
+  var rows=txt.replace(/\r/g,'').split('\n').filter(function(l){return l.trim()}).map(function(l){return l.split(',').map(function(x){return x.trim()})});
+  var h=rows.shift();if(h.length<3||h[0].toLowerCase()!=='pupil'||h[1].toLowerCase()!=='class')throw new Error('The first two columns must be pupil and class.');
+  var qs=h.slice(2).map(function(x,i){var a=x.split('|');if(a.length<3||!(+a[2]>0))throw new Error('Column "'+x+'" should look like Q1|Number|2.');return{n:a[0],topic:a[1],max:+a[2]}});
+  var P=rows.map(function(r,i){var m=qs.map(function(q,j){var v=+r[j+2];if(r[j+2]===''||isNaN(v)||v<0||v>q.max)throw new Error('Row '+(i+2)+', '+q.n+': expected a mark from 0 to '+q.max+'.');return v});return{name:r[0],cls:r[1],marks:m}});
+  if(!P.length)throw new Error('There are no pupil rows in this file.');
+  return{qs:qs,pupils:P,title:'Uploaded marks',sub:'Your file'}
+}
+document.getElementById('sample').onclick=function(){DATA=sample();setMsg('Showing generated sample data.');render()};
+document.getElementById('file').onchange=function(e){var f=e.target.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){try{DATA=parse(rd.result);setMsg('Loaded '+DATA.pupils.length+' pupils and '+DATA.qs.length+' questions.');render()}catch(x){setMsg(x.message,true)}};rd.readAsText(f)};
+['b4','b7','sort'].forEach(function(id){document.getElementById(id).addEventListener('input',function(){if(DATA)render()})});
+DATA=sample();render();
+})();
+</script>
+</body></html>

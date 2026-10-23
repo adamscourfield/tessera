@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Outings</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Unbounded:wght@600;700;800&display=swap">
+<style>
+:root{--b:#1B3BFF;--o:#FF6A2B;--ink:#0B1233;--mu:#6B77A5;--bg:#DCE7FF;--f:'Instrument Sans',system-ui,sans-serif;--u:'Unbounded',var(--f)}
+*{box-sizing:border-box;margin:0}
+html,body{overflow-x:clip}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);min-height:100vh}
+button{font-family:var(--f);color:inherit}button:focus-visible,input:focus-visible{outline:3px solid var(--o);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:26px 24px 44px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{font:800 26px var(--u);color:var(--b);letter-spacing:-1px;display:flex;gap:10px;align-items:center}
+.logo i{display:block;width:28px;height:28px;border-radius:50% 50% 50% 4px;background:var(--o);transform:rotate(-45deg)}
+.tr{display:flex;gap:8px;flex-wrap:wrap}
+.tr button{border:0;background:rgba(255,255,255,.7);border-radius:99px;padding:11px 18px;font-weight:600;font-size:16px;cursor:pointer}
+.tr button[aria-pressed=true]{background:var(--b);color:#fff}
+.g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,430px);gap:24px;margin-top:22px;align-items:start}
+.mapc{position:relative;border-radius:34px;overflow:hidden;background:#cfe0ff;min-height:640px;box-shadow:0 30px 60px -34px rgba(11,18,51,.5)}
+.mapc svg{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;background:#fff;border-radius:99px;padding:10px 18px 10px 12px;font-weight:600;font-size:16px;display:flex;align-items:center;gap:9px;box-shadow:0 12px 26px -10px rgba(11,18,51,.4);max-width:70%}
+.pin i{flex:none;width:14px;height:14px;border-radius:50%;background:var(--b)}.pin.o i{background:var(--o)}
+.plan{position:absolute;left:18px;bottom:18px;width:min(380px,calc(100% - 36px));background:rgba(255,255,255,.94);border-radius:26px;padding:20px 22px}
+.plan h3{font:700 16px var(--u);margin-bottom:10px;letter-spacing:-.5px}
+.s{display:grid;grid-template-columns:62px 1fr auto;gap:10px;padding:8px 0;font-size:16px;border-top:1px dashed #B9C8EE;align-items:center}
+.s:first-of-type{border:0}.s b{font:600 14px var(--u);color:var(--b);letter-spacing:-.5px}
+.s button{border:0;background:none;color:#9AA6D2;cursor:pointer;font-size:18px;padding:2px 6px;border-radius:6px}.s button:hover{color:var(--ink)}
+.pa{display:flex;gap:6px;margin-top:10px}.pa input{min-width:0;flex:1;border:2px solid #D3DBF3;border-radius:99px;padding:8px 14px;font:500 15px var(--f)}
+.pa input[type=time]{flex:0 0 108px}.pa button{border:0;background:var(--ink);color:#fff;border-radius:99px;padding:8px 14px;font-weight:600;cursor:pointer}
+.tk{background:#fff;border-radius:34px;box-shadow:0 40px 70px -34px rgba(11,18,51,.5);overflow:hidden}
+.tk .h{background:var(--b);color:#fff;padding:26px 30px 22px}
+.tk .h small{font-size:15px;opacity:.8;font-weight:500}
+.tk .h h2{font:800 30px/1.08 var(--u);letter-spacing:-1.5px;margin-top:8px}
+.cut{position:relative;height:0;border-top:3px dashed #D3DBF3;margin:0 18px}
+.cut:before,.cut:after{content:"";position:absolute;top:-24px;width:44px;height:44px;border-radius:50%;background:var(--bg)}.cut:before{left:-42px}.cut:after{right:-42px}
+.tb{padding:26px 30px 28px}
+.tm{display:flex;justify-content:space-between;align-items:flex-end}
+.tm div{font-size:15px;color:var(--mu);font-weight:500}.tm b{display:block;font:700 32px var(--u);color:var(--ink);letter-spacing:-2px;margin-top:2px}
+.pg{margin-top:22px;display:grid;gap:14px}
+.pr{font-size:17px;font-weight:500}.pr span{float:right;color:var(--mu)}
+.bar{height:12px;border-radius:99px;background:#E6ECFB;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:var(--b);transition:width .6s}.bar.o i{background:var(--o)}
+.chase{border:2px solid var(--ink);background:#fff;border-radius:99px;padding:5px 12px;font-weight:700;font-size:13px;cursor:pointer;margin-left:8px}.chase:disabled{opacity:.45;cursor:default}
+.ck{display:flex;gap:11px;align-items:center;font-size:17px;font-weight:600;cursor:pointer;padding:3px 0;background:none;border:0;text-align:left;width:100%}
+.ck i{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid #B9C4E6;color:#fff;font-style:normal;display:flex;align-items:center;justify-content:center;font-size:15px}
+.ck[aria-pressed=true] i{background:#18B26B;border-color:#18B26B}
+.rt{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600;flex-wrap:wrap}
+.rt button{width:30px;height:30px;border-radius:50%;border:2px solid #B9C4E6;background:#fff;font-weight:700;cursor:pointer}
+.rt output{min-width:20px;text-align:center}
+.rt .ok{margin-left:auto;font-size:14px;border-radius:99px;padding:4px 12px}.good{background:#D8F5E6;color:#0C7A47}.bad{background:#FFE4DC;color:#B3321D}
+.go{margin-top:22px;display:block;width:100%;background:var(--o);color:#fff;text-align:center;font:700 17px var(--u);padding:18px;border-radius:99px;letter-spacing:-.5px;border:0;cursor:pointer}
+.go:disabled{background:#D3DBF3;color:#7C88B5;cursor:not-allowed}
+.hint{margin-top:10px;font-size:14px;color:var(--mu);min-height:20px}
+.stp{margin-top:18px;display:flex;gap:6px}.stp span{flex:1;height:8px;border-radius:99px;background:#E6ECFB}.stp span.on{background:#18B26B}
+.stl{margin-top:8px;font-weight:600;font-size:15px}
+@media (max-width:960px){.g{grid-template-columns:1fr}.wrap{padding:18px 14px 36px}.mapc{min-height:600px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div class="wrap">
+<div class="top"><div class="logo"><i></i>Outings</div><div class="tr" id="tr" role="group" aria-label="Choose a trip"></div></div>
+<div class="g"><div class="mapc" id="mapc"></div><div class="tk" id="tk"></div></div></div>
+<script>
+(function(){
+var TRIPS=[
+{id:'sm',name:'Science Museum, London',grp:'Year 9',pupils:90,staff:9,date:'12 Mar',days:140,cost:14.5,cons:61,pay:72,dest:'Science Museum · 10:00',from:'Oakfield Academy · 08:30',
+ plan:[['08:30','Coaches leave school'],['10:00','Arrive, split into 9 groups'],['12:30','Lunch in Hyde Park'],['14:15','Coaches leave London'],['15:30','Back at school']],ras:false,fa:2},
+{id:'ph',name:'Peak District residential',grp:'Year 7',pupils:120,staff:10,date:'18 May',days:207,cost:186,cons:84,pay:61,dest:'Peak District centre · 13:00',from:'Oakfield Academy · 08:00',
+ plan:[['08:00','Coaches leave school'],['13:00','Arrive and settle in'],['14:30','Orienteering in groups'],['18:00','Dinner and evening activity'],['21:30','Lights out']],ras:false,fa:1},
+{id:'gl',name:'Shakespeare\'s Globe',grp:'Year 10',pupils:60,staff:6,date:'4 Nov',days:12,cost:22,cons:54,pay:51,dest:'Shakespeare\'s Globe · 13:30',from:'Oakfield Academy · 10:15',
+ plan:[['10:15','Train from Bishop\'s Stortford'],['12:00','Lunch on the South Bank'],['13:30','Workshop and tour'],['16:00','Matinee performance'],['18:45','Back at school']],ras:true,fa:3}];
+var S={};TRIPS.forEach(function(t){S[t.id]={cons:t.cons,pay:t.pay,chased:false,ras:t.ras,staff:t.staff,fa:t.fa,plan:t.plan.map(function(x){return x.slice()}),stage:0,msg:''}});
+var cur=0;
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function money(n){return '£'+n.toLocaleString('en-GB',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2})}
+function fmtDays(t){return t.days+' days'}
+function ratioOk(t,s){return t.pupils/s.staff<=10&&s.fa>=2}
+function draw(){
+ var t=TRIPS[cur],s=S[t.id];
+ var tr=document.getElementById('tr');tr.innerHTML='';
+ TRIPS.forEach(function(x,i){var b=document.createElement('button');b.type='button';b.textContent=x.name.split(',')[0].split(' ').slice(0,3).join(' ');b.setAttribute('aria-pressed',i===cur);b.onclick=function(){cur=i;draw()};tr.appendChild(b)});
+ // map
+ var k=cur;var ax=[1000,960,1040][k],ay=[840,800,860][k],bx=[900,980,820][k],by=[250,200,330][k];
+ var mp=document.getElementById('mapc');
+ mp.innerHTML='<svg viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true"><rect width="1000" height="700" fill="#DCE7FF"/><path d="M-20 470 C 120 410 240 500 380 450 S 620 340 760 400 S 940 450 1040 370" stroke="#A9C6FF" stroke-width="90" stroke-linecap="round"/><ellipse cx="500" cy="190" rx="100" ry="60" fill="#C9E9D3"/><ellipse cx="190" cy="170" rx="80" ry="50" fill="#C9E9D3"/><ellipse cx="720" cy="590" rx="110" ry="54" fill="#C9E9D3"/><g stroke="#fff" stroke-linecap="round"><path d="M0 80 L1000 140" stroke-width="10"/><path d="M0 300 L1000 230" stroke-width="12"/><path d="M0 610 L1000 540" stroke-width="9"/><path d="M130 0 L210 700" stroke-width="9"/><path d="M340 0 L420 700" stroke-width="12"/><path d="M590 0 L540 700" stroke-width="9"/><path d="M790 0 L860 700" stroke-width="10"/><path d="M240 0 L740 700" stroke-width="6"/><path d="M930 0 L470 700" stroke-width="6"/></g><path id="rt" d="M'+(ax/1.6)+' '+(ay/1.45)+' C 360 520 420 330 '+(bx/1.6)+' '+(by/1.45)+'" stroke="#FF6A2B" stroke-width="7" stroke-dasharray="2 15" stroke-linecap="round"/><circle cx="'+(ax/1.6)+'" cy="'+(ay/1.45)+'" r="12" fill="#1B3BFF" stroke="#fff" stroke-width="5"/><circle cx="'+(bx/1.6)+'" cy="'+(by/1.45)+'" r="12" fill="#FF6A2B" stroke="#fff" stroke-width="5"/></svg>'+
+ '<div class="pin" style="left:'+(ax/1.6/10-4)+'%;top:'+(ay/1.45/7+1)+'%"><i></i>'+esc(t.from)+'</div><div class="pin o" style="left:'+(bx/1.6/10-12)+'%;top:'+(by/1.45/7-9)+'%"><i></i>'+esc(t.dest)+'</div>'+
+ '<div class="plan"><h3>Plan for the day</h3>'+s.plan.map(function(p,i){return'<div class="s"><b>'+esc(p[0])+'</b><span>'+esc(p[1])+'</span><button type="button" data-rm="'+i+'" aria-label="Remove '+esc(p[1])+'">×</button></div>'}).join('')+'<div class="pa"><input type="time" id="pt" value="12:00" aria-label="Time"><input id="px" placeholder="Add a stop" aria-label="New stop"><button type="button" id="pb">Add</button></div></div>';
+ mp.querySelectorAll('[data-rm]').forEach(function(b){b.onclick=function(){s.plan.splice(+b.dataset.rm,1);draw()}});
+ var add=function(){var v=document.getElementById('px').value.trim(),tm=document.getElementById('pt').value;if(!v||!tm)return;s.plan.push([tm,v]);s.plan.sort(function(a,b){return a[0]<b[0]?-1:1});draw()};
+ document.getElementById('pb').onclick=add;document.getElementById('px').onkeydown=function(e){if(e.key==='Enter')add()};
+ // ticket
+ var rok=ratioOk(t,s),ready=s.ras&&rok&&s.cons>=t.pupils*0.9&&false;
+ var allIn=s.cons>=t.pupils;
+ var gate=s.ras&&rok;
+ var tk=document.getElementById('tk');
+ var steps=['Draft','Awaiting head','Approved'];
+ tk.innerHTML='<div class="h"><small>'+t.grp+' · '+t.pupils+' pupils · '+s.staff+' staff</small><h2>'+esc(t.name)+'</h2></div><div class="cut"></div><div class="tb">'+
+ '<div class="tm"><div>Date<b>'+esc(t.date)+'</b></div><div style="text-align:right">Leaves in<b>'+fmtDays(t)+'</b></div></div><div class="pg">'+
+ '<div class="pr">Consents<span>'+s.cons+' of '+t.pupils+'</span><button type="button" class="chase" id="cc" '+(s.chased||allIn?'disabled':'')+'>'+(allIn?'All in':s.chased?'Chased':'Chase '+(t.pupils-s.cons))+'</button><div class="bar o"><i style="width:'+Math.round(s.cons/t.pupils*100)+'%"></i></div></div>'+
+ '<div class="pr">Payments<span>'+money(s.pay*t.cost)+' of '+money(t.pupils*t.cost)+'</span><div class="bar"><i style="width:'+Math.round(s.pay/t.pupils*100)+'%"></i></div></div>'+
+ '<button type="button" class="ck" id="ras" aria-pressed="'+s.ras+'"><i>'+(s.ras?'✓':'')+'</i>Risk assessment signed off by trip lead</button>'+
+ '<div class="rt"><span>Staff</span><button type="button" id="sm" aria-label="Fewer staff">−</button><output>'+s.staff+'</output><button type="button" id="sp" aria-label="More staff">+</button><span>First aiders</span><button type="button" id="fm" aria-label="Fewer first aiders">−</button><output>'+s.fa+'</output><button type="button" id="fp" aria-label="More first aiders">+</button><span class="ok '+(rok?'good':'bad')+'">1:'+Math.round(t.pupils/s.staff*10)/10+(rok?' · ok':' · needs more staff')+'</span></div></div>'+
+ '<button class="go" id="go" '+(gate&&s.stage===0?'':'disabled')+'>'+(s.stage===0?'Send for approval':s.stage===1?'Waiting for the headteacher':'Approved')+'</button><div class="hint">'+(s.stage===0?(gate?'Everything needed is in place.':(s.ras?'':'Sign off the risk assessment. ')+(rok?'':'Staffing must be 1:10 or better with two first aiders.')):s.msg)+'</div>'+
+ (s.stage===1?'<button type="button" class="chase" id="ap" style="margin:10px 0 0">Approve as headteacher</button>':'')+'<div class="stp">'+steps.map(function(x,i){return'<span class="'+(i<=s.stage?'on':'')+'"></span>'}).join('')+'</div><div class="stl">'+steps[s.stage]+'</div></div>';
+ document.getElementById('cc').onclick=function(){s.chased=true;s.msg='';var n=0;draw();setTimeout(function(){var add=Math.min(t.pupils-s.cons,Math.round((t.pupils-s.cons)*0.35));s.cons+=add;s.chased=false;draw();var cc=document.getElementById('cc');},1400)};
+ document.getElementById('ras').onclick=function(){s.ras=!s.ras;draw()};
+ document.getElementById('sm').onclick=function(){s.staff=Math.max(1,s.staff-1);draw()};document.getElementById('sp').onclick=function(){s.staff=Math.min(30,s.staff+1);draw()};
+ document.getElementById('fm').onclick=function(){s.fa=Math.max(0,s.fa-1);draw()};document.getElementById('fp').onclick=function(){s.fa=Math.min(10,s.fa+1);draw()};
+ document.getElementById('go').onclick=function(){s.stage=1;s.msg='Sent to the headteacher for sign-off.';draw()};
+ var ap=document.getElementById('ap');if(ap)ap.onclick=function(){s.stage=2;s.msg='Approved by the headteacher. Consent letters can now go to families.';draw()};
+}
+draw();
+})();
+</script></body></html>

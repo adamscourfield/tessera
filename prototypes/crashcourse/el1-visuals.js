@@ -1,0 +1,1 @@
+import{renderDiagram}from './visual.js?v=20261023-physicscomplete01';import{electricFigure}from './el1-figures.js?v=20261023-physicscomplete01';export function showEl1(spec='symbols',w={}){let[kind,card]=spec.split(':');renderDiagram(w.title||'Explore the circuit',w.label||'Original educational model',electricFigure({kind,state:card||'0',...w}),'PHYSICS · ELECTRICITY');}

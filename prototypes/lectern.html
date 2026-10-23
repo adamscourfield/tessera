@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lectern</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+:root{--bg:#2A2D36;--panel:#343844;--rose:#B8486A;--wine:#6B1D34;--ink:#1F2128;--mu:#8A90A3;--f:'Instrument Sans','Instrument',system-ui,sans-serif;--s:'Libre Caslon Text','Caslon',Georgia,serif}
+*{box-sizing:border-box;margin:0}
+html,body{overflow-x:clip}
+body{background:var(--bg);color:#fff;font-family:var(--f);min-height:100vh}
+button,input{font-family:var(--f)}button:focus-visible,input:focus-visible,textarea:focus-visible,[contenteditable]:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+.app{display:grid;grid-template-columns:260px minmax(0,1fr) 290px;gap:28px;padding:26px 28px 40px;max-width:1500px;margin:0 auto}
+.rail{min-width:0}.cm{min-width:0}.rail .logo{font:700 25px var(--s);display:flex;align-items:center;gap:12px}.logo i{width:11px;height:28px;background:var(--rose);display:block}
+.rail h5{font-size:14px;font-weight:500;color:var(--mu);margin:34px 0 10px}
+.nav button{display:block;width:100%;text-align:left;background:none;border:0;border-left:2px solid #444855;color:#A9AFC0;font-size:17px;font-weight:500;padding:10px 0 10px 16px;cursor:pointer}
+.nav button[aria-current=true]{color:#fff;border-color:var(--rose);font-weight:600}
+.ev div{font-size:14px;color:#7D8396;padding:5px 0 5px 28px;border-left:2px solid #444855}
+.mid{min-width:0}
+.act{display:flex;justify-content:flex-end;gap:10px;margin-bottom:14px;align-items:center;flex-wrap:wrap}
+.act span{font-size:14px;color:var(--mu);margin-right:auto}
+.act button{font-weight:600;font-size:15px;border:0;padding:10px 18px;border-radius:99px;background:var(--panel);color:#fff;cursor:pointer}.act .p{background:var(--rose)}
+.page{background:#fff;color:var(--ink);font-family:var(--s);padding:clamp(24px,5vw,64px) clamp(20px,5vw,72px) 56px;box-shadow:0 30px 90px rgba(0,0,0,.5);min-height:700px}
+.page h1{font-weight:700;font-size:clamp(26px,3.6vw,38px);line-height:1.12;letter-spacing:-.5px}
+.ds{font-style:italic;font-size:17px;color:#6B6E78;margin-top:8px;padding-bottom:18px;border-bottom:2px solid var(--ink)}
+.page h2{font-size:24px;color:var(--wine);margin:28px 0 12px;font-weight:700}.page h2 span{color:#B8B0B4;margin-right:10px;font-weight:400}
+.txt{max-width:600px;font-size:18px;line-height:1.7;color:#2B2E37}.txt p+p{margin-top:10px}
+.txt mark{background:#F7E3EA;padding:0 2px}
+sup{color:var(--wine);font-size:12px;font-weight:700;margin-left:1px;cursor:pointer;font-family:var(--f);text-decoration:underline dotted}
+table{width:100%;max-width:600px;border-collapse:collapse;margin:16px 0;font-size:16px}
+thead td{border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);font-style:italic;color:#555;padding:7px 0}
+td{padding:7px 0;border-bottom:1px solid #E1DFE2;font-variant-numeric:tabular-nums}
+td:not(:first-child){text-align:right}
+td input{width:74px;font:16px var(--s);text-align:right;border:1px solid transparent;border-bottom:1px dashed #C9C3C6;background:#FBF8F9;padding:3px 4px;color:var(--ink)}
+td input:hover{border-color:#C9C3C6}
+tr.bad td{color:var(--wine);font-weight:700}
+.fn{max-width:600px;margin-top:22px;font-size:14px;color:#7A7D88;font-style:italic;border-top:1px solid #E1DFE2;padding-top:10px}
+.fn div{padding:3px 0 3px 10px;border-left:2px solid transparent}.fn div.on{border-color:var(--wine);color:var(--ink);background:#FBF5F7}.fn b{color:var(--wine);font-style:normal}
+.hint{font-family:var(--f);font-size:13px;color:#8A8D98;margin-top:8px}
+.cm h5{font-size:15px;font-weight:600;color:var(--mu);margin-bottom:14px}
+.cc{background:var(--panel);border-radius:12px;padding:14px;margin-bottom:12px;font-size:15px;line-height:1.45;color:#D9DCE6}
+.cc b{display:block;color:#fff;font-size:15px;margin-bottom:3px}.cc small{display:flex;justify-content:space-between;align-items:center;color:var(--mu);margin-top:8px;font-size:13px}
+.cc button{background:none;border:1px solid #555a69;color:#D9DCE6;border-radius:99px;padding:3px 10px;font-size:12px;cursor:pointer}
+.cc.res{opacity:.5}.cc.res p{text-decoration:line-through}
+.nc{display:flex;flex-direction:column;gap:8px}.nc textarea{background:var(--panel);border:1px solid #4a4f5e;color:#fff;border-radius:12px;padding:10px 12px;font:15px var(--f);resize:vertical;min-height:70px}
+.nc button{align-self:flex-end;background:var(--rose);border:0;color:#fff;font-weight:600;padding:9px 16px;border-radius:99px;cursor:pointer}
+@media (max-width:1100px){.app{grid-template-columns:200px minmax(0,1fr)}.cm{grid-column:2}}
+@media (max-width:760px){.app{grid-template-columns:1fr;padding:16px 12px 30px}.nav{display:flex;overflow-x:auto;gap:6px}.nav button{width:auto;white-space:nowrap;border:1px solid #444855;border-radius:99px;padding:8px 14px}.nav button[aria-current=true]{background:var(--rose);border-color:var(--rose)}.rail h5,.ev{display:none}.cm{grid-column:1}}
+@media print{body{background:#fff}.rail,.cm,.act,.hint{display:none!important}.app{display:block;padding:0}.page{box-shadow:none;padding:0}td input{border:0;background:none}}
+</style></head><body>
+<div class="app">
+<aside class="rail"><div class="logo"><i></i>Lectern</div><h5>Autumn 1 report</h5><nav class="nav" id="nav" aria-label="Report sections"></nav><h5>Evidence in this report</h5><div class="ev"><div>Attendance log, week 8</div><div>Learning walks, 14 Oct</div><div>Year 11 Mock 2</div></div></aside>
+<main class="mid"><div class="act"><span id="sv"></span><button type="button" id="dr">Draft 3</button><button type="button" class="p" id="ex">Export report</button></div>
+<article class="page" id="page"></article></main>
+<aside class="cm" aria-label="Comments"><h5>Comments</h5><div id="cl"></div><div class="nc"><textarea id="ct" placeholder="Add a comment" aria-label="New comment"></textarea><button type="button" id="cb">Comment</button></div></aside>
+</div>
+<script>
+(function(){
+function pt(x){return(Math.round(x*10)/10)}
+var SEC=[
+{t:'Attendance and behaviour',rows:[['Attendance (%)',94.6,93.8,'up',1],['Persistent absence (%)',14.2,13.1,'down',1],['Suspensions',11,16,'down',0],['Permanent exclusions',0,1,'down',0]],
+ note:['Attendance log, week 8. Figures update when the report is exported.','Contact log: 18 of 23 pupils. Names held in the school\'s records, not in this report.'],
+ extra:'Twenty-three pupils are at risk of crossing the persistent absence threshold this month; eighteen already have a logged contact with home.<sup data-n="2">2</sup>'},
+{t:'Teaching and learning',rows:[['Lesson observations completed',31,24,'up',0],['Secure or better (%)',87,81,'up',0],['Lessons showing adaptive teaching for SEND (%)',64,58,'up',0]],
+ note:['Learning walk summary, 14 October.','Observations are recorded in Anaxi and counted automatically.'],
+ extra:'Questioning is the strongest area. Adaptive teaching for pupils with SEND is the main development point.<sup data-n="1">1</sup>'},
+{t:'Pupil outcomes',rows:[['Year 11 Mock 2: grade 4+ English and maths (%)',71,68,'up',0],['Year 11 Mock 2: grade 5+ English and maths (%)',52,49,'up',0],['Predicted Progress 8',0.12,0.04,'up',2]],
+ note:['Year 11 Mock 2 results, entered by the data manager.','Predictions are an estimate, not a forecast of the final published figure.'],
+ extra:'Gaps between disadvantaged pupils and their peers are reported separately in the Year 11 outcomes paper.<sup data-n="1">1</sup>'},
+{t:'Finance',rows:[['In-year variance to budget (£k)',-42,-65,'up',0],['Staffing as a share of income (%)',81.5,83,'down',1],['Reserves (£k)',312,298,'up',0]],
+ note:['Management accounts to the end of September.','Figures are reported in £ thousands.'],
+ extra:'The finance committee will receive the full forecast in November.<sup data-n="1">1</sup>'},
+{t:'Safeguarding',rows:[['Referrals this half-term',14,11,'neutral',0],['Staff with in-date training (%)',100,96,'up',0],['Single central record checks complete (%)',100,100,'up',0]],
+ note:['Safeguarding log. No pupil is identified in this report.','Training record, week 7.'],
+ extra:'Referrals have risen; this is consistent with improved reporting by staff, and each has been followed up by the designated lead.<sup data-n="1">1</sup>'}];
+var cur=0,draft=3,edited=false,hl=0;
+var cm=[{a:'Mrs Hall',t:'Rewritten to lead with the Monday pattern. Can you check the 14.2% against the DfE figure?',w:'Today, 07:31',r:0},{a:'Cllr Ahmed, governor',t:'Helpful. Can we see last year\'s persistent absence by year group at the meeting?',w:'Yesterday',r:0},{a:'Open question',t:'Staff retention in maths, from the last meeting.',w:'Still to answer',r:0}];
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function fmt(v,d){return d?v.toFixed(d):String(v)}
+function dir(r){var d=r[1]-r[2];if(Math.abs(d)<1e-9)return 0;return d>0?1:-1}
+function bad(r){var d=dir(r);if(r[3]==='neutral'||!d)return false;return(r[3]==='up'&&d<0)||(r[3]==='down'&&d>0)}
+function sentence(r,first){var d=pt(Math.abs(r[1]-r[2])*Math.pow(10,r[4]))/Math.pow(10,r[4]);var dd=r[4]?d.toFixed(r[4]):d;var lab=r[0].replace(/ \(.*\)/,'').replace(/^./,function(c){return c.toLowerCase()});
+ var unit=/\(%\)/.test(r[0])?'%':'';var v=fmt(r[1],r[4])+unit;
+ if(!dir(r))return 'Our '+lab+' is unchanged at '+v+'.';
+ return 'Our '+lab+' stands at '+v+', '+dd+(unit?' points ':' ')+(dir(r)>0?'above':'below')+' this time last year.'}
+function draw(){
+ var S=SEC[cur];
+ var nav=document.getElementById('nav');nav.innerHTML='';
+ SEC.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.textContent=s.t;if(i===cur)b.setAttribute('aria-current','true');b.onclick=function(){cur=i;hl=0;draw()};nav.appendChild(b)});
+ var worst=S.rows.filter(bad)[0];
+ var h='<h1>Headteacher\'s report to governors</h1><div class="ds">Autumn term, first half. For the meeting of Thursday 5 November.</div><h2><span>'+(cur+1)+'</span>'+esc(S.t)+'</h2><div class="txt"><p>';
+ h+=S.rows.slice(0,2).map(function(r,i){return sentence(r,i===0)}).join(' ')+'<sup data-n="1">1</sup></p>';
+ if(worst)h+='<p><mark>'+esc(worst[0].replace(/ \(.*\)/,''))+' has moved the wrong way.</mark> Governors may wish to ask what is driving the change and what the school is doing about it.</p>';
+ h+='</div><table><thead><tr><td></td><td>This year</td><td>Last year</td><td>Change</td></tr></thead>';
+ S.rows.forEach(function(r,i){var d=r[1]-r[2],ds=(d>0?'+':d<0?'−':'')+Math.abs(Math.round(d*100)/100);h+='<tr class="'+(bad(r)?'bad':'')+'"><td>'+esc(r[0])+'</td><td><input type="number" step="any" value="'+r[1]+'" data-i="'+i+'" data-k="1" aria-label="'+esc(r[0])+', this year"></td><td><input type="number" step="any" value="'+r[2]+'" data-i="'+i+'" data-k="2" aria-label="'+esc(r[0])+', last year"></td><td>'+ds+'</td></tr>'});
+ h+='</table><div class="txt"><p>'+S.extra+'</p></div><div class="hint">Edit any figure in the table and the report text updates. Click a note number to see its evidence.</div>';
+ h+='<div class="fn">'+S.note.map(function(n,i){return'<div class="'+(hl===i+1?'on':'')+'"><b>'+(i+1)+'</b> '+esc(n)+'</div>'}).join('')+'</div>';
+ var pg=document.getElementById('page');pg.innerHTML=h;
+ pg.querySelectorAll('input').forEach(function(inp){inp.onchange=function(){var v=parseFloat(inp.value);if(isNaN(v))return;S.rows[+inp.dataset.i][+inp.dataset.k]=v;touch();draw()}});
+ pg.querySelectorAll('sup').forEach(function(s){s.onclick=function(){hl=+s.dataset.n;draw()}});
+ document.getElementById('dr').textContent='Draft '+draft;
+ renderCm()}
+function touch(){if(!edited){edited=true;draft++}document.getElementById('sv').textContent='Saved just now'}
+function renderCm(){var c=document.getElementById('cl');c.innerHTML='';
+ cm.forEach(function(x,i){var d=document.createElement('div');d.className='cc'+(x.r?' res':'');d.innerHTML='<b>'+esc(x.a)+'</b><p>'+esc(x.t)+'</p><small><span>'+esc(x.w)+'</span><button type="button">'+(x.r?'Reopen':'Resolve')+'</button></small>';d.querySelector('button').onclick=function(){x.r=!x.r;renderCm()};c.appendChild(d)})}
+document.getElementById('cb').onclick=function(){var t=document.getElementById('ct');var v=t.value.trim();if(!v)return;cm.unshift({a:'You',t:v,w:'Just now',r:0});t.value='';renderCm()};
+document.getElementById('ex').onclick=function(){window.print()};
+document.getElementById('dr').onclick=function(){draft++;edited=true;document.getElementById('sv').textContent='Saved as draft '+draft;document.getElementById('dr').textContent='Draft '+draft};
+draw();
+})();
+</script></body></html>

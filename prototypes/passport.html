@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Passport</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--d:#3B1F8F;--l:#D6F25B;--ink:#241552;--mu:#6A5F8F;--bg:#F4F2FF;--f:'Lexend',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html,body{overflow-x:clip}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);min-height:100vh}
+button{font-family:var(--f);color:inherit}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #F2A33A;outline-offset:2px}
+.app{display:grid;grid-template-columns:minmax(300px,420px) minmax(0,1fr);min-height:100vh}
+.l{background:var(--d);color:#fff;border-radius:0 48px 48px 0;padding:32px 30px 40px;display:flex;flex-direction:column}
+.logo{font-weight:700;font-size:22px;display:flex;gap:10px;align-items:center;color:var(--l)}
+.logo i{width:24px;height:24px;border-radius:50%;border:5px solid var(--l);display:block}
+.pl{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.pl button{border:2px solid rgba(255,255,255,.35);background:none;border-radius:99px;padding:7px 14px;font-size:15px;font-weight:500;cursor:pointer;color:#fff}
+.pl button[aria-pressed=true]{background:var(--l);color:var(--d);border-color:var(--l);font-weight:700}
+.av{width:150px;height:150px;border-radius:50%;background:var(--l);color:var(--d);font-weight:800;font-size:84px;display:flex;align-items:center;justify-content:center;margin-top:30px}
+h1{font-weight:800;font-size:clamp(40px,5vw,60px);letter-spacing:-2.5px;margin-top:20px;line-height:1}
+.sn{font-size:22px;opacity:.75;margin-top:6px}
+.pills{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.pill{border:2px solid rgba(255,255,255,.5);border-radius:99px;padding:7px 16px;font-size:15px;font-weight:500}.pill.f{background:var(--l);color:var(--d);border-color:var(--l);font-weight:600}
+.q{margin-top:30px;background:rgba(255,255,255,.12);border-radius:24px 24px 24px 6px;padding:22px 24px;font-size:20px;line-height:1.4;font-weight:500}
+.q small{display:block;margin-top:10px;font-size:14px;opacity:.65;font-weight:400}
+.rev{margin-top:auto;padding-top:28px;font-size:16px;opacity:.85}
+.r{padding:32px 36px 48px;min-width:0}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.hd h2{font-weight:800;font-size:clamp(30px,3.6vw,44px);letter-spacing:-1.5px}
+.btn{background:var(--ink);color:#fff;border:0;border-radius:99px;padding:14px 24px;font-size:16px;font-weight:600;cursor:pointer}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:24px}
+.t{background:#fff;border-radius:26px;padding:20px 22px;display:flex;gap:16px;align-items:center;min-height:120px;position:relative}
+.ic{flex:none;width:58px;height:58px;border-radius:19px;background:var(--l);display:flex;align-items:center;justify-content:center;font-size:26px}
+.t b{font-size:19px;font-weight:700;display:block;line-height:1.2}.t span{font-size:15px;color:var(--mu);display:block;margin-top:5px;line-height:1.35}
+.x{position:absolute;top:8px;right:10px;border:0;background:none;color:#B7ACE0;font-size:20px;cursor:pointer;line-height:1;padding:4px 8px;border-radius:8px}.x:hover{color:var(--ink)}
+.no{margin-top:16px;background:#FFE9E4;border-radius:26px;padding:18px 22px;display:flex;gap:10px;align-items:center;font-size:16px;font-weight:500;flex-wrap:wrap}
+.no h6{font-size:16px;font-weight:700;color:#B3321D;margin-right:6px}
+.no span{background:#fff;border-radius:99px;padding:8px 16px}
+.add{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.add input{flex:1 1 220px;min-width:0;border:2px solid #D7D0F0;background:#fff;border-radius:99px;padding:13px 20px;font:500 16px var(--f);color:var(--ink)}
+.add button{border:2px solid var(--ink);background:#fff;border-radius:99px;padding:12px 22px;font-weight:600;font-size:16px;cursor:pointer}
+.sup{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;margin-top:16px}
+.card{background:#fff;border-radius:26px;padding:22px 26px}
+.card h3{font-size:19px;font-weight:700;margin-bottom:14px}
+.pr{display:grid;grid-template-columns:minmax(0,1fr) 130px 64px;gap:12px;align-items:center;font-size:15.5px;margin-bottom:12px;font-weight:500}
+.bar{height:14px;background:#ECE8FA;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--d);border-radius:99px;transition:width .3s}
+.st{display:flex;gap:4px}.st button{width:28px;height:28px;border-radius:50%;border:2px solid #D7D0F0;background:#fff;font-weight:700;cursor:pointer;line-height:1}
+.rd{display:flex;gap:8px;flex-wrap:wrap}
+.rd button{width:48px;height:48px;border-radius:50%;background:var(--d);color:#fff;border:2px solid var(--d);font-size:15px;font-weight:600;cursor:pointer}
+.rd button.n{background:none;border:2px dashed #B7ACE0;color:#8C80B8}
+.rdt{margin-top:14px;font-size:15px;color:var(--mu);line-height:1.45}.rdt b{color:var(--ink)}
+.vw{display:flex;align-items:center;gap:10px;margin-top:18px;font-size:15px;color:var(--mu);flex-wrap:wrap}
+.vw select{font:600 15px var(--f);border:2px solid #D7D0F0;background:#fff;border-radius:99px;padding:8px 14px;color:var(--ink)}
+.toast{margin-top:12px;font-size:15px;font-weight:600;color:#0C7A47;min-height:22px}
+@media (max-width:900px){.app{grid-template-columns:1fr}.l{border-radius:0 0 36px 36px}.r{padding:24px 16px 40px}.sup{grid-template-columns:1fr}.pr{grid-template-columns:minmax(0,1fr) 90px 64px}}
+@media print{.l .pl,.logo,.btn,.add,.vw,.x,.st,.toast,.rd,.rdt{display:none!important}.app{display:block}.l{border-radius:0;color:#000;background:#fff}.av{background:#eee}.q{background:#f2f2f2}.pill{border-color:#333;color:#000}.pill.f{background:#eee}.t,.card{border:1px solid #bbb}}
+</style></head><body>
+<div class="app">
+<aside class="l"><div class="logo"><i></i>Passport</div><div class="pl" id="pl" role="group" aria-label="Choose a pupil"></div><div id="who"></div></aside>
+<main class="r" id="main"></main></div>
+<script>
+(function(){
+var staff=['Mrs Cole','Mr Patel','Ms Ortiz','Mr Brown','Mrs Lee','Ms Adeyemi','Mr Hale','Ms Reynolds','Mr Singh'];
+var I={list:'☰',time:'⏳',front:'▣',chat:'💬',eye:'◉',book:'▤',ear:'◐',voice:'♪',clock:'◔',hand:'✋'};
+var P=[
+{id:'a',f:'Aaliyah',s:'Rahman',yr:'Year 9',tags:['Speech and language','SEN support'],q:'"I like it when the teacher writes the steps down. I get lost if it\'s all talking."',qs:'In her words, September',rev:'Thursday 12 November',
+ st:[['list','Steps on the board','Short and numbered, not only said out loud'],['time','Ten seconds to think','Before you ask her to answer'],['front','Sit near the front','Away from the door and the noise'],['chat','Check in quietly','One to one, not "does everyone get it?"']],
+ no:['Long spoken instructions','Reading aloud without warning'],sup:[['Speech therapy group',80],['Vocabulary pre-teach',70],['Reading buddy',38]],read:[0,1,2,3,4,5]},
+{id:'j',f:'Jacob',s:'Okafor',yr:'Year 8',tags:['ADHD','SEN support'],q:'"If I can move a bit and know what\'s coming next, I can focus."',qs:'In his words, October',rev:'Monday 30 November',
+ st:[['clock','Show the lesson plan','Three chunks on the board with timings'],['hand','Give him a job','Hand out books or wipe the board'],['front','Seat him with a calm partner','Not next to the window'],['chat','Quiet reset signal','Agreed card on his desk, no public reminders']],
+ no:['Waiting with nothing to do','Public reprimands'],sup:[['Break card',90],['Check-in with form tutor',60],['Homework club',45]],read:[1,2,4,7]},
+{id:'m',f:'Maya',s:'Kowalczyk',yr:'Year 10',tags:['Dyslexia','Exam access arrangements'],q:'"Reading is slow, not hard. Give me the time and I get there."',qs:'In her words, September',rev:'Friday 4 December',
+ st:[['book','Print on cream paper','Sans serif, size 14 or larger'],['time','Extra time, always','25% in class tests, as in exams'],['voice','Read the question aloud','If she asks, without fuss'],['list','Key words listed first','Subject vocabulary at the start of a topic']],
+ no:['Copying long text from the board','Reading aloud cold'],sup:[['Reading intervention',55],['Laptop for extended writing',100],['Spelling strategies',40]],read:[0,3,5,6,7,8]},
+{id:'o',f:'Oliver',s:'Grant',yr:'Year 7',tags:['Autism','EHCP'],q:'"Tell me if something is going to change. I don\'t like surprises."',qs:'In his words, October',rev:'Wednesday 18 November',
+ st:[['clock','Warn about changes','Before lessons, not during them'],['list','Clear, literal language','Say exactly what you mean'],['front','A quiet place to go','Library pass for unstructured times'],['eye','No forced eye contact','He listens even when looking away']],
+ no:['Sarcasm and idioms','Sudden seat changes'],sup:[['Social skills group',65],['Lunchtime club',85],['Key adult check-in',75]],read:[2,3,6]},
+{id:'s',f:'Sofia',s:'Marin',yr:'Year 9',tags:['Hearing impairment'],q:'"I need to see your face when you talk."',qs:'In her words, September',rev:'Thursday 26 November',
+ st:[['front','Front, left side','Her better ear faces the room'],['voice','Face the class when speaking','No talking while writing on the board'],['list','Captions on every video','Always on, before it starts'],['ear','Repeat pupil answers','She cannot hear questions from the back']],
+ no:['Group talk in noisy rooms','Instructions given while walking'],sup:[['Teacher of the deaf visit',70],['Radio aid check',100],['Peer note-taker',50]],read:[0,1,2,3,4,5,6,7,8]}];
+var cur=0,viewer=0,toast='';
+var state=P.map(function(p){return{st:p.st.map(function(x){return x.slice()}),sup:p.sup.map(function(x){return x.slice()}),read:p.read.slice()}});
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function draw(){
+ var p=P[cur],s=state[cur];
+ var pl=document.getElementById('pl');pl.innerHTML='';
+ P.forEach(function(q,i){var b=document.createElement('button');b.type='button';b.textContent=q.f;b.setAttribute('aria-pressed',i===cur);b.onclick=function(){cur=i;toast='';draw()};pl.appendChild(b)});
+ document.getElementById('who').innerHTML='<div class="av" aria-hidden="true">'+p.f[0]+'</div><h1>'+p.f+'</h1><div class="sn">'+p.s+' · '+p.yr+'</div><div class="pills">'+p.tags.map(function(t,i){return'<div class="pill'+(i?'':' f')+'">'+esc(t)+'</div>'}).join('')+'</div><div class="q">'+esc(p.q)+'<small>'+esc(p.qs)+'</small></div><div class="rev">Next review: '+p.rev+'</div>';
+ var m=document.getElementById('main');
+ var h='<div class="hd"><h2>How to teach me</h2><button class="btn" id="pr" type="button">Print one-page profile</button></div><div class="tiles">';
+ s.st.forEach(function(x,i){h+='<div class="t"><div class="ic" aria-hidden="true">'+(I[x[0]]||'●')+'</div><div><b>'+esc(x[1])+'</b><span>'+esc(x[2])+'</span></div><button class="x" type="button" data-rm="'+i+'" aria-label="Remove '+esc(x[1])+'">×</button></div>'});
+ h+='</div><div class="add"><input id="ni" placeholder="Add a strategy, e.g. Seat her near the board" aria-label="New strategy"><button id="na" type="button">Add strategy</button></div>';
+ h+='<div class="no"><h6>Doesn\'t help</h6>'+p.no.map(function(n){return'<span>'+esc(n)+'</span>'}).join('')+'</div>';
+ h+='<div class="sup"><div class="card"><h3>Support this term</h3>'+s.sup.map(function(x,i){return'<div class="pr"><span>'+esc(x[0])+'</span><div class="bar" role="progressbar" aria-valuenow="'+x[1]+'" aria-valuemin="0" aria-valuemax="100"><i style="width:'+x[1]+'%"></i></div><div class="st"><button type="button" data-d="-10,'+i+'" aria-label="Less for '+esc(x[0])+'">−</button><button type="button" data-d="10,'+i+'" aria-label="More for '+esc(x[0])+'">+</button></div></div>'}).join('')+'</div>';
+ var n=s.read.length;
+ h+='<div class="card"><h3>'+n+' of '+staff.length+' teachers have read this</h3><div class="rd">'+staff.map(function(t,i){var r=s.read.indexOf(i)>-1;return'<button type="button" class="'+(r?'':'n')+'" data-r="'+i+'" title="'+t+(r?' has read':' has not read')+'" aria-pressed="'+r+'">'+t.split(' ').map(function(w){return w[0]}).join('')+'</button>'}).join('')+'</div>';
+ var un=staff.filter(function(t,i){return s.read.indexOf(i)<0});
+ h+='<div class="rdt">'+(un.length?'Still to read: '+un.map(function(t){return'<b>'+t+'</b>'}).join(', '):'Everyone who teaches '+p.f+' has read this.')+'</div>';
+ h+='<div class="vw">View as <select id="vs" aria-label="View as teacher">'+staff.map(function(t,i){return'<option value="'+i+'"'+(i===viewer?' selected':'')+'>'+t+'</option>'}).join('')+'</select><button class="btn" id="mr" type="button" style="padding:9px 18px;font-size:14px">'+(s.read.indexOf(viewer)>-1?'Mark as unread':'Mark as read')+'</button></div></div></div><div class="toast" role="status">'+toast+'</div>';
+ m.innerHTML=h;
+ m.querySelectorAll('[data-rm]').forEach(function(b){b.onclick=function(){s.st.splice(+b.dataset.rm,1);draw()}});
+ m.querySelectorAll('[data-d]').forEach(function(b){b.onclick=function(){var a=b.dataset.d.split(',');var x=s.sup[+a[1]];x[1]=Math.max(0,Math.min(100,x[1]+ +a[0]));draw()}});
+ m.querySelectorAll('[data-r]').forEach(function(b){b.onclick=function(){tog(+b.dataset.r)}});
+ document.getElementById('vs').onchange=function(e){viewer=+e.target.value;draw()};
+ document.getElementById('mr').onclick=function(){tog(viewer)};
+ document.getElementById('pr').onclick=function(){window.print()};
+ var add=function(){var v=document.getElementById('ni').value.trim();if(!v)return;s.st.push(['hand',v,'Added just now']);toast='Added to '+p.f+'\'s profile. '+staff.length-0+' teachers will see it.';toast='Added to '+p.f+'\'s profile.';draw()};
+ document.getElementById('na').onclick=add;document.getElementById('ni').onkeydown=function(e){if(e.key==='Enter')add()}}
+function tog(i){var s=state[cur],k=s.read.indexOf(i);if(k>-1)s.read.splice(k,1);else s.read.push(i);toast=staff[i]+(k>-1?' marked as not read.':' has read the profile.');draw()}
+draw();
+})();
+</script></body></html>

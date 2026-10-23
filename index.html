@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tessera: AI and change management</title>
-<meta name="description" content="Tessera helps schools and trusts decide where AI helps, build the tools they need, and bring staff with them.">
+<meta name="description" content="Tessera helps schools stop paying for software that almost fits. We build the tools you need with AI, at a fraction of the price, and bring your staff with you.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -43,8 +44,36 @@ a:focus-visible{outline:3px solid #ED8B78;outline-offset:3px;border-radius:8px}
 html{scroll-behavior:auto}
 }
 </style>
+
+<style>
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:18px}
+.gcard{all:unset;box-sizing:border-box;cursor:pointer;background:#FFFFFF;border:1px solid #E6E5DF;border-radius:20px;padding:14px 14px 22px;display:flex;flex-direction:column;gap:16px;transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .2s ease}
+.gcard:focus-visible{outline:3px solid #ED8B78;outline-offset:3px}
+.gimg{position:relative;display:block;aspect-ratio:16/10;border:1px solid #E6E5DF;border-radius:12px;overflow:hidden;background:#fff}
+.gimg img{display:block;width:100%;height:100%;object-fit:cover;object-position:top left}
+.gtry{position:absolute;right:12px;bottom:12px;background:#182E44;color:#fff;font:600 14px 'DM Sans',sans-serif;padding:8px 16px;border-radius:99px;opacity:.94}
+.gtxt{display:flex;flex-direction:column;gap:6px;padding:0 8px}
+.gname{font-family:'DM Serif Display',Georgia,serif;font-size:26px;letter-spacing:-.5px;color:#182E44}
+.gdesc{color:#4F5E6B;font:400 15px/1.5 'DM Sans',sans-serif}
+@media (hover:hover){.gcard:hover{transform:translate3d(0,-3px,0);box-shadow:0 14px 30px -14px #182e4440}.gcard:hover .gtry{background:#ED8B78;color:#182E44}}
+dialog#viewer{border:0;padding:0;border-radius:20px;width:min(1320px,96vw);height:min(900px,92vh);max-width:none;max-height:none;overflow:hidden;background:#fff;box-shadow:0 40px 100px -20px rgba(24,46,68,.6)}
+dialog#viewer[open]{display:flex;flex-direction:column;animation:vin .3s cubic-bezier(.22,1,.36,1)}
+dialog#viewer::backdrop{background:rgba(24,46,68,.6);backdrop-filter:blur(3px)}
+@keyframes vin{from{opacity:0;transform:translate3d(0,12px,0) scale(.985)}}
+@media (prefers-reduced-motion:reduce){dialog#viewer[open]{animation:none}}
+.vbar{display:flex;align-items:center;gap:14px;padding:12px 16px 12px 22px;border-bottom:1px solid #E6E5DF;background:#F8F6F2;flex:none}
+.vname{font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:#182E44;letter-spacing:-.4px}
+.vnote{flex:1;color:#5A6874;font:400 14px 'DM Sans',sans-serif;min-width:0}
+.vbtn{font:600 14px 'DM Sans',sans-serif;color:#182E44;background:#fff;border:1px solid #D9D8D1;border-radius:99px;padding:9px 16px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.vbtn.x{background:#182E44;color:#fff;border-color:#182E44}
+.vbtn:focus-visible{outline:3px solid #ED8B78;outline-offset:2px}
+#vframe{flex:1;width:100%;border:0;background:#fff;min-height:0}
+@media (max-width:700px){.vnote{display:none}.vbar{padding-left:16px}dialog#viewer{width:100vw;height:100dvh;border-radius:0}}
+</style>
 </head>
 <body>
+
+
 <div style="width: 100%; background: #F8F6F2; color: #182E44; font-family: 'DM Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.6; overflow: hidden">
 
 <div style="max-width: 1120px; margin: 0 auto; padding: 0 24px">
@@ -53,6 +82,7 @@ html{scroll-behavior:auto}
 <div class="in" style="padding: 28px 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
 <div style="font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 32px; letter-spacing: -1.2px; line-height: 1">Tessera<span style="color: #ED8B78">.</span></div>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
+<a class="navlink" href="#built" style="font-size: 15px; font-weight: 500; color: #4F5E6B">What we've built</a>
 <a class="navlink" href="#work" style="font-size: 15px; font-weight: 500; color: #4F5E6B">What we do</a>
 <a class="navlink" href="#approach" style="font-size: 15px; font-weight: 500; color: #4F5E6B">How we work</a>
 <a class="navlink" href="#people" style="font-size: 15px; font-weight: 500; color: #4F5E6B">Who we are</a>
@@ -63,13 +93,65 @@ html{scroll-behavior:auto}
 <!-- HERO -->
 <div style="padding: 72px 0 96px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
 <div style="flex: 1 1 460px; display: flex; flex-direction: column; align-items: flex-start; gap: 26px">
-<h1 class="in d2" style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(42px, 6vw, 72px); line-height: 1.08; letter-spacing: -1.4px">AI for schools, from people who have <em style="color: #CA715F">run them.</em></h1>
-<p class="in d3" style="margin: 0; font-size: 19px; line-height: 1.65; max-width: 540px; color: #4F5E6B">We help schools and trusts decide where AI genuinely helps, build the tools they need, and bring staff with them.</p>
+<div class="in d1" style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #B25344">AI for schools, from people who have run them</div>
+<h1 class="in d2" style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(42px, 6vw, 72px); line-height: 1.08; letter-spacing: -1.4px">Stop buying software that <em style="color: #CA715F">almost fits.</em></h1>
+<p class="in d3" style="margin: 0; font-size: 19px; line-height: 1.65; max-width: 540px; color: #4F5E6B">In the age of AI, your school can build exactly what it needs for a fraction of the price, and it will work better for your staff, your pupils and your school. We help you do it.</p>
 <div class="in d4" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px">
 <a class="btn" href="mailto:hi@wearetessera.co.uk" style="background: #ED8B78; color: #182E44; text-decoration: none; font-weight: 600; font-size: 15px; padding: 15px 26px; border-radius: 12px; min-height: 20px">Book a conversation</a>
+<a class="btn btn-light" href="#built" style="background: #FFFFFF; border: 1px solid #E6E5DF; color: #182E44; text-decoration: none; font-weight: 600; font-size: 15px; padding: 14px 26px; border-radius: 12px; min-height: 20px">See what we've built</a>
 </div>
 </div>
 
+</div>
+
+<!-- PROBLEM -->
+<div style="padding: 0 0 96px">
+<div class="rv" style="display: flex; flex-wrap: wrap; gap: 18px">
+<div style="flex: 1 1 340px; background: #F5E5DC; border: 1px solid #EFD9CC; border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #8A4A3C">Today</div>
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); line-height: 1.15; letter-spacing: -0.8px">Thousands a year on software that nearly works.</h2>
+<p style="margin: 0; color: #5A4038">Products built for every school fit none of them. Staff work around the gaps, and the contract renews anyway.</p>
+</div>
+<div style="flex: 1 1 340px; background: #182E44; border: 1px solid #182E44; border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #F0B4A6">With Tessera</div>
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); line-height: 1.15; letter-spacing: -0.8px; color: #FFFFFF">Tools built around your school.</h2>
+<p style="margin: 0; color: #B7C8D6">Describe what you need. We build it with your staff, for a fraction of the price. You own it and you can change it.</p>
+</div>
+</div>
+</div>
+
+<!-- BUILT -->
+<div id="built" style="padding: 24px 0 96px">
+<div class="rv" style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; color: #B25344">What we've built</div>
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 52px); line-height: 1.12; letter-spacing: -1px; max-width: 700px">Built, <em style="color: #CA715F">not bought.</em></h2>
+<p style="margin: 0; max-width: 600px; color: #4F5E6B">Open any of these and use it. Each one is designed around how a school actually works.</p>
+</div>
+<div class="ggrid"><button type="button" class="gcard rv" data-p="anaxi" data-src="prototypes/anaxi.html" data-name="Anaxi" data-note="Try Quick actions and the evidence periods." aria-label="Try Anaxi">
+<span class="gimg"><img src="images/anaxi.webp" alt="Anaxi screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Anaxi</span><span class="gdesc">School operations and lesson observation, in one place.</span></span></button><button type="button" class="gcard rv" data-p="ember" data-src="prototypes/ember.html" data-name="Ember" data-note="Select a pupil to see what they think." aria-label="Try Ember">
+<span class="gimg"><img src="images/ember.webp" alt="Ember screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Ember</span><span class="gdesc">Build and deliver lessons across subjects, spot pupils' misconceptions as they happen, and act on them.</span></span></button><button type="button" class="gcard rv" data-p="relay" data-src="prototypes/relay.html" data-name="Relay" data-note="Paste a transcript to analyse it." aria-label="Try Relay">
+<span class="gimg"><img src="images/relay.webp" alt="Relay screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Relay</span><span class="gdesc">Measures teacher talk in the classroom and coaches sharper questions, clearer explanations and tighter language.</span></span></button><button type="button" class="gcard rv" data-p="lessonclock" data-src="prototypes/lessonclock.html" data-name="Lesson Clock" data-note="Drag the clock through the day." aria-label="Try Lesson Clock">
+<span class="gimg"><img src="images/lessonclock.webp" alt="Lesson Clock screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Lesson Clock</span><span class="gdesc">Tells teachers what is happening when across the school day, and where they need to be right now.</span></span></button><button type="button" class="gcard rv" data-p="crashcourse" data-src="prototypes/crashcourse/index.html" data-name="Crash Course" data-note="Pick a lesson to start." aria-label="Try Crash Course">
+<span class="gimg"><img src="images/crashcourse.webp" alt="Crash Course screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Crash Course</span><span class="gdesc">Interactive GCSE science and maths lessons, with 3D models and mastery-based practice.</span></span></button><button type="button" class="gcard rv" data-p="standin" data-src="prototypes/standin.html" data-name="Stand-in" data-note="Mark staff absent and fill the gaps." aria-label="Try Stand-in">
+<span class="gimg"><img src="images/standin.webp" alt="Stand-in screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Stand-in</span><span class="gdesc">Finds cover for absent staff in seconds, and shares it out fairly.</span></span></button><button type="button" class="gcard rv" data-p="radar" data-src="prototypes/radar.html" data-name="Radar" data-note="Import your own CSV." aria-label="Try Radar">
+<span class="gimg"><img src="images/radar.webp" alt="Radar screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Radar</span><span class="gdesc">Spots attendance patterns early, before a pupil becomes persistently absent.</span></span></button><button type="button" class="gcard rv" data-p="item" data-src="prototypes/item.html" data-name="Item" data-note="Import your own marks." aria-label="Try Item">
+<span class="gimg"><img src="images/item.webp" alt="Item screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Item</span><span class="gdesc">Turns mock exam marks into a question-by-question picture of what to reteach.</span></span></button><button type="button" class="gcard rv" data-p="bridge" data-src="prototypes/bridge.html" data-name="Bridge" data-note="Switch language and give consent." aria-label="Try Bridge">
+<span class="gimg"><img src="images/bridge.webp" alt="Bridge screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Bridge</span><span class="gdesc">Sends letters to every family in their own language, and shows who has read, consented and paid.</span></span></button><button type="button" class="gcard rv" data-p="passport" data-src="prototypes/passport.html" data-name="Passport" data-note="Choose a pupil and mark it read." aria-label="Try Passport">
+<span class="gimg"><img src="images/passport.webp" alt="Passport screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Passport</span><span class="gdesc">One page per pupil that tells every teacher how to teach them, and who has read it.</span></span></button><button type="button" class="gcard rv" data-p="outings" data-src="prototypes/outings.html" data-name="Outings" data-note="Chase consents and send for approval." aria-label="Try Outings">
+<span class="gimg"><img src="images/outings.webp" alt="Outings screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Outings</span><span class="gdesc">Plans a school trip from consent and payment to risk assessment and sign-off.</span></span></button><button type="button" class="gcard rv" data-p="lectern" data-src="prototypes/lectern.html" data-name="Lectern" data-note="Edit a figure and the report rewrites." aria-label="Try Lectern">
+<span class="gimg"><img src="images/lectern.webp" alt="Lectern screenshot" loading="lazy"><span class="gtry">Try it</span></span>
+<span class="gtxt"><span class="gname">Lectern</span><span class="gdesc">Builds the headteacher's report to governors from the school's own figures.</span></span></button></div>
 </div>
 
 <!-- WHAT WE DO -->
@@ -174,8 +256,8 @@ html{scroll-behavior:auto}
 <!-- CTA -->
 <div style="padding: 0 0 96px">
 <div class="rv" style="background: #182E44; color: #FFFFFF; border-radius: 24px; padding: 72px 32px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px">
-<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(34px, 5vw, 58px); line-height: 1.1; letter-spacing: -1.2px; max-width: 760px">Start with one problem <em style="color: #F0B4A6">worth solving.</em></h2>
-<p style="margin: 0; max-width: 540px; color: #B7C8D6">Tell us where your school is losing time. We'll say honestly whether we can help.</p>
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: clamp(34px, 5vw, 58px); line-height: 1.1; letter-spacing: -1.2px; max-width: 760px">Which product would you <em style="color: #F0B4A6">replace first?</em></h2>
+<p style="margin: 0; max-width: 540px; color: #B7C8D6">Tell us where your school is losing time or money. We'll say honestly whether we can help.</p>
 <a class="btn" href="mailto:hi@wearetessera.co.uk" style="background: #ED8B78; color: #182E44; text-decoration: none; font-weight: 600; font-size: 15px; padding: 15px 28px; border-radius: 12px; margin-top: 6px">Book a conversation</a>
 </div>
 </div>
@@ -191,5 +273,22 @@ html{scroll-behavior:auto}
 </div>
 
 </div>
+
+
+<dialog id="viewer" aria-label="Prototype viewer"><div class="vbar"><span class="vname" id="vname"></span><span class="vnote" id="vnote"></span><a class="vbtn" id="vfull" target="_blank" rel="noopener">Open full screen</a><button type="button" class="vbtn x" id="vclose">Close</button></div><iframe id="vframe" title="Prototype" sandbox="allow-scripts allow-same-origin allow-forms allow-modals"></iframe></dialog>
+<script>
+(function(){
+var d=document.getElementById('viewer'),f=document.getElementById('vframe'),cards=[].slice.call(document.querySelectorAll('.gcard'));
+function open(c,keep){document.getElementById('vname').textContent=c.dataset.name;document.getElementById('vnote').textContent=c.dataset.note;
+  document.getElementById('vfull').href=c.dataset.src;f.title=c.dataset.name+' prototype';f.src=c.dataset.src;if(!d.open)d.showModal();
+  if(!keep)try{history.replaceState(null,'','#try-'+c.dataset.p)}catch(e){}}
+function close(){if(d.open)d.close()}
+d.addEventListener('close',function(){f.src='about:blank';try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}});
+d.addEventListener('click',function(e){if(e.target===d)close()});
+document.getElementById('vclose').onclick=close;
+cards.forEach(function(c){c.addEventListener('click',function(){open(c)})});
+var m=location.hash.match(/^#try-([a-z]+)$/);if(m){var c=cards.filter(function(x){return x.dataset.p===m[1]})[0];if(c)open(c,true)}
+})();
+</script>
 </body>
 </html>

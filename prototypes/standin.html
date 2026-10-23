@@ -1,0 +1,135 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Stand-in</title></head><body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600&display=swap">
+<style>
+/* Layout: a departure board. Big clock, one row per uncovered lesson, tally of fairness at the foot. */
+:root{--bg:#0E0F11;--panel:#16181B;--line:#2A2D33;--row:#1E2024;--fg:#EDE9DF;--mute:#8C9099;--dim:#5A5E66;--amber:#FFB020;--green:#3DDC84;--red:#FF5A47;
+--cond:'IBM Plex Sans Condensed','Plex Cond','Arial Narrow',sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;color-scheme:dark}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--fg);font-family:var(--cond);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.scroll{overflow-x:auto}
+.board{min-width:1120px;max-width:1500px;margin:0 auto}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:36px 0 22px}
+.clock{font:600 112px/.85 var(--mono);color:var(--amber);letter-spacing:-7px;text-shadow:0 0 40px rgba(255,176,32,.22)}
+.date{font-size:22px;color:var(--mute);margin-top:14px}
+.counts{display:flex;gap:48px}
+.counts b{display:block;font:600 60px/1 var(--mono);letter-spacing:-3px}
+.counts span{font-size:19px;color:var(--mute)}
+.g b{color:var(--green)}.r b{color:var(--red)}
+.off{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 0 18px;border-top:2px solid var(--line)}
+.off h2{font-size:18px;font-weight:500;color:var(--mute);margin:0 14px 0 0}
+.chip{font:500 17px var(--cond);color:var(--mute);background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:6px 12px;cursor:pointer}
+.chip[aria-pressed=true]{color:#0E0F11;background:var(--amber);border-color:var(--amber);font-weight:600}
+.chip:focus-visible,.btn:focus-visible,select:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.hd,.row{display:grid;grid-template-columns:96px 1.1fr 190px 36px 1.2fr 1.2fr 150px;align-items:center;gap:0 8px}
+.hd{height:40px;font-size:16px;color:var(--dim);border-top:2px solid var(--line);border-bottom:1px solid var(--row)}
+.row{height:74px;border-bottom:1px solid var(--row)}
+.row.bad{background:linear-gradient(90deg,rgba(255,90,71,.14),rgba(255,90,71,0))}
+.p{font:600 32px var(--mono);color:var(--amber);width:66px;height:48px;border:2px solid #34373E;border-radius:3px;display:flex;align-items:center;justify-content:center;background:var(--panel)}
+.row.bad .p{color:var(--red)}
+.cls{font-size:28px;font-weight:600}.cls small{font-size:18px;color:var(--mute);font-weight:400;margin-left:10px}
+.abs{font-size:22px;color:var(--dim);text-decoration:line-through;text-decoration-thickness:2px}
+.arr{font:500 26px var(--mono);color:#4A4D55}
+select{appearance:none;background:transparent;color:var(--fg);border:1px solid transparent;border-radius:3px;font:600 30px var(--cond);padding:2px 22px 2px 6px;margin-left:-6px;cursor:pointer;max-width:100%;
+background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:calc(100% - 12px) 55%,calc(100% - 7px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+select:hover{border-color:var(--line)}
+select option{background:#1b1d21;color:var(--fg);font:500 18px var(--cond)}
+.row.bad select{color:var(--red)}
+.why{font-size:19px;color:#9DA1AA}
+.st{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:600}
+.led{width:13px;height:13px;border-radius:50%;flex:none}
+.ok{color:var(--green)}.ok .led{background:var(--green);box-shadow:0 0 12px var(--green)}
+.pend{color:var(--amber)}.pend .led{background:var(--amber);box-shadow:0 0 12px var(--amber)}
+.no{color:var(--red)}.no .led{background:var(--red);box-shadow:0 0 12px var(--red)}
+.btn{font:600 18px var(--cond);color:#0E0F11;background:var(--amber);border:0;border-radius:3px;padding:8px 14px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--amber);border:1px solid var(--amber)}
+.empty{padding:46px 0;font-size:24px;color:var(--mute)}
+.tools{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
+.tools span{font-size:18px;color:var(--mute)}
+.free{border-top:2px solid var(--line);background:var(--panel);padding:22px 24px;display:flex;gap:44px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.free h4{font-size:19px;font-weight:600;color:var(--mute);width:190px;margin:0;line-height:1.25}
+.free h4 span{display:block;color:var(--dim);font-weight:400}
+.t b{font-size:24px;font-weight:600;display:block}
+.tally{font:500 24px var(--mono);color:var(--amber);letter-spacing:2px;height:30px;white-space:pre}
+.tally.hot{color:var(--red)}
+.foot{padding:20px 0 36px;font-size:15px;color:var(--dim)}
+@media (prefers-reduced-motion:no-preference){.led{transition:background .3s}}
+</style>
+<div class="scroll"><div class="board">
+<div class="top"><div><div class="clock" id="clock">00:00</div><div class="date" id="date"></div></div>
+<div class="counts"><div><b id="nAbs">0</b><span>staff absent</span></div><div class="g"><b id="nCov">0</b><span>lessons confirmed</span></div><div class="r"><b id="nSup">0</b><span>need supply</span></div></div></div>
+<div class="off"><h2>Who is off today? Tap to mark absent</h2><span id="chips" style="display:contents"></span></div>
+<div class="hd"><div>Period</div><div>Class</div><div>Absent</div><div></div><div>Cover</div><div>Why this person</div><div>Status</div></div>
+<div id="rows"></div>
+<div class="tools"><span id="supplyNote"></span><button class="btn" id="confirmAll">Confirm all suggestions</button></div>
+<div class="free"><h4>Covers this half-term<span>target 6 each</span></h4><div id="tally" style="display:contents"></div></div>
+<div class="foot">Cover is allocated by free period, then subject, then fewest covers taken. Nothing is sent to staff.</div>
+</div></div>
+<script>
+(function(){
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+var R=rng(11),PER=[1,2,3,4,5],SUPPLY=185;
+var staff=[['Hale','English',2],['Adeyemi','English',9],['Nowak','English',4],['Brooks','Maths',3],['Chen','Maths',7],['Singh','Maths',4],['Khan','Maths',5],['Okafor','Science',3],['Patel','Science',6],['Moore','Science',5],['Reynolds','History',2],['Foster','History',5],['Lewis','Drama',3],['Dixon','PE',4]].map(function(a,i){return{id:i,name:(i%2?'Ms ':'Mr ')+a[0],dept:a[1],base:a[2]}});
+var names={0:'Mr Hale',1:'Ms Adeyemi',2:'Mr Nowak',3:'Ms Brooks',4:'Mr Chen',5:'Ms Singh',6:'Mr Khan',7:'Mr Okafor',8:'Ms Patel',9:'Mr Moore',10:'Ms Reynolds',11:'Mr Foster',12:'Ms Lewis',13:'Mr Dixon'};
+staff.forEach(function(s){s.name=names[s.id]});
+var rooms={English:'A',Maths:'M',Science:'S',History:'H',Drama:'D',PE:'G'};
+var yrs=['7A','8C','9B','10D','11A','11C','9A'];
+staff.forEach(function(s){s.tt={};PER.forEach(function(p){if(R()<.5){var y=yrs[Math.floor(R()*yrs.length)];s.tt[p]={cls:y+' '+s.dept,room:rooms[s.dept]+(1+Math.floor(R()*4))}}})});
+// make the example day interesting: guarantee Hale, Brooks and Reynolds teach a few periods
+[[0,[1,5]],[3,[2,3]],[10,[3,4]],[7,[2]]].forEach(function(x){x[1].forEach(function(p){var s=staff[x[0]];s.tt[p]=s.tt[p]||{cls:'9B '+s.dept,room:rooms[s.dept]+'2'}})});
+var absent={0:1,3:1,10:1,7:1},manual={},confirmed={};
+function plan(){
+  var lessons=[];PER.forEach(function(p){staff.forEach(function(s){if(absent[s.id]&&s.tt[p])lessons.push({key:p+'-'+s.id,p:p,t:s,cls:s.tt[p].cls,room:s.tt[p].room})})});
+  var used={},today={},out=[];
+  function free(s,p){return !absent[s.id]&&!s.tt[p]&&!used[p+'-'+s.id]}
+  lessons.forEach(function(L){var m=manual[L.key];if(m!==undefined&&m!=='supply'&&free(staff[m],L.p)){used[L.p+'-'+m]=1;today[m]=(today[m]||0)+1;L.cover=staff[m];L.why='Chosen by you'}else if(m==='supply'){L.cover=null;L.why='Booked from supply';L.chosenSupply=1}});
+  lessons.forEach(function(L){if(L.cover!==undefined||L.chosenSupply)return;
+    var c=staff.filter(function(s){return free(s,L.p)});
+    c.forEach(function(s){s.sc=(s.dept===L.t.dept?-6:0)+s.base+2*(today[s.id]||0)});
+    c.sort(function(a,b){return a.sc-b.sc});
+    if(c.length){var s=c[0];used[L.p+'-'+s.id]=1;today[s.id]=(today[s.id]||0)+1;L.cover=s;
+      L.why=(s.dept===L.t.dept?'Free, same department':(today[s.id]>1?'Free, '+today[s.id]+' covers today':'Free, fewest covers'))}
+    else{L.cover=null;L.why='No one free. Book supply, about £'+SUPPLY}});
+  lessons.forEach(function(L){L.free=staff.filter(function(s){return free(s,L.p)||(L.cover&&L.cover.id===s.id)})});
+  return{lessons:lessons,today:today};
+}
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e}
+function render(){
+  var pl=plan(),rows=document.getElementById('rows');rows.innerHTML='';
+  var nAbs=Object.keys(absent).length,nCov=0,nSup=0,nOpen=0;
+  pl.lessons.forEach(function(L){
+    var bad=!L.cover,done=confirmed[L.key]&&L.cover;if(bad)nSup++;if(done)nCov++;if(L.cover&&!done)nOpen++;
+    var r=el('div','row'+(bad?' bad':''));
+    r.appendChild(el('div','','<div class="p">P'+L.p+'</div>'));
+    r.appendChild(el('div','cls',L.cls+'<small>'+L.room+'</small>'));
+    r.appendChild(el('div','abs',L.t.name));r.appendChild(el('div','arr','›'));
+    var cell=el('div','');var sel=el('select');sel.setAttribute('aria-label','Cover for period '+L.p+' '+L.cls);
+    L.free.forEach(function(s){var o=el('option','',s.name);o.value=s.id;if(L.cover&&L.cover.id===s.id)o.selected=1;sel.appendChild(o)});
+    var o=el('option','','Supply teacher');o.value='supply';if(!L.cover)o.selected=1;sel.appendChild(o);
+    sel.onchange=function(){manual[L.key]=sel.value==='supply'?'supply':+sel.value;delete confirmed[L.key];render()};
+    cell.appendChild(sel);r.appendChild(cell);
+    r.appendChild(el('div','why',L.why));
+    var st=el('div','st '+(bad?'no':done?'ok':'pend'));
+    st.innerHTML='<i class="led"></i>'+(bad?'Unfilled':done?'Confirmed':'');
+    if(!bad&&!done){var b=el('button','btn ghost','Confirm');b.onclick=function(){confirmed[L.key]=1;render()};st.appendChild(b)}
+    r.appendChild(st);rows.appendChild(r)});
+  if(!pl.lessons.length)rows.appendChild(el('div','empty','No lessons need cover. Mark a member of staff as absent above.'));
+  document.getElementById('nAbs').textContent=nAbs;document.getElementById('nCov').textContent=nCov;document.getElementById('nSup').textContent=nSup;
+  document.getElementById('supplyNote').textContent=nSup?nSup+' lesson'+(nSup>1?'s':'')+' need a supply teacher, about £'+(nSup*SUPPLY)+'.':(pl.lessons.length?'Every lesson has an internal cover.':'');
+  var cb=document.getElementById('confirmAll');cb.disabled=!nOpen;cb.style.opacity=nOpen?1:.4;
+  var tl=document.getElementById('tally');tl.innerHTML='';
+  staff.map(function(s){return{s:s,n:s.base+(pl.today[s.id]||0)}}).sort(function(a,b){return b.n-a.n}).slice(0,6).forEach(function(x){
+    var t='';for(var i=0;i<x.n;i++){t+='|'+((i+1)%5===0?' ':'')}
+    tl.appendChild(el('div','t','<b>'+x.s.name+'</b><div class="tally'+(x.n>6?' hot':'')+'">'+t+'</div>'))});
+}
+var chips=document.getElementById('chips');
+staff.forEach(function(s){var c=el('button','chip',s.name);c.setAttribute('aria-pressed',!!absent[s.id]);
+  c.onclick=function(){if(absent[s.id])delete absent[s.id];else absent[s.id]=1;Object.keys(manual).forEach(function(k){delete manual[k]});confirmed={};c.setAttribute('aria-pressed',!!absent[s.id]);render()};chips.appendChild(c)});
+document.getElementById('confirmAll').onclick=function(){plan().lessons.forEach(function(L){if(L.cover)confirmed[L.key]=1});render()};
+function tick(){var d=new Date();document.getElementById('clock').textContent=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+  document.getElementById('date').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})+' · Oakfield Academy'}
+tick();setInterval(tick,20000);
+// start with two already confirmed so the board shows every state
+render();var pl0=plan().lessons;pl0.slice(0,2).forEach(function(L){if(L.cover)confirmed[L.key]=1});render();
+})();
+</script>
+</body></html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bridge</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&display=swap">
+<style>
+:root{--ink:#1B1B2F;--y:#FFD23F;--o:#FF8A5C;--v:#6C4BFF;--bg2:#F6F4FF;--f:'Bricolage Grotesque','Bricolage',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html,body{overflow-x:clip}
+body{min-height:100vh;background:var(--y);color:var(--ink);font-family:var(--f);position:relative}
+.blob{position:fixed;border-radius:50%;pointer-events:none}
+.wrap{position:relative;max-width:1180px;margin:0 auto;padding:28px 24px 48px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:28px;letter-spacing:-1px;display:flex;align-items:center;gap:10px}
+.logo i{width:32px;height:32px;border-radius:11px 11px 11px 3px;background:var(--ink);display:block}
+.tabs{display:flex;gap:6px;background:rgba(255,255,255,.55);padding:5px;border-radius:99px}
+.tabs button{font:700 16px var(--f);border:0;background:none;padding:10px 20px;border-radius:99px;cursor:pointer;color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:#fff}
+button:focus-visible{outline:3px solid var(--v);outline-offset:2px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,430px);gap:40px;margin-top:36px;align-items:start}
+h1{font-weight:800;font-size:clamp(44px,6.4vw,84px);line-height:.95;letter-spacing:-3px}
+.sub{font-size:20px;margin-top:16px;font-weight:500;opacity:.75}
+.ring{margin-top:34px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.ring b{font-size:26px;font-weight:700;display:block;letter-spacing:-.5px}.ring span{font-size:18px;opacity:.7;font-weight:500;display:block;margin-top:2px}
+.lbl{margin-top:34px;font-size:15px;font-weight:700;opacity:.65}
+.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+.chip{font:600 19px var(--f);background:#fff;border:0;border-radius:99px;padding:11px 20px;cursor:pointer;box-shadow:0 5px 0 rgba(27,27,47,.9);color:var(--ink);transition:transform .15s}
+.chip em{font-style:normal;background:var(--v);color:#fff;border-radius:99px;padding:2px 10px;margin-left:8px;font-size:16px}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff;transform:translateY(3px);box-shadow:0 2px 0 rgba(27,27,47,.9)}
+.cta{margin-top:36px;font:700 21px var(--f);background:var(--ink);color:#fff;border:0;padding:18px 30px;border-radius:99px;cursor:pointer}
+.cta span{color:var(--y)}.cta:disabled{background:#fff;color:var(--ink);cursor:default}
+.live{margin-top:14px;font-weight:600;min-height:24px}
+.phonewrap{display:flex;justify-content:center}
+.phone{width:min(100%,380px);background:var(--ink);border-radius:56px;padding:11px;box-shadow:0 40px 60px -24px rgba(27,27,47,.5)}
+.scr{background:var(--bg2);border-radius:46px;min-height:640px;position:relative;padding:58px 20px 24px}
+.isl{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:104px;height:28px;background:var(--ink);border-radius:20px}
+.hdr{display:flex;align-items:center;gap:13px;padding-bottom:14px;border-bottom:1px solid #E4E0F5}
+.av{width:46px;height:46px;border-radius:15px;background:var(--y);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:21px;transition:background .3s}
+.hdr b{font-size:19px;display:block}.hdr span{font-size:14px;opacity:.6}
+.day{text-align:center;font-size:13px;opacity:.5;margin:16px 0 10px;font-weight:600}
+.bub{background:#fff;border-radius:22px 22px 22px 6px;padding:18px;font-size:18px;line-height:1.4;box-shadow:0 2px 0 #E4E0F5}
+.bub h5{font-size:19px;font-weight:800;margin-bottom:7px}
+.meta{font-size:12px;opacity:.5;margin:7px 6px 0;font-weight:600}
+.note{display:inline-flex;gap:8px;align-items:center;background:#E8E1FF;color:#4B31C9;border-radius:13px;padding:7px 13px;font-size:13px;font-weight:700;margin-top:12px;border:0;font-family:var(--f)}
+button.note{cursor:pointer}
+.pb{display:block;width:100%;text-align:center;border-radius:18px;padding:15px;font:700 19px var(--f);margin-top:11px;cursor:pointer;border:2px solid var(--ink)}
+.b1{background:var(--v);color:#fff;border-color:var(--v)}.b2{background:#fff;color:var(--ink)}
+.done{background:#18B26B;border-color:#18B26B;color:#fff;cursor:default}
+.rtl{direction:rtl;text-align:right}
+/* families */
+.fam{margin-top:30px;background:#fff;border-radius:28px;padding:22px;box-shadow:0 6px 0 rgba(27,27,47,.9)}
+.fh{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.fh h2{font-size:30px;letter-spacing:-1px}
+.flt{display:flex;gap:8px;flex-wrap:wrap}.flt button{font:600 15px var(--f);border:2px solid var(--ink);background:#fff;border-radius:99px;padding:7px 14px;cursor:pointer;color:var(--ink)}
+.flt button[aria-pressed=true]{background:var(--ink);color:#fff}
+.tw{max-height:520px;overflow:auto;margin-top:16px}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th{position:sticky;top:0;background:#fff;text-align:left;font-size:14px;opacity:.65;padding:8px 10px;border-bottom:2px solid var(--ink)}
+td{padding:10px;border-bottom:1px solid #EEEAF8}
+.tg{display:inline-block;border-radius:99px;padding:3px 11px;font-size:14px;font-weight:700}
+.yes{background:#D8F5E6;color:#0C7A47}.no{background:#FFE4DC;color:#B3321D}.lg{background:#E8E1FF;color:#4B31C9}
+.rb{font:700 14px var(--f);border:2px solid var(--ink);background:#fff;border-radius:99px;padding:5px 12px;cursor:pointer;color:var(--ink)}.rb:disabled{opacity:.4;cursor:default}
+@media (max-width:900px){.grid{grid-template-columns:1fr;gap:28px}.wrap{padding:20px 16px 40px}.scr{min-height:600px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div class="blob" style="width:700px;height:700px;background:var(--o);right:-200px;top:-280px"></div>
+<div class="blob" style="width:380px;height:380px;background:#FFE88A;left:-130px;bottom:-150px"></div>
+<div class="wrap">
+<div class="top"><div class="logo"><i></i>Bridge</div>
+<div class="tabs" role="tablist"><button role="tab" id="t1" aria-selected="true">Letter</button><button role="tab" id="t2" aria-selected="false">Families</button></div></div>
+
+<section id="v1"><div class="grid"><div>
+<h1>Year 8 trip letter</h1><div class="sub">Sent Tuesday at 2:02 pm to 180 families</div>
+<div class="ring"><svg width="150" height="150" viewBox="0 0 170 170" aria-hidden="true"><circle cx="85" cy="85" r="68" fill="none" stroke="rgba(27,27,47,.15)" stroke-width="22"/><circle id="arc" cx="85" cy="85" r="68" fill="none" stroke="#1B1B2F" stroke-width="22" stroke-linecap="round" stroke-dasharray="0 427" transform="rotate(-90 85 85)" style="transition:stroke-dasharray .8s"/><text id="pct" x="85" y="98" text-anchor="middle" font-family="Bricolage Grotesque,Bricolage" font-weight="800" font-size="40" fill="#1B1B2F">0%</text></svg>
+<div><b id="s-open"></b><span id="s-cons"></span><span id="s-paid"></span></div></div>
+<div class="lbl">Preview the letter as a family sees it</div>
+<div class="chips" id="chips"></div>
+<button class="cta" id="nudge"></button><div class="live" id="live" aria-live="polite"></div>
+</div>
+<div class="phonewrap"><div class="phone"><div class="scr"><div class="isl"></div><div id="msg"></div></div></div></div></div></section>
+
+<section id="v2" hidden><div class="fam"><div class="fh"><h2>Families</h2><div class="flt" id="flt"></div></div>
+<div class="tw"><table><thead><tr><th>Family</th><th>Language</th><th>Opened</th><th>Consent</th><th>Paid</th><th></th></tr></thead><tbody id="rows"></tbody></table></div></div></section>
+</div>
+<script>
+(function(){
+var T={
+en:{n:'English',dir:'ltr',day:'Tuesday',cls:'Year 8 · Mrs Hall',h:'Science Museum trip',b:'Dear parents, Year 8 visit the Science Museum on Thursday 12 March. We leave at 8:30 and return at 15:30. Please give consent and pay £14.50 by Friday.',c:'Give consent',cd:'Consent given',p:'Pay £14.50',pd:'Paid £14.50'},
+pl:{n:'Polish',dir:'ltr',day:'Wtorek',cls:'Klasa 8 · Mrs Hall',h:'Wycieczka do Muzeum Nauki',b:'Szanowni Rodzice, w czwartek 12 marca Klasa 8 jedzie do Muzeum Nauki. Wyjazd o 8:30, powrót o 15:30. Prosimy o zgodę i opłatę 14,50 £ do piątku.',c:'Wyrażam zgodę',cd:'Zgoda udzielona',p:'Zapłać 14,50 £',pd:'Zapłacono 14,50 £'},
+ur:{n:'Urdu',dir:'rtl',day:'منگل',cls:'آٹھویں جماعت · Mrs Hall',h:'سائنس میوزیم کا دورہ',b:'محترم والدین، جمعرات 12 مارچ کو آٹھویں جماعت سائنس میوزیم جائے گی۔ ہم صبح 8:30 بجے روانہ ہوں گے اور سہ پہر 3:30 بجے واپس آئیں گے۔ براہ کرم جمعہ تک اجازت دیں اور £14.50 ادا کریں۔',c:'اجازت دیں',cd:'اجازت دی گئی',p:'£14.50 ادا کریں',pd:'£14.50 ادا کر دیے گئے'},
+bn:{n:'Bengali',dir:'ltr',day:'মঙ্গলবার',cls:'অষ্টম শ্রেণি · Mrs Hall',h:'সায়েন্স মিউজিয়াম ভ্রমণ',b:'প্রিয় অভিভাবকগণ, বৃহস্পতিবার ১২ মার্চ অষ্টম শ্রেণি সায়েন্স মিউজিয়াম পরিদর্শনে যাবে। আমরা সকাল ৮:৩০-এ রওনা দেব এবং বিকেল ৩:৩০-এ ফিরব। অনুগ্রহ করে শুক্রবারের মধ্যে অনুমতি দিন এবং £১৪.৫০ প্রদান করুন।',c:'অনুমতি দিন',cd:'অনুমতি দেওয়া হয়েছে',p:'£১৪.৫০ প্রদান করুন',pd:'£১৪.৫০ প্রদান করা হয়েছে'},
+ro:{n:'Romanian',dir:'ltr',day:'Marți',cls:'Clasa a 8-a · Mrs Hall',h:'Excursie la Muzeul Științei',b:'Dragi părinți, joi, 12 martie, clasa a 8-a vizitează Muzeul Științei. Plecăm la 8:30 și ne întoarcem la 15:30. Vă rugăm să vă dați acordul și să plătiți 14,50 £ până vineri.',c:'Îmi dau acordul',cd:'Acord acordat',p:'Plătesc 14,50 £',pd:'Plătit 14,50 £'}};
+var order=['en','pl','ur','bn','ro'],counts={en:155,pl:9,ur:7,bn:5,ro:4};
+var sn=['Adams','Ahmed','Baker','Begum','Chowdhury','Clarke','Davies','Dumitru','Evans','Fraser','Green','Hussain','Iqbal','Jones','Kowalski','Khan','Lewis','Moore','Nowak','Okafor','Patel','Popescu','Quinn','Rahman','Roberts','Shah','Singh','Taylor','Wiśniewski','Walker','Yusuf','Zielinski'];
+var seed=7;function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647}
+var fam=[],k=0;order.forEach(function(l){for(var i=0;i<counts[l];i++)fam.push({l:l,o:0,c:0,p:0})});
+for(var i=fam.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=fam[i];fam[i]=fam[j];fam[j]=t}
+fam.forEach(function(f,i){f.name=sn[i%sn.length]+' family';f.id=i});
+fam.forEach(function(f,i){if(i<139)f.o=1;if(i<112)f.c=1;if(i<96)f.p=1});
+// shuffle open status so it is not tied to order
+var cur='en',tab=1,nudged=false;
+function stats(){var o=0,c=0,p=0;fam.forEach(function(f){o+=f.o;c+=f.c;p+=f.p});return{o:o,c:c,p:p,n:fam.length}}
+function render(){var s=stats(),pc=Math.round(s.o/s.n*100);
+ document.getElementById('pct').textContent=pc+'%';document.getElementById('arc').setAttribute('stroke-dasharray',(427*s.o/s.n)+' 427');
+ document.getElementById('s-open').textContent=s.o+' families opened it';document.getElementById('s-cons').textContent=s.c+' have given consent';document.getElementById('s-paid').textContent=s.p+' have paid (£'+(s.p*14.5).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2})+')';
+ var un=s.n-s.o,n=document.getElementById('nudge');
+ if(nudged){n.disabled=true;n.innerHTML='Reminder sent'}else{n.disabled=un===0;n.innerHTML='Nudge the other '+un+' <span>by text</span>'}
+ var ch=document.getElementById('chips');ch.innerHTML='';
+ order.forEach(function(l){var b=document.createElement('button');b.className='chip';b.type='button';b.setAttribute('aria-pressed',l===cur);b.innerHTML=T[l].n+'<em>'+counts[l]+'</em>';b.onclick=function(){cur=l;myApproved[l]=myApproved[l]||false;render()};ch.appendChild(b)});
+ msg();if(tab===2)rows()}
+var myC=false,myP=false,appr={en:true,pl:true,ur:false,bn:false,ro:false};var myApproved=appr;
+function msg(){var t=T[cur],rtl=t.dir==='rtl',m=document.getElementById('msg');
+ m.innerHTML='<div class="hdr"><div class="av" style="background:'+(cur==='en'?'#FFD23F':'#FF8A5C')+'">O</div><div><b>Oakfield Academy</b><span>'+t.cls+'</span></div></div><div class="day">'+t.day+'</div>'+
+ '<div class="bub '+(rtl?'rtl':'')+'" lang="'+cur+'"><h5>'+t.h+'</h5>'+t.b+'</div><div class="meta">2:02 pm</div>'+
+ (cur==='en'?'':'<button type="button" class="note" id="ap" aria-pressed="'+appr[cur]+'">'+(appr[cur]?'✓ Translated into '+t.n+', checked by school':'Translated into '+t.n+' · Tap to mark as checked')+'</button>')+
+ '<button type="button" class="pb '+(myC?'done':'b1')+'" id="bc" lang="'+cur+'">'+(myC?'✓ '+t.cd:t.c)+'</button><button type="button" class="pb '+(myP?'done':'b2')+'" id="bp" lang="'+cur+'">'+(myP?'✓ '+t.pd:t.p)+'</button>';
+ var ap=document.getElementById('ap');if(ap)ap.onclick=function(){appr[cur]=!appr[cur];msg()};
+ document.getElementById('bc').onclick=function(){myC=!myC;bump(myC,'c');};
+ document.getElementById('bp').onclick=function(){if(!myC&&!myP){myC=true}myP=!myP;bump(myP,'p');}}
+var extra=null;
+function bump(on,key){ // the previewing family is an extra (virtual) member, so counts move live
+ if(!extra){extra=fam.filter(function(f){return !f.o})[0];}
+ if(extra){extra.o=1;extra.c=myC?1:0;extra.p=myP?1:0}
+ document.getElementById('live').textContent=on?'Counts updated live.':'';render()}
+function rows(){var f=document.getElementById('flt'),mode=f.dataset.m||'all';
+ if(!f.children.length){[['all','All'],['no-open','Not opened'],['no-cons','No consent'],['no-pay','Not paid']].forEach(function(a){var b=document.createElement('button');b.type='button';b.textContent=a[1];b.dataset.k=a[0];b.onclick=function(){f.dataset.m=a[0];rows()};f.appendChild(b)})}
+ [].forEach.call(f.children,function(b){b.setAttribute('aria-pressed',b.dataset.k===mode)});
+ var tb=document.getElementById('rows');tb.innerHTML='';
+ fam.filter(function(x){return mode==='all'||(mode==='no-open'&&!x.o)||(mode==='no-cons'&&!x.c)||(mode==='no-pay'&&!x.p)}).forEach(function(x){
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td>'+x.name+'</td><td><span class="tg lg">'+T[x.l].n+'</span></td><td><span class="tg '+(x.o?'yes':'no')+'">'+(x.o?'Yes':'No')+'</span></td><td><span class="tg '+(x.c?'yes':'no')+'">'+(x.c?'Yes':'No')+'</span></td><td><span class="tg '+(x.p?'yes':'no')+'">'+(x.p?'Yes':'No')+'</span></td><td></td>';
+  var b=document.createElement('button');b.className='rb';b.type='button';b.textContent=x.t?'Sent':'Text in '+T[x.l].n;b.disabled=!!x.t||(x.o&&x.c&&x.p);b.onclick=function(){x.t=1;b.textContent='Sent';b.disabled=true};
+  tr.lastChild.appendChild(b);tb.appendChild(tr)})}
+document.getElementById('nudge').onclick=function(){
+ nudged=true;var un=fam.filter(function(f){return !f.o});document.getElementById('live').textContent='Texting '+un.length+' families in their own language…';render();
+ setTimeout(function(){var n=0;un.forEach(function(f,i){if(i%2===0||i%5===1){f.o=1;n++;if(i%3===0){f.c=1}}});document.getElementById('live').textContent=n+' more families have opened the letter.';render()},1600)};
+function show(n){tab=n;document.getElementById('v1').hidden=n!==1;document.getElementById('v2').hidden=n!==2;
+ document.getElementById('t1').setAttribute('aria-selected',n===1);document.getElementById('t2').setAttribute('aria-selected',n===2);if(n===2)rows()}
+document.getElementById('t1').onclick=function(){show(1)};document.getElementById('t2').onclick=function(){show(2)};
+render();
+})();
+</script></body></html>

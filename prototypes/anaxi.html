@@ -1,0 +1,120 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Anaxi</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#fff;--fg:#0F1115;--mute:#6B7280;--line:#E6E7EA;--hover:#F4F4F5;--red:#E8573F;--f:'Inter',system-ui,sans-serif;--m:'IBM Plex Mono',ui-monospace,monospace;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f)}
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh;max-width:1500px;margin:0 auto}
+@media (max-width:860px){.app{grid-template-columns:1fr}.side{position:static!important;height:auto!important;flex-direction:row!important;flex-wrap:wrap;padding:12px!important}.side h6{display:none}}
+.side{border-right:1px solid var(--line);padding:22px 12px;display:flex;flex-direction:column;gap:2px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{display:flex;gap:12px;align-items:center;margin:0 10px 18px}.brand b{display:block;font:700 15px var(--f);letter-spacing:.1em}.brand small{font:400 10px var(--m);letter-spacing:.14em;color:var(--mute)}
+.side h6{font:500 10.5px var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:18px 12px 6px}
+.nv{display:block;width:100%;text-align:left;border:0;background:none;padding:9px 12px;border-radius:8px;font:500 14px var(--f);color:#4B5260;cursor:pointer;border-left:3px solid transparent}
+.nv[aria-current=page]{background:var(--hover);color:var(--fg);font-weight:600;border-left-color:var(--fg)}.nv.dim{opacity:.5;cursor:default}
+.nv:focus-visible,.btn:focus-visible,.seg button:focus-visible,select:focus-visible,input:focus-visible,.row:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 32px;border-bottom:1px solid var(--line)}
+.sch{border:1px solid var(--line);border-radius:8px;padding:8px 14px;font:500 14px var(--f)}.sch i{display:inline-block;width:22px;height:22px;background:var(--hover);border-radius:5px;text-align:center;line-height:22px;font-style:normal;font-size:12px;margin-right:8px;font-weight:700}
+.user{display:flex;gap:12px;align-items:center;font:600 13px var(--f);text-align:right}.user small{display:block;font:400 10px var(--m);letter-spacing:.1em;color:var(--mute)}.user i{width:36px;height:36px;background:var(--fg);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px}
+main{padding:28px 32px 48px;min-width:0}
+.eb{font:500 11px var(--m);letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
+h1{font:600 clamp(30px,4vw,40px)/1.1 var(--f);letter-spacing:-.04em;margin:8px 0 6px}h1 span{color:var(--red)}
+.lead{color:var(--mute);font-size:15px;margin:0}
+.top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;padding-bottom:26px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.btn{font:600 14px var(--f);padding:12px 20px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--fg)}.btn.k{background:var(--fg);color:#fff;border-color:var(--fg)}
+h2{font:600 20px var(--f);letter-spacing:-.02em;margin:0 0 14px}
+.snap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:26px}@media (max-width:900px){.snap{grid-template-columns:1fr 1fr}}
+.c{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:#fff}.c .k{font-size:13px;color:var(--mute);display:flex;gap:8px;align-items:center}.c .k i{color:var(--red);font-style:normal}.c b{display:block;font:600 30px var(--f);letter-spacing:-.03em;margin:10px 0 6px}.c small{font-size:12px;color:var(--mute)}
+.two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;align-items:start}@media (max-width:900px){.two{grid-template-columns:1fr}}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px;margin:0 0 6px 12px}.seg button{border:0;background:none;font:500 13px var(--f);padding:7px 16px;border-radius:7px;cursor:pointer;color:#4B5260}.seg button[aria-pressed=true]{background:var(--fg);color:#fff}
+.row{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);width:100%;border-left:0;border-right:0;border-bottom:0;background:none;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.row b{font:600 15px var(--f);display:block}.row small{font-size:12.5px;color:var(--mute);display:block;margin-top:3px;line-height:1.4}
+.tg{font:500 11px var(--f);border:1px solid #F0C4BB;color:#C2412B;background:#FFF5F3;border-radius:6px;padding:4px 9px;flex:none}.tg.n{border-color:var(--line);color:#4B5260;background:#fff}
+.arr{color:var(--red);font-size:18px}
+.wk{display:flex;justify-content:space-between;padding:15px 0;border-top:1px solid var(--line);font-size:14.5px;align-items:center}.wk b{font:500 20px var(--f)}
+.ins{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}@media (max-width:900px){.ins{grid-template-columns:1fr}}
+.panel{border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+label{display:block;font:500 13px var(--f);color:#4B5260;margin:0 0 6px}
+select,input[type=text]{width:100%;font:500 14px var(--f);padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--fg)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}@media (max-width:640px){.grid{grid-template-columns:1fr}}
+.ind{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--line);font-size:14.5px}
+.rt{display:flex;gap:4px}.rt button{width:38px;height:34px;border:1px solid var(--line);background:#fff;border-radius:7px;font:600 13px var(--f);cursor:pointer}.rt button[aria-pressed=true]{background:var(--fg);color:#fff;border-color:var(--fg)}
+.done{border:1px solid #BFE3CC;background:#F1FAF4;color:#1E6B3C;border-radius:10px;padding:12px 16px;font-size:14px;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}th{font:500 11px var(--m);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);text-align:left;padding:0 10px 10px}td{padding:13px 10px;border-top:1px solid var(--line)}
+.spark{display:inline-flex;gap:2px;align-items:flex-end;height:20px}.spark i{width:5px;background:var(--fg);border-radius:1px;display:block}.spark.r i{background:var(--red)}
+.brief{background:#23262D;color:#fff;border-radius:20px;border-left:3px solid var(--red);padding:26px 30px 18px;margin-bottom:30px}.bh{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.seg.dk{border-color:#3A3E47;margin:0}.seg.dk button{color:#C9CDD4}.seg.dk button[aria-pressed=true]{background:#fff;color:#0F1115}
+.bc2{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:22px}.bc2>div{padding:0 28px 0 0}.bc2>div+div{padding:0 0 0 28px;border-left:1px solid #3A3E47}@media(max-width:800px){.bc2{grid-template-columns:1fr}.bc2>div+div{padding:16px 0 0;border:0}}
+.bl{font:500 11px var(--m);letter-spacing:.12em;color:#F08C78;margin-bottom:10px}.bc2 p{font-size:15.5px;line-height:1.7;margin:0;color:#ECEEF1}.lk{display:inline-block;margin-top:14px;font-size:13.5px;cursor:pointer}
+.bf{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:11.5px;color:#9AA0AA;border-top:1px solid #3A3E47;margin-top:22px;padding-top:14px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.snap2{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:14px;margin-bottom:26px}@media(max-width:1000px){.snap2{grid-template-columns:1fr 1fr}}
+.c.hl{border-top:2px solid var(--red)}.c .k{display:flex;justify-content:space-between;font-size:14px;color:#4B5260}.c .k i{color:var(--red);font-style:normal}
+.c b.bg{font:500 44px var(--f);letter-spacing:-.04em;margin:14px 0 10px}.c small{display:block;line-height:1.6}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);margin-top:18px;border-top:1px solid var(--line);padding-top:14px;gap:12px}.tri b{font:500 20px var(--f);margin:6px 0 0}
+.ft{display:flex;justify-content:space-between;color:var(--mute);font-size:13px;margin-top:26px}.pb{height:6px;border-radius:4px;background:var(--hover);margin-top:22px}.pb i{display:block;height:100%;background:#6C8F7A;border-radius:4px}
+.three{display:grid;grid-template-columns:1.2fr 1.2fr 1fr;gap:14px}@media(max-width:1000px){.three{grid-template-columns:1fr}}
+.three .c{padding:22px 24px}.three .row b{font-size:14.5px}
+.bd{float:right;font:600 11px var(--f);font-style:normal;background:var(--hover);border-radius:6px;padding:2px 7px;color:#4B5260}.foot{font-size:13px;color:#9AA0AA;margin-top:26px}
+</style></head><body><div class="app">
+<nav class="side" aria-label="Anaxi"><div class="brand"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c2-6 4-10 7-14 3 4 5 8 7 14M8.5 13.5h7"/></svg><div><b>ANAXI</b><small>FUTURE EDUCATION</small></div></div>
+<h6>Overview</h6><button class="nv" data-v="home" aria-current="page">Home</button><button class="nv dim" disabled>My actions</button><button class="nv dim" disabled>Insights</button>
+<h6>Instruction</h6><button class="nv" data-v="obs">New observation</button><button class="nv" data-v="hist">Observation history</button>
+<h6>Students</h6><button class="nv dim" disabled>Attainment</button><button class="nv" data-v="stu">Students</button><button class="nv dim" disabled>Classes</button><button class="nv dim" disabled>On call <em class="bd">1</em></button>
+<h6>Operations</h6><button class="nv dim" disabled>Meetings</button><button class="nv dim" disabled>Leave of absence <em class="bd">1</em></button><button class="nv dim" disabled>Strategy Board</button></nav>
+<div><div class="topbar"><div class="sch"><i>O</i>Oakfield Academy</div><div class="user"><div>Anaxi Admin<small>SUPER ADMIN</small></div><i>AA</i></div></div><main id="m"></main></div></div>
+<script>
+(function(){
+var T={'Ben Okafor':{sub:'English',signals:[4.1,3.9,3.6,3.4,3.1,2.9],obs:14},'Mia Hart':{sub:'Maths',signals:[3.2,3.3,3.5,3.6,3.7,3.8],obs:9},'Sam Lowe':{sub:'Science',signals:[3.6,3.5,3.7,3.6,3.8,3.7],obs:8}};
+var S=[{n:'Jamie Reynolds',y:'Year 10',cls:'Y10 Maths',att:86.4,on:5,exc:1,r:'Urgent',d:'On Calls have increased · Internal exclusions have increased · +2 more',ev:'Snapshot 6 Oct',w:[1,1,2,3,3,5],p:['7d','21d','28d']},
+{n:'Priya Sharma',y:'Year 9',cls:'Y9 English',att:90.1,on:3,exc:0,r:'Priority',d:'On Calls have increased · Detentions have increased · +1 more',ev:'Snapshot 7 Oct',w:[0,1,1,2,2,3]},
+{n:'Aaliyah Rahman',y:'Year 11',cls:'Y11 History',att:92.7,on:1,exc:0,r:'Watch',d:'Attendance dipping after half-term',ev:'Snapshot 8 Oct',w:[0,0,1,1,1,2]},
+{n:'Tom Evans',y:'Year 8',cls:'Y8 Science',att:95.2,on:0,exc:0,r:'',d:'',ev:'',w:[0,0,0,0,1,0]}];
+var OBS=[{t:'Ben Okafor',c:'Year 10 English',d:'21 Oct',sc:'Teaching 3.1',sig:'Checking for understanding'},{t:'Mia Hart',c:'Year 8 Maths',d:'20 Oct',sc:'Teaching 3.8',sig:'Modelling'},{t:'Sam Lowe',c:'Year 7 Science',d:'20 Oct',sc:'Teaching 3.7',sig:'Questioning'}];
+var period='21d',lessons=43,cover=18,m=document.getElementById('m');
+var IND=['Clear learning intention','Checking for understanding','Questioning and wait time','Modelling and explanation','Pupil engagement'];
+function sparks(a,r){var mx=Math.max.apply(null,a)||1;return'<span class="spark'+(r?' r':'')+'">'+a.map(function(x){return'<i style="height:'+Math.max(3,x/mx*20)+'px"></i>'}).join('')+'</span>'}
+function attention(){var rows=[];
+  Object.keys(T).forEach(function(k){var s=T[k].signals,drop=s[0]-s[s.length-1];if(drop>.5)rows.push({n:k,d:'Lesson signals declining',ev:T[k].obs+' observations · Last observed 21 Oct',tag:'Teaching',urgent:0,w:drop})});
+  S.forEach(function(x){if(x.r&&(period!=='7d'||x.r==='Urgent'))rows.push({n:x.n,d:x.d,ev:x.ev,tag:x.r,urgent:x.r==='Urgent'?2:1,w:x.on+x.exc+5})});
+  rows.push({n:'CFU cycles',d:'1 of 3 teachers show a decline.',ev:'Last '+period.replace('d',' days'),tag:'CPD',urgent:0,w:.1});
+  return rows.sort(function(a,b){return b.urgent-a.urgent||b.w-a.w})}
+function win(){return period==='7d'?2:period==='21d'?4:6}
+function trendOf(k){var sg=T[k].signals,w=sg.slice(-win());return w[0]-w[w.length-1]}
+function home(){
+  var tk=Object.keys(T),decl=tk.filter(function(k){return trendOf(k)>.25}),up=tk.filter(function(k){return trendOf(k)<-.2}),flagged=S.filter(function(x){return x.r}),oncall=S.filter(function(x){return x.r==='Urgent'});
+  var d=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  var A=[];if(oncall.length)A.push({ic:'☎',t:oncall.length+' active on-call request'+(oncall.length>1?'s':''),sub:oncall[0].n+' · '+oncall[0].cls,ev:'Live queue · includes acknowledged requests',go:'stu'});
+  decl.forEach(function(k){A.push({ic:'▤',t:k+': lesson signals declining',sub:T[k].obs+' observations · '+T[k].sub,ev:'Last '+period.replace('d',' days'),go:'hist'})});
+  flagged.filter(function(x){return x.r!=='Urgent'}).forEach(function(x){A.push({ic:'◔',t:x.n+': '+x.d,sub:x.cls+' · '+x.att.toFixed(1)+'% attendance',ev:x.ev,go:'stu'})});
+  var C=up.map(function(k){return{t:k+': improving signals',sub:'Up '+(-trendOf(k)).toFixed(1)+' over '+period.replace('d',' days')+' · '+T[k].sub,go:'hist'}});
+  if(!C.length)C=[{t:'Modelling explicitness',sub:'Improving signals for 2 of 3 teachers covered.',go:'hist'}];
+  m.innerHTML='<div class="top"><div><div class="eb">Leadership workspace &nbsp;•&nbsp; <span style="text-transform:none;letter-spacing:0;font-family:var(--f)">'+d+'</span></div><h1>School briefing<span>.</span></h1><p class="lead">What needs attention, what\'s happening today and where to look next.</p></div><button class="btn k" id="qa">+ Quick actions</button></div>'+
+  '<div class="brief"><div class="bh"><div><div class="eb" style="color:#9AA0AA">Leadership briefing</div><h2 style="color:#fff;font-size:26px;margin:8px 0 0">This week, at a glance</h2></div><div style="display:flex;align-items:center;gap:12px;font-size:12px;color:#9AA0AA">Teaching evidence <div class="seg dk" id="seg">'+['7d','21d','28d'].map(function(p){return'<button aria-pressed="'+(p===period)+'" data-p="'+p+'">'+p+'</button>'}).join('')+'</div></div></div>'+
+  '<div class="bc2"><div><div class="bl">Student focus</div><p>Attendance is 94.1% for the academic year to date. '+flagged.length+' students need a closer look under the existing risk indicators.</p><a class="lk" data-go="stu">Review student insights →</a></div><div><div class="bl">Teaching focus</div><p>Lesson signals suggest a follow-up with '+decl.length+' teacher'+(decl.length===1?'':'s')+'. Checking for understanding is the leading CPD focus, with declining signals for '+decl.length+' of '+tk.length+' teachers covered. Modelling shows positive movement for '+up.length+' of '+tk.length+' teachers covered.</p></div></div><div class="bf"><span>● Auto-generated from sample school data</span><span>Teaching: last '+period.replace('d',' days')+' vs preceding '+period.replace('d',' days')+'</span></div></div>'+
+  '<div class="sh"><h2 style="margin:0">School snapshot</h2><span class="eb">The numbers that matter</span></div>'+
+  '<div class="snap2"><div class="c hl"><div class="k">Attendance<i>◔</i></div><b class="bg">94.1%</b><small>Academic year to date · 612 students<br>Updated today · Lesson marks</small><div class="tri"><div><small>Last 7 days</small><b>92.4%</b></div><div><small>Last 21 days</small><b>93.6%</b></div><div><small>Last 28 days</small><b>93.9%</b></div></div></div>'+
+  '<div class="c"><div class="k">Lessons observed<i>▤</i></div><b class="bg">'+lessons+'</b><small>Last 7 days</small><div class="ft">Observation history <span>↗</span></div></div>'+
+  '<div class="c"><div class="k">Observation coverage<i>◑</i></div><b class="bg">'+cover+' <span style="font-size:20px;color:var(--mute)">/ 41</span></b><small>Sufficient evidence · 21 days</small><div class="pb"><i style="width:'+(cover/41*100).toFixed(0)+'%"></i></div><div class="ft">Teachers covered <span>↗</span></div></div>'+
+  '<div class="c"><div class="k">Latest assessment<i>▥</i></div><b class="bg">96</b><small>Year 11 mock · Checkpoint 2<br>Students assessed</small><div class="ft">Explore attainment <span>↗</span></div></div></div>'+
+  '<div class="three"><div class="c"><div class="eb">Priorities</div><h2 style="margin:6px 0 4px">Where to focus</h2>'+A.slice(0,4).map(function(r){return'<button class="row" data-go="'+r.go+'"><span><b>'+r.t+'</b><small>'+r.sub+'</small><small>'+r.ev+'</small></span><span class="arr">→</span></button>'}).join('')+'</div>'+
+  '<div class="c"><div class="eb">Positive movement</div><h2 style="margin:6px 0 4px">Worth celebrating</h2>'+C.map(function(r){return'<button class="row" data-go="'+r.go+'"><span><b>'+r.t+'</b><small>'+r.sub+'</small></span><span class="arr">→</span></button>'}).join('')+'</div>'+
+  '<div class="c"><div class="eb">Your day</div><h2 style="margin:6px 0 4px">Today\'s work</h2><div class="wk"><span>Your open actions</span><b>0</b></div><div class="wk"><span>Leave approvals</span><b>1</b></div><div class="wk"><span>Your meetings today</span><b>2</b></div><div class="wk"><span>Your student watchlist</span><b>'+oncall.length+'</b></div></div></div>'+
+  '<div class="foot">Try Quick actions, the teaching evidence period and the items under Where to focus.</div>';
+  m.querySelectorAll('#seg button').forEach(function(b){b.onclick=function(){period=b.dataset.p;home()}});
+  m.querySelectorAll('[data-go]').forEach(function(b){b.onclick=function(){go(b.dataset.go)}});
+  document.getElementById('qa').onclick=function(){go('obs')}}
+function obs(saved){m.innerHTML='<div class="top"><div><div class="eb">Instruction</div><h1>New observation<span>.</span></h1><p class="lead">Record what you saw. It feeds Needs attention and the teacher\'s history.</p></div></div>'+(saved?'<div class="done">Observation saved for '+saved+'. Lessons observed is now '+lessons+', and the teacher\'s signals have updated.</div>':'')+
+  '<div class="panel" style="max-width:760px"><div class="grid"><div><label for="tc">Teacher</label><select id="tc">'+Object.keys(T).map(function(k){return'<option>'+k+'</option>'}).join('')+'</select></div><div><label for="cl">Class</label><select id="cl"><option>Year 10 English</option><option>Year 8 Maths</option><option>Year 7 Science</option></select></div></div>'+
+  IND.map(function(n,i){return'<div class="ind"><span>'+n+'</span><span class="rt" data-i="'+i+'">'+[1,2,3,4,5].map(function(v){return'<button type="button" aria-pressed="false" data-v="'+v+'">'+v+'</button>'}).join('')+'</span></div>'}).join('')+
+  '<div style="margin-top:18px"><label for="nt">Note</label><input type="text" id="nt" placeholder="One thing you saw that others should know"></div><div style="margin-top:18px;display:flex;gap:10px;align-items:center"><button class="btn k" id="sv">Save observation</button><span id="er" style="color:#C2412B;font-size:13px"></span></div></div>';
+  m.querySelectorAll('.rt').forEach(function(g){g.querySelectorAll('button').forEach(function(b){b.onclick=function(){g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true')}})});
+  document.getElementById('sv').onclick=function(){var vals=[].map.call(m.querySelectorAll('.rt'),function(g){var p=g.querySelector('[aria-pressed=true]');return p?+p.dataset.v:null});
+    if(vals.indexOf(null)>=0){document.getElementById('er').textContent='Rate all five areas before saving.';return}
+    var t=document.getElementById('tc').value,avg=vals.reduce(function(a,b){return a+b},0)/vals.length;T[t].signals.push(avg);T[t].obs++;lessons++;OBS.unshift({t:t,c:document.getElementById('cl').value,d:'Today',sc:'Teaching '+avg.toFixed(1),sig:document.getElementById('nt').value||'No note'});obs(t)}}
+function hist(){m.innerHTML='<div class="top"><div><div class="eb">Instruction</div><h1>Observation history<span>.</span></h1><p class="lead">Recent lessons and how each teacher\'s signals are moving.</p></div><button class="btn k" id="n">+ New observation</button></div><div class="panel"><table><tr><th>Teacher</th><th>Class</th><th>When</th><th>Score</th><th>Note</th></tr>'+OBS.map(function(o){return'<tr><td><b>'+o.t+'</b></td><td>'+o.c+'</td><td>'+o.d+'</td><td>'+o.sc+'</td><td>'+o.sig+'</td></tr>'}).join('')+'</table></div><div class="panel" style="margin-top:16px"><h2>Teacher signals</h2><table><tr><th>Teacher</th><th>Subject</th><th>Observations</th><th>Trend</th></tr>'+Object.keys(T).map(function(k){var s=T[k].signals,d=s[0]-s[s.length-1];return'<tr><td><b>'+k+'</b></td><td>'+T[k].sub+'</td><td>'+T[k].obs+'</td><td>'+sparks(s.map(function(x){return x}),d>.5)+' '+(d>.5?'<span class="tg">declining</span>':'<span class="tg n">steady</span>')+'</td></tr>'}).join('')+'</table></div>';document.getElementById('n').onclick=function(){go('obs')}}
+function stu(){m.innerHTML='<div class="top"><div><div class="eb">Students</div><h1>Students<span>.</span></h1><p class="lead">Attendance and behaviour, sorted by who needs a conversation first.</p></div></div><div class="panel"><table><tr><th>Student</th><th>Year</th><th>Attendance</th><th>On calls</th><th>Exclusions</th><th>Trend</th><th></th></tr>'+S.map(function(x){return'<tr><td><b>'+x.n+'</b><div style="font-size:12px;color:var(--mute)">'+x.cls+'</div></td><td>'+x.y+'</td><td style="color:'+(x.att<90?'#C2412B':'inherit')+';font-weight:600">'+x.att.toFixed(1)+'%</td><td>'+x.on+'</td><td>'+x.exc+'</td><td>'+sparks(x.w,x.r==='Urgent')+'</td><td>'+(x.r?'<span class="tg'+(x.r==='Urgent'?'':' n')+'">'+x.r+'</span>':'')+'</td></tr>'}).join('')+'</table></div>'}
+function go(v){document.querySelectorAll('.nv').forEach(function(n){n.removeAttribute('aria-current')});var n=document.querySelector('.nv[data-v="'+v+'"]');if(n)n.setAttribute('aria-current','page');({home:home,obs:obs,hist:hist,stu:stu})[v]();window.scrollTo(0,0)}
+document.querySelectorAll('.nv[data-v]').forEach(function(n){n.onclick=function(){go(n.dataset.v)}});
+go('home');
+})();
+</script></body></html>
