@@ -38,13 +38,13 @@ p{margin:0}
 .ghost:hover{color:var(--verd)}
 
 /* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:64px;align-items:center;padding:56px 0 120px}
-.hero h1{font-size:clamp(46px,6.6vw,92px);line-height:1;letter-spacing:-.022em}
+.hero{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,.55fr);gap:56px;align-items:center;padding:56px 0 120px}
+.hero h1 span{display:block}.hero h1 span+span{margin-top:.18em}.hero h1{font-size:clamp(38px,5vw,68px);line-height:1;letter-spacing:-.022em}
 .hero .lede{font-size:19px;line-height:1.75;max-width:520px;margin-top:30px}
 .hero .acts{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin-top:38px}
 .hero .by{margin-top:46px;font-size:14px;color:var(--mute);display:flex;align-items:center;gap:12px}
 .hero .by i{display:block;width:34px;height:1px;background:var(--bronze)}
-.archwrap{position:relative;max-width:440px;width:100%;justify-self:center}
+.archwrap{position:relative;max-width:400px;width:100%;justify-self:center}
 .archwrap:after{content:"";display:block;height:1px;background:var(--line);margin-top:0}
 .arch{display:block;width:100%;height:auto}
 @keyframes tile{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
@@ -172,8 +172,8 @@ dialog#viewer::backdrop{background:rgba(30,43,47,.55);backdrop-filter:blur(3px)}
 <!-- HERO -->
 <div class="hero" id="top">
 <div>
-<h1>AI is complicated. You don't have to work it out.</h1>
-<p class="lede">We will. Tessera finds where AI genuinely helps your school, builds the tools around how you already work, and looks after your staff through the change. You tell us what you need, and we make it work.</p>
+<h1><span>Every school is different.</span> <span>Your software should be too.</span></h1>
+<p class="lede">You should not need an ed tech company to decide how your school works. With AI, we build the tools you actually need, alongside your staff, and you keep them. AI is complicated. We take care of that part.</p>
 <div class="acts"><a class="btn" href="mailto:hi@wearetessera.co.uk">Talk to us</a><a class="ghost" href="#built">See what we've built</a></div>
 <div class="by"><i></i>Led by two people who have worked in schools</div>
 </div>
