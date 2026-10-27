@@ -14,7 +14,7 @@ html{scroll-behavior:smooth}
 body{margin:0;background:#000}
 a{color:inherit}
 :focus-visible{outline:1px solid #fff;outline-offset:4px}
-.page{background:var(--bg);color:var(--dim);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.65;overflow:hidden;-webkit-font-smoothing:antialiased}
+.page{background:var(--bg);color:var(--dim);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.65;overflow:clip;-webkit-font-smoothing:antialiased}
 h1,h2,h3,p{margin:0;font-weight:300;color:var(--fg);text-wrap:balance}
 .wrap{max-width:1320px;margin:0 auto;padding:0 40px}
 
@@ -71,18 +71,27 @@ h1,h2,h3,p{margin:0;font-weight:300;color:var(--fg);text-wrap:balance}
 .people{border-top:1px solid var(--line);padding:140px 0}
 .people .wrap{display:block}
 .people h2{font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-.035em;max-width:720px}
-.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;margin-top:64px}
-.pp{margin:0;display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:start;padding-top:32px;border-top:1px solid var(--line)}
-.ph{position:relative;aspect-ratio:4/5;background:#111}
-.ph:before{content:"";position:absolute;inset:0;transform:translate(10px,10px);border:1px solid rgba(255,255,255,.35);z-index:0;transition:transform .5s cubic-bezier(.22,1,.36,1)}
-.ph img{position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
-.pp:hover .ph:before{transform:translate(0,0)}
-.pp figcaption{min-width:0}
-.pp h3{font-size:32px;letter-spacing:-.03em;font-weight:300;color:#fff;line-height:1}
-.pp .role{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-top:10px}
-.pp p{margin-top:16px;color:var(--dim);max-width:440px}
-.pr4{margin-top:72px}
-.pr4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 40px;color:#fff;font-size:15px}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;margin-top:56px}
+.pp{margin:0;position:relative;view-timeline-name:--pp}
+.ph{position:relative;aspect-ratio:1/1;overflow:hidden;background:#111}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;filter:grayscale(1) contrast(1.05) brightness(.5);transform:scale(1)}
+.ph:after{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(90deg,#000 4px,transparent 4px),linear-gradient(#000 4px,transparent 4px);background-size:33.3333% 100%,100% 33.3333%;background-position:-2px 0,0 -2px;opacity:0}
+.ph .gap{position:absolute;left:calc((var(--c) - 1) * 33.3333%);top:calc((var(--r) - 1) * 33.3333%);width:33.3333%;height:33.3333%;background:#000;z-index:2;opacity:0}
+.ph .gap:after{content:"";position:absolute;inset:12px;border:1px solid rgba(255,255,255,.6)}
+.pp figcaption{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:40px clamp(24px,3vw,44px) clamp(28px,3vw,44px);background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.55) 40%,rgba(0,0,0,.8))}
+.pp h3{font-size:clamp(32px,3.4vw,48px);letter-spacing:-.035em;font-weight:300;color:#fff;line-height:1}
+.pp .role{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#C9CBCE;margin-top:12px}
+.pp p{margin-top:16px;color:#E4E5E7;max-width:460px}
+@supports (animation-timeline:view()){
+@media (prefers-reduced-motion:no-preference){
+.ph img{animation:ppimg linear both;animation-timeline:--pp;animation-range:entry 0% entry 100%}
+.ph:after,.ph .gap{animation:ppgrid linear both;animation-timeline:--pp;animation-range:entry 0% entry 100%}
+.pp figcaption{animation:ppcap linear both;animation-timeline:--pp;animation-range:entry 0% entry 100%}
+@keyframes ppimg{0%,30%{filter:grayscale(1) contrast(1.05) brightness(1);transform:scale(1.06)}100%{filter:grayscale(1) contrast(1.05) brightness(.5);transform:scale(1)}}
+@keyframes ppgrid{0%,30%{opacity:1}70%,100%{opacity:0}}
+@keyframes ppcap{0%,45%{transform:translateY(60px);opacity:0}100%{transform:none;opacity:1}}
+}}
+.pr4{margin-top:72px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px 40px;color:#fff;font-size:15px}
 .pr4 span{padding-top:14px;border-top:1px solid var(--line)}
 
 /* contact */
@@ -102,7 +111,7 @@ h1,h2,h3,p{margin:0;font-weight:300;color:var(--fg);text-wrap:balance}
 .slide .nm{font-size:36px}.slide .ds{font-size:15px}.slide .go{margin-top:6px;padding:12px 22px}
 .rail{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;gap:26px;padding:18px 22px 0;scrollbar-width:none}.rail::-webkit-scrollbar{display:none}.thumb{white-space:nowrap}
 .what2{grid-template-columns:1fr;gap:30px;padding:80px 22px}
-.people{padding:80px 0}.duo{grid-template-columns:1fr;gap:28px;margin-top:40px}.pp{grid-template-columns:112px minmax(0,1fr);gap:20px;padding-top:24px}.pp h3{font-size:26px}.pp p{font-size:15px;margin-top:12px}.ph:before{transform:translate(6px,6px)}.pr4{grid-template-columns:1fr;margin-top:48px}
+.people{padding:80px 0}.duo{grid-template-columns:1fr;gap:56px;margin-top:44px}.pr4{grid-template-columns:1fr;margin-top:48px}.ph{aspect-ratio:4/5}.ph:after{background-size:33.3333% 100%,100% 25%}.ph .gap{top:calc((var(--r) - 1) * 25%);height:25%}.pp figcaption{padding:28px 22px 24px}.pp h3{font-size:30px}.pp p{font-size:15px;margin-top:12px;line-height:1.6}.pp .role{margin-top:10px}
 .close{padding:100px 22px 90px}.foot .wrap{padding:26px 22px}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}.thumb{color:var(--dim)}}
@@ -185,8 +194,8 @@ dialog#viewer::backdrop{background:rgba(30,43,47,.55);backdrop-filter:blur(3px)}
 <div class="people" id="people"><div class="wrap">
 <h2>Two people who know schools from the inside.</h2>
 <div class="duo">
-<figure class="pp"><div class="ph"><img src="images/adam.webp" alt="Adam" loading="lazy"></div><figcaption><h3>Adam</h3><div class="role">Building and strategy</div><p>Five years building technology and AI for schools, after nearly a decade as a Senior Vice Principal.</p></figcaption></figure>
-<figure class="pp"><div class="ph"><img src="images/megan.webp" alt="Megan" loading="lazy"></div><figcaption><h3>Megan</h3><div class="role">Change and leadership</div><p>Led a school to Outstanding in all areas at Ofsted, then managed multiple schools as a regional director at one of the UK's largest multi-academy trusts.</p></figcaption></figure>
+<figure class="pp"><div class="ph"><img src="images/adam.webp" alt="Adam" loading="lazy"><i class="gap" style="--c:1;--r:1" aria-hidden="true"></i></div><figcaption><h3>Adam</h3><div class="role">Building and strategy</div><p>Five years building technology and AI for schools, after nearly a decade as a Senior Vice Principal.</p></figcaption></figure>
+<figure class="pp"><div class="ph"><img src="images/megan.webp" alt="Megan" loading="lazy"><i class="gap" style="--c:3;--r:1" aria-hidden="true"></i></div><figcaption><h3>Megan</h3><div class="role">Change and leadership</div><p>Led a school to Outstanding in all areas at Ofsted, then managed multiple schools as a regional director at one of the UK's largest multi-academy trusts.</p></figcaption></figure>
 </div>
 <div class="pr4"><span>You own what we build.</span><span>Pupil data comes first.</span><span>We'll tell you when not to use AI.</span><span>No commission from any supplier.</span></div>
 </div></div>
