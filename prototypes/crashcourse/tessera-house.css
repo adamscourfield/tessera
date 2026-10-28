@@ -1,0 +1,42 @@
+/* Tessera house style overlay for the Crash Course showcase copy */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+:root{--navy:#0F1115;--coral:#E2A10F;--cream:#fff;--muted:#6B7280;--line:#E6E7EA;--white:#fff;--outer:#F4F4F5;--warm:#9A6B00;--subtle:#4B5260;--serif:'Inter',system-ui,sans-serif;--sans:'Inter',system-ui,sans-serif;--ink:#0F1115;--paper:#fff;--green:#0F1115;--acc:#E2A10F;--accd:#9A6B00;--accl:#FDF6E3;--m:'IBM Plex Mono',ui-monospace,monospace}
+html,body,.sidebar{background:#fff!important}
+body,button,select,input{font-family:'Inter',system-ui,sans-serif!important}
+h1,h2,h3,.brand-wordmark,.activity h2,.scene-title h2,.lesson-meta p,dialog h2,.subject-card b,.recall-visual h3,.counter{font-family:'Inter',system-ui,sans-serif!important;font-weight:600!important;letter-spacing:-.035em!important}
+.intro h1,h1{font-size:clamp(30px,3.6vw,40px)!important;line-height:1.1!important}
+.intro h1:after{content:".";color:var(--acc)}
+.eyebrow,.live-pill,.intro-number,.lesson-meta>span,.progress-label,.scene-title>span:first-child,.subject-label,.course-label{font-family:var(--m)!important;letter-spacing:.14em!important;text-transform:uppercase;color:#6B7280!important;font-weight:500!important}
+.sidebar{border-right:1px solid #E6E7EA!important}
+.brand-wordmark{flex-direction:row!important;gap:6px!important;font-size:15px!important;font-weight:700!important;letter-spacing:.1em!important;text-transform:uppercase;color:#0F1115!important}
+.brand-wordmark>span{font-weight:700!important;letter-spacing:.1em!important;font-size:15px!important;font-family:'Inter',sans-serif!important}
+.brand-mark{width:30px!important;height:30px!important}.brand-mark circle:first-of-type{fill:#FDF6E3}.brand-mark path{stroke:#0F1115}.brand-mark path:nth-of-type(3){stroke:#E2A10F}.brand-mark circle:last-of-type{fill:#E2A10F}
+.nav{background:none!important;color:#4B5260!important;border-radius:8px!important;border-left:3px solid transparent!important;font-weight:500!important}
+.nav.active{background:#F4F4F5!important;color:#0F1115!important;font-weight:600!important;border-left-color:#0F1115!important}
+.nav .nav-icon{color:inherit}
+.subject-select,.side-course select,.lab-select,select{border-color:#E6E7EA!important;border-radius:8px!important;background-color:#fff!important;color:#0F1115!important}
+.progress-track{background:#F4F4F5!important}.progress-track i{background:var(--acc)!important}
+.steps{background:#fff!important;border:1px solid #E6E7EA!important;border-radius:10px!important;padding:3px!important}
+.steps button{border-radius:7px!important;color:#4B5260!important}
+.steps .selected{background:#0F1115!important;color:#fff!important}.steps .selected b{color:#fff!important}
+.steps b{font-family:var(--m)!important}
+.workspace{border:1px solid #E6E7EA!important;border-radius:12px!important}
+.scene-panel{background:radial-gradient(ellipse at 48% 42%,#2C3038,#1A1C21 62%,#15171B)!important}
+.scene-button,.model-view-controls button{background:#ffffff0d!important;border:1px solid #ffffff26!important;color:#D6D9DE!important;border-radius:8px!important}
+.scene-title #sceneFormula{border-color:#ffffff33!important;color:#E9EBEE!important}
+.primary,#continue{background:#0F1115!important;color:#fff!important;border-radius:10px!important;font-weight:600!important}
+.primary:hover,#continue:hover{background:#2A2E37!important}
+.secondary{border-color:#E6E7EA!important;color:#0F1115!important;border-radius:10px!important;background:#fff!important}
+.reading-dots button{border-color:#E6E7EA!important;color:#4B5260!important}
+.reading-dots .current{background:#0F1115!important;color:#fff!important;border-color:#0F1115!important}
+.choice{border-color:#E6E7EA!important;border-radius:10px!important;color:#0F1115!important}
+.choice.selected,.particle-select .chosen,.subject-card.selected{background:var(--accl)!important;border-color:var(--acc)!important;color:#0F1115!important}
+.callout{background:#F4F4F5!important;border-left-color:var(--acc)!important;color:#4B5260!important}
+#feedback:not(:empty){background:#F1FAF4!important;color:#1E6B3C!important}
+#feedback.error{background:#FFF5F3!important;color:#C2412B!important}
+header{border-bottom-color:#E6E7EA!important}
+.lesson-toolbar .text-button,.prerequisites .text-button{color:#0F1115!important}
+dialog{background:#fff!important;border-color:#E6E7EA!important;border-radius:12px!important}
+.lesson-row,.subject-card{border-color:#E6E7EA!important;color:#0F1115!important;border-radius:10px!important}
+.lesson-row:hover{background:#F4F4F5!important}
+input[type=range]{accent-color:#0F1115!important}

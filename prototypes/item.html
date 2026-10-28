@@ -1,61 +1,67 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Item</title></head><body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: Swiss grid. Left rail of headline numbers, right side a pupil-by-question matrix where the red shows the gap. */
-:root{--bg:#FFFFFF;--fg:#0A0A0A;--mute:#5A5A5A;--soft:#999;--rule:#D4D4D4;--part:#C9C9C9;--red:#E10600;--f:'Archivo','Helvetica Neue',Arial,sans-serif;color-scheme:light}
+:root{--bg:#fff;--fg:#0F1115;--mute:#6B7280;--line:#E6E7EA;--hover:#F4F4F5;--acc:#0894B2;--accd:#066E85;--acct:#EEF8FB;--accb:#B9E2EC;--red:#E0533D;--redt:#FFF5F3;--redb:#F0C4BB;--ok:#1E6B3C;--okt:#F1FAF4;--okb:#BFE3CC;--f:'Inter',system-ui,sans-serif;--m:'IBM Plex Mono',ui-monospace,monospace;color-scheme:light}
+*{box-sizing:border-box}
 html,body{background:var(--bg);overflow-x:clip}
-body{margin:0;color:var(--fg);font-family:var(--f);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.page{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:330px minmax(0,1fr);gap:60px;padding-block:40px 24px}
-@media (max-width:980px){.page{grid-template-columns:1fr;gap:28px}}
-.sq{width:40px;height:40px;background:var(--red)}
-h1{font-weight:900;font-size:44px;line-height:1;letter-spacing:-.045em;margin:22px 0 0}
-.sub{font-size:19px;color:var(--mute);margin-top:8px}
-.num{font-weight:900;font-size:230px;line-height:.8;letter-spacing:-.07em;margin:54px 0 0 -10px}
-.of{font-size:24px;font-weight:600;margin-top:12px}
-.d{font-size:20px;color:var(--red);font-weight:700;margin-top:4px}
-.st{margin-top:44px;border-top:6px solid var(--fg)}
-.st div{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule);font-size:19px;gap:10px}
-.st b{font-weight:900;font-size:34px;letter-spacing:-.04em}
-.bound{display:flex;gap:16px;margin-top:20px;font-size:15px;color:var(--mute)}
-.bound label{display:flex;flex-direction:column;gap:4px;font-weight:600}
-.bound input{width:84px;font:700 20px var(--f);padding:6px 8px;border:2px solid var(--fg);border-radius:0;background:var(--bg);color:var(--fg)}
-input:focus-visible,button:focus-visible,select:focus-visible,label.btn:focus-visible{outline:3px solid var(--red);outline-offset:2px}
-.ct{width:100%;border-collapse:collapse;margin-top:26px;font-size:16px}
-.ct th{text-align:left;font-weight:600;color:var(--soft);font-size:14px;padding:0 0 6px;border-bottom:2px solid var(--fg)}
-.ct td{padding:8px 0;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}.ct td:not(:first-child),.ct th:not(:first-child){text-align:right}
-.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:6px solid var(--fg);padding-bottom:10px}
-.hd h2{font-weight:900;font-size:28px;letter-spacing:-.03em;margin:0}
-.hd select{font:600 16px var(--f);border:2px solid var(--fg);border-radius:0;padding:6px 8px;background:var(--bg);color:var(--fg)}
+body{margin:0;color:var(--fg);font-family:var(--f)}
+.hb{max-width:1500px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;height:72px;border-bottom:1px solid var(--line)}
+.logo{display:flex;gap:12px;align-items:center}.logo b{display:block;font:700 15px var(--f);letter-spacing:.1em}.logo small{display:block;font:400 10px var(--m);letter-spacing:.14em;color:var(--mute)}
+.hb .sch{border:1px solid var(--line);border-radius:8px;padding:8px 14px;font:500 14px var(--f)}
+.eb{font:500 11px var(--m);letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
+.ttl{font:600 clamp(30px,4vw,40px)/1.1 var(--f);letter-spacing:-.04em;margin:8px 0 0}.ttl span{color:var(--acc)}
+:root{--soft:#9AA0AA;--rule:#E6E7EA;--part:#C4C7CD}
+.page{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:320px minmax(0,1fr);gap:48px;padding:28px 32px 24px}
+@media (max-width:980px){.page{grid-template-columns:1fr;gap:28px;padding:24px 16px}.hb{padding:0 16px}}
+.sq{display:none}
+h1{font:600 clamp(30px,4vw,40px)/1.1 var(--f);letter-spacing:-.04em;margin:8px 0 0}h1:after{content:".";color:var(--acc)}
+.sub{font-size:15px;color:var(--mute);margin-top:6px}
+.kc{border:1px solid var(--line);border-top:2px solid var(--acc);border-radius:12px;padding:18px 20px;margin-top:24px}
+.num{font:500 72px/1 var(--f);letter-spacing:-.05em;margin:0}
+.of{font-size:13.5px;color:var(--mute);margin-top:8px}
+.d{font-size:13.5px;color:var(--red);font-weight:600;margin-top:4px}
+.st{margin-top:16px}
+.st div{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-top:1px solid var(--line);font-size:14px;gap:10px;color:#4B5260}
+.st b{font:500 22px var(--f);letter-spacing:-.03em;color:var(--fg)}
+.bound{display:flex;gap:12px;margin-top:16px;font-size:12.5px;color:var(--mute)}
+.bound label{display:flex;flex-direction:column;gap:6px;font-weight:500}
+.bound input{width:96px;font:500 15px var(--f);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--fg)}
+input:focus-visible,button:focus-visible,select:focus-visible,label.btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.ct{width:100%;border-collapse:collapse;margin-top:24px;font-size:14px}
+.ct th{text-align:left;font:500 11px var(--m);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding:0 0 8px}
+.ct td{padding:9px 0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}.ct td:not(:first-child),.ct th:not(:first-child){text-align:right}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px}
+.hd h2{font:600 20px var(--f);letter-spacing:-.02em;margin:0}
+.hd select{font:500 13.5px var(--f);border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:#fff;color:var(--fg)}
 .mxw{overflow-x:auto}
 .mx{min-width:760px}
 .row{display:grid;gap:3px}
-.band{font-size:13px;font-weight:700;border-bottom:3px solid var(--fg);padding:12px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:clip}
-.band.red{color:var(--red)}
-.qn{font-size:12px;color:#777;font-weight:600;text-align:center;margin-top:5px}
-.qn.red{color:var(--red);font-weight:900}
+.band{font:500 10.5px var(--m);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);border-bottom:2px solid var(--fg);padding:14px 0 6px;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.band.red{color:var(--red);border-color:var(--red)}
+.qn{font:500 10.5px var(--m);color:var(--mute);text-align:center;margin-top:6px}
+.qn.red{color:var(--red);font-weight:600}
 .cells{display:grid;gap:0 3px;margin-top:6px;position:relative}
 .c{height:var(--rh,5px)}.f{background:var(--fg)}.p{background:var(--part)}.z{background:var(--red)}
-.hot{position:absolute;border:3px solid var(--red);pointer-events:none}
-.pc{display:grid;gap:0 3px;margin-top:12px;align-items:end;height:110px;border-top:3px solid var(--fg);padding-top:6px}
-.col{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;height:100%;font-size:12px;font-weight:800}
-.col i{display:block;width:100%;background:var(--fg)}
-.under{display:flex;gap:28px;align-items:stretch;flex-wrap:wrap;margin-top:14px}
-.leg{display:flex;gap:20px;font-size:14px;color:var(--mute);align-items:center;flex-wrap:wrap}.leg i{display:inline-block;width:15px;height:15px;margin-right:7px;vertical-align:-3px}
-.call{background:var(--red);color:#fff;padding:18px 22px;flex:1;min-width:280px}
-.call b{font-weight:900;font-size:24px;letter-spacing:-.03em;display:block}.call span{font-size:16px;line-height:1.4;display:block;margin-top:6px}
-.tools{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:14px;color:var(--mute)}
-.btn{font:700 15px var(--f);background:var(--fg);color:#fff;border:2px solid var(--fg);border-radius:0;padding:10px 16px;cursor:pointer}.btn.g{background:var(--bg);color:var(--fg)}
-.msg{width:100%}.msg.bad{color:var(--red)}
-.foot{font-size:14px;color:var(--soft);margin-top:18px}
-.page>div{min-width:0}
+.hot{position:absolute;border:2px solid var(--red);border-radius:4px;pointer-events:none}
+.pc{display:grid;gap:0 3px;margin-top:12px;align-items:end;height:110px;border-top:1px solid var(--line);padding-top:6px}
+.col{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;height:100%;font:500 10.5px var(--m)}
+.col i{display:block;width:100%;background:var(--acc);border-radius:2px 2px 0 0}
+.under{display:flex;gap:24px;align-items:stretch;flex-wrap:wrap;margin-top:16px}
+.leg{display:flex;gap:18px;font-size:12.5px;color:var(--mute);align-items:center;flex-wrap:wrap}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+.call{background:#23262D;color:#ECEEF1;border-left:3px solid var(--red);border-radius:12px;padding:16px 20px;flex:1;min-width:280px}
+.call b{font:600 17px var(--f);letter-spacing:-.02em;display:block;color:#fff}.call span{font-size:14px;line-height:1.55;display:block;margin-top:6px;color:#C9CDD4}
+.tools{margin-top:20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--mute)}
+.btn{font:600 13.5px var(--f);background:var(--fg);color:#fff;border:1px solid var(--fg);border-radius:10px;padding:10px 16px;cursor:pointer}.btn.g{background:#fff;color:var(--fg);border-color:var(--line)}
+.msg{width:100%;line-height:1.5}.msg.bad{color:var(--red)}
+.foot{font-size:12.5px;color:#9AA0AA;margin-top:12px}
 </style>
-<div class="page">
-<div><div class="sq"></div><h1 id="title">Year 11 Maths</h1><div class="sub" id="sub"></div>
-<div class="num" id="avg">0</div><div class="of" id="of"></div><div class="d" id="delta"></div>
-<div class="st"><div>Grade 4 and above<b id="g4">0%</b></div><div>Grade 7 and above<b id="g7">0%</b></div><div>Weakest topic<b id="wt" style="font-size:22px;letter-spacing:-.02em;text-align:right">-</b></div></div>
+<div class="hb"><div class="logo"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0894B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 9v11M13 9v11"/></svg><div><b>ITEM</b><small>QUESTION LEVEL ANALYSIS</small></div></div><div class="sch">Oakfield Academy</div></div><div class="page">
+<div><div class="eb">Assessment</div><h1 id="title">Year 11 Maths</h1><div class="sub" id="sub"></div>
+<div class="kc"><div class="num" id="avg">0</div><div class="of" id="of"></div><div class="d" id="delta"></div>
+<div class="st"><div>Grade 4 and above<b id="g4">0%</b></div><div>Grade 7 and above<b id="g7">0%</b></div><div>Weakest topic<b id="wt" style="font-size:16px;letter-spacing:-.01em;text-align:right">-</b></div></div></div>
 <div class="bound"><label>Grade 4 from<input id="b4" type="number" min="0" value="32"></label><label>Grade 7 from<input id="b7" type="number" min="0" value="60"></label></div>
 <table class="ct" id="ct"></table></div>
-<div><div class="hd"><h2>Every pupil, every question</h2><label style="font-size:15px;color:var(--mute)">Sort <select id="sort"><option value="hi">Highest mark first</option><option value="lo">Lowest mark first</option><option value="cl">By class</option></select></label></div>
+<div><div class="hd"><h2>Every pupil, every question</h2><label style="font-size:13px;color:var(--mute)">Sort <select id="sort"><option value="hi">Highest mark first</option><option value="lo">Lowest mark first</option><option value="cl">By class</option></select></label></div>
 <div class="mxw"><div class="mx"><div class="row" id="bands"></div><div class="row" id="qn"></div><div class="cells" id="cells"></div><div class="pc" id="pc"></div></div></div>
 <div class="under"><div class="leg"><span><i style="background:var(--fg)"></i>Full marks</span><span><i style="background:var(--part)"></i>Some marks</span><span><i style="background:var(--red)"></i>No marks</span></div>
 <div class="call" id="call"></div></div>
